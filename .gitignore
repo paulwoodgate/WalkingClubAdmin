@@ -1,0 +1,8 @@
+.vs/**
+*.json
+WalkingClubAdmin/bin/**
+WalkingClubAdmin/obj/**
+WalkPageGen/bin/**
+WalkPageGen/obj/**
+WalkPageGen.Tests/bin/**
+WalkPageGen.Tests/obj/**
