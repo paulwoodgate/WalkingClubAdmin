@@ -22,7 +22,7 @@ namespace WalkPageGen.Tests
             {
                 new TestEvent()
             };
-            const string expected = "\t\t\"type\": \"Walk\",\r\n";
+            const string expected = "\t\t\"type\": \"\",\r\n";
             var json = JsonGenerator.CreateJson(walks, false);
 
             Assert.Contains(expected, json);
@@ -48,8 +48,8 @@ namespace WalkPageGen.Tests
             var walks = new List<IEvent>
             {
                 new TestEvent{Sequence = 1, Type = "Walk", EventDate = DateTime.Parse("2020-01-05")},
-                new TestEvent{Sequence = 2, Type = "Weekend", EventDate = DateTime.Parse("2020-01-05")},
-                new TestEvent{Sequence = 3, Type = "Social", EventDate = DateTime.Parse("2020-01-19")}
+                new TestEvent{Sequence = 2, Type = "Weekend", EventDate = DateTime.Parse("2020-01-05"), IsRoute = false},
+                new TestEvent{Sequence = 3, Type = "Social", EventDate = DateTime.Parse("2020-01-19"), IsRoute = false}
             };
             const string expected1 = "\t\t\"id\": \"walk-2020-01\",\r\n";
             const string expected2 = "\t\t\"id\": \"weekend-2020-02\",\r\n";
@@ -67,7 +67,7 @@ namespace WalkPageGen.Tests
         {
             const int sequence = 1;
             var date = DateTime.Parse("2020-01-05");
-            var type = "Walk";
+            const string type = "Walk";
             const int id = 21;
             const string title = "Belton";
             const string start = "Belton village";
@@ -104,7 +104,7 @@ namespace WalkPageGen.Tests
             Assert.Contains("\t\t\"startFrom\": \"Belton village\",\r\n", json);
             Assert.Contains($"\t\t\"distanceAway\": {away},\r\n", json);
             Assert.Contains($"\t\t\"county\": \"{county}\",\r\n", json);
-            Assert.Contains($"\t\t\"length\": {length},\r\n", json);
+            Assert.Contains($"\t\t\"length\": {length:n1},\r\n", json);
             Assert.Contains($"\t\t\"ascent\": \"{ascent}\",\r\n", json);
             Assert.Contains($"\t\t\"description\": \"{description}\",\r\n", json);
             Assert.Contains($"\t\t\"leave\": \"{depart}\",\r\n", json);
@@ -115,10 +115,10 @@ namespace WalkPageGen.Tests
                 $"\t\t\t\"name\": \"{source}\",\r\n" +
                 $"\t\t\t\"url\": \"{url}\"\r\n" +
                 "\t\t}", json);
-            Assert.Contains($"\t\t\"walkTime\": {duration},\r\n", json);
+            Assert.Contains($"\t\t\"walkTime\": {duration:n1},\r\n", json);
             Assert.Contains($"\t\t\"terrain\": \"{terrain}\",\r\n", json);
             Assert.Contains($"\t\t\"grading\": \"{grading}\",\r\n", json);
-            Assert.Contains($"\t\t\"fuelCost\": {fuelCost}\r\n", json);
+            Assert.Contains($"\t\t\"fuelCost\": {fuelCost:n1}\r\n", json);
             Assert.Contains($"\t\t\"image\": \"{image}\",\r\n", json);
         }
 
@@ -129,11 +129,57 @@ namespace WalkPageGen.Tests
             {
                 new TestEvent{Sequence = 1, Type = "Social", EventDate = DateTime.Parse("2020-01-05")}
             };
-            const string expected = "\t\t\"date\": \"{$date:\\\"2020-01-05T00:00:00Z\\\"}\",\r\n";
+            const string expected = "\t\t\"date\": {\"$date\":\"2020-01-05T00:00:00Z\"},\r\n";
 
             var json = JsonGenerator.CreateJson(walks, true);
 
             Assert.Contains(expected, json);
+        }
+
+        [Fact]
+        public void ShouldIncludeZeroAfterDecimalPointOnNumericFields()
+        {
+            var testEvent = new TestEvent{
+                    Sequence = 1,
+                    Type = "Walk",
+                    EventDate = DateTime.Parse("2020-01-05"),
+                    Duration=5,
+                    FuelCost=5,
+                    Length=10
+            };
+            var expectedLength = $"\t\t\"length\": {testEvent.Length:N1},\r\n";
+            var expectedWalkTime = $"\t\t\"walkTime\": {testEvent.Duration:N1},\r\n";
+            var expectedFuelCost = $"\t\t\"fuelCost\": {testEvent.FuelCost:N1}\r\n";
+
+            var json = JsonGenerator.CreateJson(new List<IEvent> { testEvent }, true);
+
+            Assert.Contains(expectedWalkTime, json);
+            Assert.Contains(expectedLength, json);
+            Assert.Contains(expectedFuelCost, json);
+        }
+
+        [Theory]
+        [InlineData("Social")]
+        [InlineData("Walk")]
+        [InlineData("Weekend")]
+        public void ShouldHaveCorrectEventTypeAndId(string eventType)
+        {
+            var testEvent = new TestEvent
+            {
+                Sequence = 1,
+                Type = eventType,
+                EventDate = DateTime.Parse("2020-01-05"),
+                Duration = 5,
+                FuelCost = 5,
+                Length = 10
+            };
+            var expectedType = $"\t\t\"type\": \"{testEvent.Type}\",\r\n";
+            var expectedId = $"\t\t\"id\": \"{testEvent.Type.ToLower()}-{testEvent.EventDate.Year}-{testEvent.Sequence:D2}\",\r\n";
+
+            var json = JsonGenerator.CreateJson(new List<IEvent> { testEvent }, true);
+
+            Assert.Contains(expectedType, json);
+            Assert.Contains(expectedId, json);
         }
     }
 }

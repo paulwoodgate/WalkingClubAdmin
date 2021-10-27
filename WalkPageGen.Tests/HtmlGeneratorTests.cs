@@ -11,7 +11,7 @@ namespace WalkPageGen.Tests
         {
             var walks = new List<IEvent>();
             var pageGen = new HtmlGenerator(walks);
-            var year = 2020;
+            const int year = 2020;
 
             var html = pageGen.CreateShortcutTable(year);
 
@@ -23,7 +23,7 @@ namespace WalkPageGen.Tests
         {
             var walks = new List<IEvent>();
             var pageGen = new HtmlGenerator(walks);
-            var year = 2020;
+            const int year = 2020;
 
             var html = pageGen.CreateShortcutTable(year);
 
@@ -65,7 +65,7 @@ namespace WalkPageGen.Tests
             };
 
             var pageGen = new HtmlGenerator(walks);
-            var year = 2020;
+            const int year = 2020;
             var html = pageGen.CreateShortcutTable(year);
 
             Assert.Contains("<td colspan=\"2\"><p>Jan</p></td>", html);
@@ -87,29 +87,29 @@ namespace WalkPageGen.Tests
         [Fact]
         public void WalkShouldBeFormattedCorrectly()
         {
-            var sequence = 1;
+            const int sequence = 1;
             var date = DateTime.Parse("2020-01-05");
-            var type = "Walk";
-            var id = 21;
-            var title = "Belton";
-            var start = "Belton village";
-            var county = "Leicestershire";
-            var away = 60;
-            var length = 11.3;
-            var ascent = "177m (581ft)";
+            const string type = "Walk";
+            const int id = 21;
+            const string title = "Belton";
+            const string start = "Belton village";
+            const string county = "Leicestershire";
+            const int away = 60;
+            const double length = 11.3;
+            const string ascent = "177m (581ft)";
             var url = string.Empty;
-            var description = "Walking through undulation countryside in the Beane valley this route takes in 3 of the most attractive villages of Hertfordshire.";
-            var depart = "8:30am The Woodman";
-            var map = "193";
-            var w3words = "///f.f.f";
-            var gridRef = "TL 309 272";
-            var nearTo = "Stevenage";
-            var source = "Hertfordshire Walks";
-            var duration = 5.5;
-            var terrain = "Woodland paths";
-            var grading = "Standard";
-            var fuelCost = 9;
-            var image = "Belton.jpg";
+            const string description = "Walking through undulation countryside in the Beane valley this route takes in 3 of the most attractive villages of Hertfordshire.";
+            const string depart = "8:30am The Woodman";
+            const string map = "193";
+            const string w3words = "///f.f.f";
+            const string gridRef = "TL 309 272";
+            const string nearTo = "Stevenage";
+            const string source = "Hertfordshire Walks";
+            const double duration = 5.5;
+            const string terrain = "Woodland paths";
+            const string grading = "Standard";
+            const int fuelCost = 9;
+            const string image = "Belton.jpg";
             var objects = new object[]
             {
                 sequence, date, type, id, title, start, county, away, length, ascent, url, w3words, description, depart,
@@ -146,29 +146,29 @@ namespace WalkPageGen.Tests
         [Fact]
         public void WalkShouldBeFormattedCorrectlyWhenBlank()
         {
-            var sequence = 16;
+            const int sequence = 16;
             var date = DateTime.Parse("2020-08-15");
-            var type = "Walk";
+            const string type = "Walk";
             int? id = null;
-            var title = "Walk and a Meal";
-            var start = "";
-            var county = "";
-            var away = "";
-            var length = "";
-            var ascent = "";
+            const string title = "Walk and a Meal";
+            const string start = "";
+            const string county = "";
+            const string away = "";
+            const string length = "";
+            const string ascent = "";
             var url = string.Empty;
-            var w3w = "///deep.fried.marsbar";
-            var description = "";
-            var depart = "";
-            var map = "";
-            var gridRef = "";
-            var nearTo = "";
-            var source = "";
-            var duration = "";
-            var terrain = "";
-            var grading = "";
-            var fuelCost = "";
-            var image = "";
+            const string w3w = "///deep.fried.marsbar";
+            const string description = "";
+            const string depart = "";
+            const string map = "";
+            const string gridRef = "";
+            const string nearTo = "";
+            const string source = "";
+            const string duration = "";
+            const string terrain = "";
+            const string grading = "";
+            const string fuelCost = "";
+            const string image = "";
             var objects = new object[]
             {
                 sequence, date, type, id, title, start, county, away, length, ascent, url, w3w, description, depart,
@@ -201,7 +201,6 @@ namespace WalkPageGen.Tests
             Assert.Contains("</table>", html);
             Assert.EndsWith("<h2><img class=\"ruler\" src=\"images/anarule.gif\" alt=\"line\"></h2>\r\n", html);
         }
-
 
         [Fact]
         public void ShouldNotIncludeSocials()
