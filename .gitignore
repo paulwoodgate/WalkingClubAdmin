@@ -1,5 +1,9 @@
 .vs/**
 *.json
+ReportGen/bin/**
+ReportGen/obj/**
+ReportGen.Tests/bin/**
+ReportGen.Tests/obj/**
 WalkingClubAdmin/bin/**
 WalkingClubAdmin/obj/**
 WalkPageGen/bin/**
