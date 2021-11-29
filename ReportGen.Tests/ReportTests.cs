@@ -128,7 +128,7 @@ namespace ReportGen.Tests
             var captions = new List<string> { "an interesting photo", "", "Something or else", "", "", "The end" };
             var data = new ReportData
             {
-                Date = new DateTime(2021, 4, 14),
+                Id = "walk140421",
                 Captions = captions
             };
 
@@ -137,7 +137,7 @@ namespace ReportGen.Tests
             Assert.Equal(captions.Count, report.Photos.Count);
             for(var x = 0; x < captions.Count; x++)
             {
-                Assert.Equal($"140421_{x+1}.jpg", report.Photos[x].Filename);
+                Assert.Equal($"walk140421_{x+1}.jpg", report.Photos[x].Filename);
                 Assert.Equal(captions[x], report.Photos[x].Caption);
             }
         }
@@ -153,7 +153,7 @@ namespace ReportGen.Tests
                 Report = "This is an interesting walk\r\nvery interesting indeed",
                 ReportBy = "Sue",
                 Rating = "Average",
-                CoverPhoto = "140421_1.jpg",
+                CoverPhoto = "walk140421_1.jpg",
                 Photographer = "Alan",
                 Captions = new List<string> { "Photo 1", "", "Photo 3" }
             };
@@ -161,22 +161,22 @@ namespace ReportGen.Tests
             var report = new Report(data);
             var json = report.ToJson();
             var expectedPhotos = "[" +
-                "{\"Filename\": \"walk140421~1.jpg\", \"Caption\": \"Photo 1\"}, " +
-                "{\"Filename\": \"walk140421~2.jpg\", \"Caption\": \"\"}, " +
-                "{\"Filename\": \"walk140421~3.jpg\", \"Caption\": \"Photo 3\"}" +
+                "{\"Filename\": \"walk140421_1.jpg\", \"Caption\": \"Photo 1\"}, " +
+                "{\"Filename\": \"walk140421_2.jpg\", \"Caption\": \"\"}, " +
+                "{\"Filename\": \"walk140421_3.jpg\", \"Caption\": \"Photo 3\"}" +
             "]";
 
             Assert.StartsWith("[{", json);
-            Assert.Contains("\t\"Id\": \"walk140421\",\r\n", json);
-            Assert.Contains("\t\"Date\": {\"$date\":\"2021-04-14T00:00:00Z\"},\r\n", json);
-            Assert.Contains("\t\"Year\": 2021,\r\n", json);
-            Assert.Contains("\t\"Title\": \"Yelden\",\r\n", json);
-            Assert.Contains("\t\"Report\": [\"This is an interesting walk\",\"very interesting indeed\"],\r\n", json);
-            Assert.Contains("\t\"ReportBy\": \"Sue\",\r\n", json);
-            Assert.Contains("\t\"Rating\": \"Average\",\r\n", json);
-            Assert.Contains("\t\"CoverPhoto\": \"140421_1.jpg\",\r\n", json);
-            Assert.Contains("\t\"Photographer\": \"Alan\",\r\n", json);
-            Assert.Contains($"\t\"Photos\": {expectedPhotos}", json);
+            Assert.Contains("\t\"id\": \"walk140421\",\r\n", json);
+            Assert.Contains("\t\"date\": {\"$date\":\"2021-04-14T00:00:00Z\"},\r\n", json);
+            Assert.Contains("\t\"year\": 2021,\r\n", json);
+            Assert.Contains("\t\"title\": \"Yelden\",\r\n", json);
+            Assert.Contains("\t\"report\": [\"This is an interesting walk\",\"very interesting indeed\"],\r\n", json);
+            Assert.Contains("\t\"reportBy\": \"Sue\",\r\n", json);
+            Assert.Contains("\t\"walkRating\": \"Average\",\r\n", json);
+            Assert.Contains("\t\"coverPhoto\": \"walk140421_1.jpg\",\r\n", json);
+            Assert.Contains("\t\"photographer\": \"Alan\",\r\n", json);
+            Assert.Contains($"\t\"photos\": {expectedPhotos}", json);
             Assert.EndsWith("}]\r\n", json);
         }
     }
