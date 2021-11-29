@@ -13,7 +13,7 @@
 
         public string ToJson()
         {
-            return $"{{\"filename\": \"{Filename}\", \"caption\": \"{Caption}\"}}";
+            return $"{{\"file\": \"{Filename}\", \"caption\": \"{Caption}\"}}";
         }
     }
 }

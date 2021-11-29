@@ -136,9 +136,21 @@ namespace WalkingClubAdmin
             MongoDbDatesCheckBox.Enabled = enabled;
         }
 
-        private void createButton_Click(object sender, EventArgs e)
+        private void CreateButton_Click(object sender, EventArgs e)
         {
-            var data = new ReportData
+            var files = new List<string>();
+            var captions = new List<string>();
+
+            foreach(var row in PhotosGrid.Rows.OfType<DataGridViewRow>())
+            {
+                if (row.Cells[0].Value != null && !string.IsNullOrWhiteSpace(row.Cells[0].Value.ToString()))
+                {
+                    files.Add(row.Cells[0].Value.ToString());
+                    captions.Add(row.Cells[1].Value?.ToString());
+                }
+            }
+
+            var data = new ReportData(files, captions)
             {
                 Id = IdTextBox.Text,
                 Date = DatePicker.Value.Date,
@@ -148,10 +160,6 @@ namespace WalkingClubAdmin
                 Rating = ratingTextBox.Text,
                 CoverPhoto = photoTextBox.Text,
                 Photographer = photographerTextBox.Text,
-                Captions = captionGrid.Rows
-                       .OfType<DataGridViewRow>()
-                       .Select(x => x.Cells[0].Value != null ? x.Cells[0].Value.ToString() : "")
-                       .ToList()
             };
 
             try

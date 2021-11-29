@@ -14,7 +14,7 @@ namespace ReportGen.Tests
         {
             var photo = new ReportPhoto("Photo_1_1.jpg", "This is a caption");
 
-            Assert.Equal($"{{\"filename\": \"{photo.Filename}\", \"caption\": \"{photo.Caption}\"}}", photo.ToJson());
+            Assert.Equal($"{{\"file\": \"{photo.Filename}\", \"caption\": \"{photo.Caption}\"}}", photo.ToJson());
         }
     }
 }

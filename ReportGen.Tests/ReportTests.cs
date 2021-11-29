@@ -52,7 +52,7 @@ namespace ReportGen.Tests
         [Fact]
         public void ShouldPopulateReportText()
         {
-            var reportText = "This is the first paragraph\r\nThis is the second paragraph\r\nand this is the third paragraph";
+            const string reportText = "This is the first paragraph\r\nThis is the second paragraph\r\nand this is the third paragraph";
             var data = new ReportData
             {
                 Report = reportText
@@ -126,18 +126,15 @@ namespace ReportGen.Tests
         public void ShouldPopulatePhotos()
         {
             var captions = new List<string> { "an interesting photo", "", "Something or else", "", "", "The end" };
-            var data = new ReportData
-            {
-                Id = "walk140421",
-                Captions = captions
-            };
+            var files = new List<string> { "walk140421_1.jpg", "walk140421_2.jpg", "walk140421_3.jpg", "walk140421_4.jpg", "walk140421_5.jpg", "walk140421_6.jpg" };
 
+            var data = new ReportData(files, captions);
             var report = new Report(data);
 
             Assert.Equal(captions.Count, report.Photos.Count);
             for(var x = 0; x < captions.Count; x++)
             {
-                Assert.Equal($"walk140421_{x+1}.jpg", report.Photos[x].Filename);
+                Assert.Equal(files[x], report.Photos[x].Filename);
                 Assert.Equal(captions[x], report.Photos[x].Caption);
             }
         }
@@ -145,7 +142,9 @@ namespace ReportGen.Tests
         [Fact]
         public void ShouldGenerateJson()
         {
-            var data = new ReportData
+            var files = new List<string> { "walk230421_1.jpg", "walk230421_2.jpg", "walk230421_3.jpg" };
+            var captions = new List<string> { "Photo 1", "", "Photo 3" };
+            var data = new ReportData(files, captions)
             {
                 Id = "walk140421",
                 Date = new DateTime(2021, 4, 14),
@@ -154,22 +153,21 @@ namespace ReportGen.Tests
                 ReportBy = "Sue",
                 Rating = "Average",
                 CoverPhoto = "walk140421_1.jpg",
-                Photographer = "Alan",
-                Captions = new List<string> { "Photo 1", "", "Photo 3" }
+                Photographer = "Alan"
             };
 
             var report = new Report(data);
             var json = report.ToJson();
-            var expectedPhotos = "[" +
-                "{\"Filename\": \"walk140421_1.jpg\", \"Caption\": \"Photo 1\"}, " +
-                "{\"Filename\": \"walk140421_2.jpg\", \"Caption\": \"\"}, " +
-                "{\"Filename\": \"walk140421_3.jpg\", \"Caption\": \"Photo 3\"}" +
+            const string expectedPhotos = "[" +
+                "{\"filename\": \"walk230421_1.jpg\", \"caption\": \"Photo 1\"}, " +
+                "{\"filename\": \"walk230421_2.jpg\", \"caption\": \"\"}, " +
+                "{\"filename\": \"walk230421_3.jpg\", \"caption\": \"Photo 3\"}" +
             "]";
 
             Assert.StartsWith("[{", json);
             Assert.Contains("\t\"id\": \"walk140421\",\r\n", json);
             Assert.Contains("\t\"date\": {\"$date\":\"2021-04-14T00:00:00Z\"},\r\n", json);
-            Assert.Contains("\t\"year\": 2021,\r\n", json);
+            Assert.Contains("\t\"year\": \"2021\",\r\n", json);
             Assert.Contains("\t\"title\": \"Yelden\",\r\n", json);
             Assert.Contains("\t\"report\": [\"This is an interesting walk\",\"very interesting indeed\"],\r\n", json);
             Assert.Contains("\t\"reportBy\": \"Sue\",\r\n", json);
@@ -177,6 +175,38 @@ namespace ReportGen.Tests
             Assert.Contains("\t\"coverPhoto\": \"walk140421_1.jpg\",\r\n", json);
             Assert.Contains("\t\"photographer\": \"Alan\",\r\n", json);
             Assert.Contains($"\t\"photos\": {expectedPhotos}", json);
+            Assert.EndsWith("}]\r\n", json);
+        }
+
+        [Fact]
+        public void ToJsonShouldOmitPhotosElementIfNoPhotos()
+        {
+            var data = new ReportData()
+            {
+                Id = "walk140421",
+                Date = new DateTime(2021, 4, 14),
+                Title = "Yelden",
+                Report = "This is an interesting walk\r\nvery interesting indeed",
+                ReportBy = "Sue",
+                Rating = "Average",
+                CoverPhoto = "walk140421_1.jpg",
+                Photographer = "Alan"
+            };
+
+            var report = new Report(data);
+            var json = report.ToJson();
+
+            Assert.StartsWith("[{", json);
+            Assert.Contains("\t\"id\": \"walk140421\",\r\n", json);
+            Assert.Contains("\t\"date\": {\"$date\":\"2021-04-14T00:00:00Z\"},\r\n", json);
+            Assert.Contains("\t\"year\": \"2021\",\r\n", json);
+            Assert.Contains("\t\"title\": \"Yelden\",\r\n", json);
+            Assert.Contains("\t\"report\": [\"This is an interesting walk\",\"very interesting indeed\"],\r\n", json);
+            Assert.Contains("\t\"reportBy\": \"Sue\",\r\n", json);
+            Assert.Contains("\t\"walkRating\": \"Average\",\r\n", json);
+            Assert.Contains("\t\"coverPhoto\": \"walk140421_1.jpg\",\r\n", json);
+            Assert.Contains("\t\"photographer\": \"Alan\",\r\n", json);
+            Assert.DoesNotContain("\t\"photos\":", json);
             Assert.EndsWith("}]\r\n", json);
         }
     }

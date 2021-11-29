@@ -17,8 +17,7 @@ namespace ReportGen
         public string Rating { get; set; }
         public string CoverPhoto { get; set; }
         public string Photographer { get; set; }
-        public List<string> Captions { get; set; }
-        public List<ReportPhoto> Photos => GeneratePhotoList();
+        public List<ReportPhoto> Photos {get;set;}
 
         public Report(ReportData data)
         {
@@ -35,19 +34,7 @@ namespace ReportGen
                 Text = data.Report.Split("\r\n");
             }
 
-            Captions = data.Captions;
-        }
-
-        private List<ReportPhoto> GeneratePhotoList()
-        {
-            var photoList = new List<ReportPhoto>();
-
-            for (var i = 0; i< Captions.Count; i++)
-            {
-                photoList.Add(new ReportPhoto($"{Id}_{i+1}.jpg", Captions[i] ));
-            }
-
-            return photoList;
+            Photos = data.Photos;
         }
 
         public string ToJson()
@@ -56,14 +43,20 @@ namespace ReportGen
             sb.AppendLine("[{");
             sb.Append("\t\"id\": \"").Append(Id).AppendLine("\",");
             sb.Append("\t\"date\": ").Append("{\"$date\":\"").AppendFormat("{0:yyyy-MM-ddT00:00:00Z}", Date).Append("\"}").AppendLine(",");
-            sb.Append("\t\"year\": ").Append(Year).AppendLine(",");
+            sb.Append("\t\"year\": \"").Append(Year).AppendLine("\",");
             sb.Append("\t\"title\": \"").Append(Title).AppendLine("\",");
-            sb.Append("\t\"report\": [\"").AppendJoin("\",\"", Text).AppendLine("\"],");
+            if (Text != null)
+            {
+                sb.Append("\t\"report\": [\"").AppendJoin("\",\"", Text).AppendLine("\"],");
+            }
             sb.Append("\t\"reportBy\": \"").Append(Author).AppendLine("\",");
             sb.Append("\t\"walkRating\": \"").Append(Rating).AppendLine("\",");
             sb.Append("\t\"coverPhoto\": \"").Append(CoverPhoto).AppendLine("\",");
             sb.Append("\t\"photographer\": \"").Append(Photographer).AppendLine("\",");
-            sb.Append("\t\"photos\": [").AppendJoin(", ", Photos.Select(p => p.ToJson())).AppendLine("]");
+            if (Photos?.Count > 0)
+            {
+                sb.Append("\t\"photos\": [").AppendJoin(", ", Photos.Select(p => p.ToJson())).AppendLine("]");
+            }
             sb.AppendLine("}]");
             return sb.ToString();
         }

@@ -1,4 +1,5 @@
 using System;
+using System.Collections.Generic;
 using Xunit;
 
 namespace ReportGen.Tests
@@ -6,11 +7,21 @@ namespace ReportGen.Tests
     public class ReportDataTests
     {
         [Fact]
-        public void ShouldInitialiseCaptionsList()
+        public void ShouldInitialisePhotosList()
         {
             var data = new ReportData();
 
-            Assert.NotNull(data.Captions);
+            Assert.NotNull(data.Photos);
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfDifferentNumbersOfFilesAndCaptions()
+        {
+            var files = new List<string> { "file1.jpg", "file2.jpg", "file2.jpg" };
+            var captions = new List<string> { "Caption1", "Caption2" };
+
+            var ex = Assert.Throws<ArgumentException>(() => new ReportData(files, captions));
+            Assert.Equal("You must supply the same number of captions as files", ex.Message);
         }
 
         [Fact]

@@ -13,11 +13,27 @@ namespace ReportGen
         public string Rating { get; set; }
         public string CoverPhoto { get; set; }
         public string Photographer { get; set; }
-        public List<string> Captions { get; set; }
+        public List<ReportPhoto> Photos { get; } = new List<ReportPhoto>();
 
-        public ReportData()
+        public ReportData(List<string> filenames = null, List<string> captions = null)
         {
-            Captions = new List<string>();
+            if (filenames?.Count != captions?.Count)
+            {
+                throw new ArgumentException("You must supply the same number of captions as files");
+            }
+
+            CreatePhotoList(filenames, captions);
+        }
+
+        private void CreatePhotoList(List<string> filenames, List<string> captions)
+        {
+            if (filenames != null)
+            {
+                for (int i = 0; i < filenames.Count; i++)
+                {
+                    Photos.Add(new ReportPhoto(filenames[i], captions[i]));
+                }
+            }
         }
 
         public bool Validate()
