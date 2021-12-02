@@ -26,12 +26,12 @@ namespace ReportGen
             Title = data.Title;
             Author = data.ReportBy;
             Rating = data.Rating;
-            CoverPhoto = data.CoverPhoto;
+            CoverPhoto = PhotoService.StripPathFromFilename(data.CoverPhoto);
             Photographer = data.Photographer;
 
             if (!string.IsNullOrWhiteSpace(data.Report))
             {
-                Text = data.Report.Split("\r\n");
+                Text = data.Report.Split("\r\n").Where(t => t.Length > 0).ToArray();
             }
 
             Photos = data.Photos;

@@ -86,10 +86,10 @@ namespace WalkingClubAdmin
             this.tabControl1.Controls.Add(this.reportsTabPage);
             this.tabControl1.Controls.Add(this.eventsTabPage);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tabControl1.Location = new System.Drawing.Point(5, 46);
+            this.tabControl1.Location = new System.Drawing.Point(5, 44);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(934, 551);
+            this.tabControl1.Size = new System.Drawing.Size(934, 606);
             this.tabControl1.TabIndex = 0;
             // 
             // reportsTabPage
@@ -117,14 +117,14 @@ namespace WalkingClubAdmin
             this.reportsTabPage.Location = new System.Drawing.Point(4, 29);
             this.reportsTabPage.Name = "reportsTabPage";
             this.reportsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.reportsTabPage.Size = new System.Drawing.Size(926, 518);
+            this.reportsTabPage.Size = new System.Drawing.Size(926, 573);
             this.reportsTabPage.TabIndex = 1;
             this.reportsTabPage.Text = "Reports";
             this.reportsTabPage.UseVisualStyleBackColor = true;
             // 
             // CreateButton
             // 
-            this.CreateButton.Location = new System.Drawing.Point(808, 468);
+            this.CreateButton.Location = new System.Drawing.Point(808, 536);
             this.CreateButton.Name = "CreateButton";
             this.CreateButton.Size = new System.Drawing.Size(94, 29);
             this.CreateButton.TabIndex = 19;
@@ -143,7 +143,7 @@ namespace WalkingClubAdmin
             this.PhotosGrid.RowHeadersWidth = 51;
             this.PhotosGrid.RowTemplate.Height = 29;
             this.PhotosGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.PhotosGrid.Size = new System.Drawing.Size(790, 136);
+            this.PhotosGrid.Size = new System.Drawing.Size(790, 204);
             this.PhotosGrid.TabIndex = 18;
             // 
             // label13
@@ -300,7 +300,7 @@ namespace WalkingClubAdmin
             this.eventsTabPage.Location = new System.Drawing.Point(4, 29);
             this.eventsTabPage.Name = "eventsTabPage";
             this.eventsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.eventsTabPage.Size = new System.Drawing.Size(926, 518);
+            this.eventsTabPage.Size = new System.Drawing.Size(926, 573);
             this.eventsTabPage.TabIndex = 0;
             this.eventsTabPage.Text = "Events";
             this.eventsTabPage.UseVisualStyleBackColor = true;
@@ -494,7 +494,7 @@ namespace WalkingClubAdmin
             this.Filename.HeaderText = "Filename";
             this.Filename.MinimumWidth = 6;
             this.Filename.Name = "Filename";
-            this.Filename.Width = 160;
+            this.Filename.Width = 250;
             // 
             // Caption
             // 
@@ -502,13 +502,13 @@ namespace WalkingClubAdmin
             this.Caption.MinimumWidth = 6;
             this.Caption.Name = "Caption";
             this.Caption.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Caption.Width = 550;
+            this.Caption.Width = 480;
             // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(944, 602);
+            this.ClientSize = new System.Drawing.Size(944, 655);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

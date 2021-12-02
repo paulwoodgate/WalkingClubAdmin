@@ -1,4 +1,6 @@
-﻿namespace ReportGen
+﻿using System;
+
+namespace ReportGen
 {
     public class ReportPhoto
     {
@@ -7,9 +9,16 @@
 
         public ReportPhoto(string filename, string caption)
         {
-            Filename = filename;
+            if (string.IsNullOrWhiteSpace(filename))
+            {
+                throw new ArgumentException("You must supply a filename");
+            }
+                        
+            Filename = PhotoService.StripPathFromFilename(filename);
             Caption = caption;
         }
+
+
 
         public string ToJson()
         {

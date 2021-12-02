@@ -159,9 +159,9 @@ namespace ReportGen.Tests
             var report = new Report(data);
             var json = report.ToJson();
             const string expectedPhotos = "[" +
-                "{\"filename\": \"walk230421_1.jpg\", \"caption\": \"Photo 1\"}, " +
-                "{\"filename\": \"walk230421_2.jpg\", \"caption\": \"\"}, " +
-                "{\"filename\": \"walk230421_3.jpg\", \"caption\": \"Photo 3\"}" +
+                "{\"file\": \"walk230421_1.jpg\", \"caption\": \"Photo 1\"}, " +
+                "{\"file\": \"walk230421_2.jpg\", \"caption\": \"\"}, " +
+                "{\"file\": \"walk230421_3.jpg\", \"caption\": \"Photo 3\"}" +
             "]";
 
             Assert.StartsWith("[{", json);
@@ -208,6 +208,21 @@ namespace ReportGen.Tests
             Assert.Contains("\t\"photographer\": \"Alan\",\r\n", json);
             Assert.DoesNotContain("\t\"photos\":", json);
             Assert.EndsWith("}]\r\n", json);
+        }
+
+        [Fact]
+        public void ShouldStripBlankLinesFromReport()
+        {
+            var data = new ReportData
+            {
+                Report = "This is paragraph 1\r\n\r\nThis is paragraph 2"
+            };
+
+            var report = new Report(data);
+
+            Assert.Equal(2, report.Text.Length);
+            Assert.Equal("This is paragraph 1", report.Text[0]);
+            Assert.Equal("This is paragraph 2", report.Text[1]);
         }
     }
 }
