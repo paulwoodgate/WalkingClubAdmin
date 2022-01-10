@@ -9,7 +9,7 @@ namespace ReportGen.Tests
         {
             var filename = PhotoService.StripPathFromFilename("https://www.thewalkingclub.co.uk/Reports/walk160521~2.jpg");
 
-            Assert.Equal("walk160521~2.jpg", filename);
+            Assert.Equal("walk160521_2.jpg", filename);
         }
 
         [Fact]
@@ -17,7 +17,7 @@ namespace ReportGen.Tests
         {
             var filename = PhotoService.StripPathFromFilename("walk160521~2.jpg");
 
-            Assert.Equal("walk160521~2.jpg", filename);
+            Assert.Equal("walk160521_2.jpg", filename);
         }
 
         [Fact]

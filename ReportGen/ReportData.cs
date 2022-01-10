@@ -7,6 +7,7 @@ namespace ReportGen
     {
         public string Id { get; set; }
         public string Title { get; set; }
+        public string SubjectType { get; set; }
         public DateTime Date { get; set; }
         public string Report { get; set; }
         public string ReportBy { get; set; }
@@ -53,6 +54,10 @@ namespace ReportGen
             if (Date > DateTime.Today || Date < new DateTime(2000, 1, 1))
             {
                 throw new ArgumentException("You must enter a valid date for the event.");
+            }
+            if (!string.IsNullOrEmpty(SubjectType) && SubjectType != "Day" && SubjectType != "Group")
+            {
+                throw new ArgumentException("The Subject Type must be empty, Day, or Group");
             }
             return true;
         }

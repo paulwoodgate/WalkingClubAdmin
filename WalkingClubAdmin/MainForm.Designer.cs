@@ -32,18 +32,23 @@ namespace WalkingClubAdmin
             System.ComponentModel.ComponentResourceManager resources = new System.ComponentModel.ComponentResourceManager(typeof(MainForm));
             this.tabControl1 = new System.Windows.Forms.TabControl();
             this.reportsTabPage = new System.Windows.Forms.TabPage();
+            this.label14 = new System.Windows.Forms.Label();
+            this.SubjectTypeCombobox = new System.Windows.Forms.ComboBox();
+            this.ClearButton = new System.Windows.Forms.Button();
             this.CreateButton = new System.Windows.Forms.Button();
             this.PhotosGrid = new System.Windows.Forms.DataGridView();
+            this.Filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Caption = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label13 = new System.Windows.Forms.Label();
-            this.photographerTextBox = new System.Windows.Forms.TextBox();
+            this.PhotographerTextBox = new System.Windows.Forms.TextBox();
             this.label12 = new System.Windows.Forms.Label();
-            this.photoTextBox = new System.Windows.Forms.TextBox();
+            this.PhotoTextBox = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
-            this.ratingTextBox = new System.Windows.Forms.TextBox();
+            this.RatingTextBox = new System.Windows.Forms.TextBox();
             this.label10 = new System.Windows.Forms.Label();
-            this.authorTextBox = new System.Windows.Forms.TextBox();
+            this.AuthorTextBox = new System.Windows.Forms.TextBox();
             this.label9 = new System.Windows.Forms.Label();
-            this.titleTextBox = new System.Windows.Forms.TextBox();
+            this.TitleTextBox = new System.Windows.Forms.TextBox();
             this.label8 = new System.Windows.Forms.Label();
             this.ReportTextBox = new System.Windows.Forms.TextBox();
             this.label7 = new System.Windows.Forms.Label();
@@ -70,8 +75,6 @@ namespace WalkingClubAdmin
             this.label1 = new System.Windows.Forms.Label();
             this.YearCombo = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
-            this.Filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Caption = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.tabControl1.SuspendLayout();
             this.reportsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PhotosGrid)).BeginInit();
@@ -86,27 +89,30 @@ namespace WalkingClubAdmin
             this.tabControl1.Controls.Add(this.reportsTabPage);
             this.tabControl1.Controls.Add(this.eventsTabPage);
             this.tabControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            this.tabControl1.Location = new System.Drawing.Point(5, 44);
+            this.tabControl1.Location = new System.Drawing.Point(5, 47);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(934, 606);
+            this.tabControl1.Size = new System.Drawing.Size(934, 638);
             this.tabControl1.TabIndex = 0;
             // 
             // reportsTabPage
             // 
             this.reportsTabPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.reportsTabPage.Controls.Add(this.label14);
+            this.reportsTabPage.Controls.Add(this.SubjectTypeCombobox);
+            this.reportsTabPage.Controls.Add(this.ClearButton);
             this.reportsTabPage.Controls.Add(this.CreateButton);
             this.reportsTabPage.Controls.Add(this.PhotosGrid);
             this.reportsTabPage.Controls.Add(this.label13);
-            this.reportsTabPage.Controls.Add(this.photographerTextBox);
+            this.reportsTabPage.Controls.Add(this.PhotographerTextBox);
             this.reportsTabPage.Controls.Add(this.label12);
-            this.reportsTabPage.Controls.Add(this.photoTextBox);
+            this.reportsTabPage.Controls.Add(this.PhotoTextBox);
             this.reportsTabPage.Controls.Add(this.label11);
-            this.reportsTabPage.Controls.Add(this.ratingTextBox);
+            this.reportsTabPage.Controls.Add(this.RatingTextBox);
             this.reportsTabPage.Controls.Add(this.label10);
-            this.reportsTabPage.Controls.Add(this.authorTextBox);
+            this.reportsTabPage.Controls.Add(this.AuthorTextBox);
             this.reportsTabPage.Controls.Add(this.label9);
-            this.reportsTabPage.Controls.Add(this.titleTextBox);
+            this.reportsTabPage.Controls.Add(this.TitleTextBox);
             this.reportsTabPage.Controls.Add(this.label8);
             this.reportsTabPage.Controls.Add(this.ReportTextBox);
             this.reportsTabPage.Controls.Add(this.label7);
@@ -117,17 +123,50 @@ namespace WalkingClubAdmin
             this.reportsTabPage.Location = new System.Drawing.Point(4, 29);
             this.reportsTabPage.Name = "reportsTabPage";
             this.reportsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.reportsTabPage.Size = new System.Drawing.Size(926, 573);
+            this.reportsTabPage.Size = new System.Drawing.Size(926, 605);
             this.reportsTabPage.TabIndex = 1;
             this.reportsTabPage.Text = "Reports";
             this.reportsTabPage.UseVisualStyleBackColor = true;
             // 
+            // label14
+            // 
+            this.label14.AutoSize = true;
+            this.label14.Location = new System.Drawing.Point(16, 101);
+            this.label14.Name = "label14";
+            this.label14.Size = new System.Drawing.Size(96, 20);
+            this.label14.TabIndex = 6;
+            this.label14.Text = "Subject Type:";
+            // 
+            // SubjectTypeCombobox
+            // 
+            this.SubjectTypeCombobox.AutoCompleteMode = System.Windows.Forms.AutoCompleteMode.Append;
+            this.SubjectTypeCombobox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
+            this.SubjectTypeCombobox.FormattingEnabled = true;
+            this.SubjectTypeCombobox.Items.AddRange(new object[] {
+            "",
+            "Day",
+            "Group"});
+            this.SubjectTypeCombobox.Location = new System.Drawing.Point(112, 98);
+            this.SubjectTypeCombobox.Name = "SubjectTypeCombobox";
+            this.SubjectTypeCombobox.Size = new System.Drawing.Size(151, 28);
+            this.SubjectTypeCombobox.TabIndex = 7;
+            // 
+            // ClearButton
+            // 
+            this.ClearButton.Location = new System.Drawing.Point(703, 561);
+            this.ClearButton.Name = "ClearButton";
+            this.ClearButton.Size = new System.Drawing.Size(94, 29);
+            this.ClearButton.TabIndex = 20;
+            this.ClearButton.Text = "Clear";
+            this.ClearButton.UseVisualStyleBackColor = true;
+            this.ClearButton.Click += new System.EventHandler(this.ClearButton_Click);
+            // 
             // CreateButton
             // 
-            this.CreateButton.Location = new System.Drawing.Point(808, 536);
+            this.CreateButton.Location = new System.Drawing.Point(808, 561);
             this.CreateButton.Name = "CreateButton";
             this.CreateButton.Size = new System.Drawing.Size(94, 29);
-            this.CreateButton.TabIndex = 19;
+            this.CreateButton.TabIndex = 21;
             this.CreateButton.Text = "Create";
             this.CreateButton.UseVisualStyleBackColor = true;
             this.CreateButton.Click += new System.EventHandler(this.CreateButton_Click);
@@ -138,95 +177,110 @@ namespace WalkingClubAdmin
             this.PhotosGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Filename,
             this.Caption});
-            this.PhotosGrid.Location = new System.Drawing.Point(112, 326);
+            this.PhotosGrid.Location = new System.Drawing.Point(112, 351);
             this.PhotosGrid.Name = "PhotosGrid";
             this.PhotosGrid.RowHeadersWidth = 51;
             this.PhotosGrid.RowTemplate.Height = 29;
             this.PhotosGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.PhotosGrid.Size = new System.Drawing.Size(790, 204);
-            this.PhotosGrid.TabIndex = 18;
+            this.PhotosGrid.TabIndex = 19;
+            // 
+            // Filename
+            // 
+            this.Filename.HeaderText = "Filename";
+            this.Filename.MinimumWidth = 6;
+            this.Filename.Name = "Filename";
+            this.Filename.Width = 250;
+            // 
+            // Caption
+            // 
+            this.Caption.HeaderText = "Caption";
+            this.Caption.MinimumWidth = 6;
+            this.Caption.Name = "Caption";
+            this.Caption.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Caption.Width = 480;
             // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(16, 326);
+            this.label13.Location = new System.Drawing.Point(16, 351);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(57, 20);
-            this.label13.TabIndex = 17;
+            this.label13.TabIndex = 18;
             this.label13.Text = "Photos:";
             // 
-            // photographerTextBox
+            // PhotographerTextBox
             // 
-            this.photographerTextBox.Location = new System.Drawing.Point(767, 281);
-            this.photographerTextBox.Name = "photographerTextBox";
-            this.photographerTextBox.Size = new System.Drawing.Size(135, 27);
-            this.photographerTextBox.TabIndex = 16;
+            this.PhotographerTextBox.Location = new System.Drawing.Point(767, 306);
+            this.PhotographerTextBox.Name = "PhotographerTextBox";
+            this.PhotographerTextBox.Size = new System.Drawing.Size(135, 27);
+            this.PhotographerTextBox.TabIndex = 17;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(658, 284);
+            this.label12.Location = new System.Drawing.Point(655, 309);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(103, 20);
-            this.label12.TabIndex = 15;
+            this.label12.TabIndex = 16;
             this.label12.Text = "Photographer:";
             this.label12.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // photoTextBox
+            // PhotoTextBox
             // 
-            this.photoTextBox.Location = new System.Drawing.Point(112, 281);
-            this.photoTextBox.Name = "photoTextBox";
-            this.photoTextBox.Size = new System.Drawing.Size(125, 27);
-            this.photoTextBox.TabIndex = 14;
+            this.PhotoTextBox.Location = new System.Drawing.Point(112, 306);
+            this.PhotoTextBox.Name = "PhotoTextBox";
+            this.PhotoTextBox.Size = new System.Drawing.Size(125, 27);
+            this.PhotoTextBox.TabIndex = 15;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(16, 284);
+            this.label11.Location = new System.Drawing.Point(16, 309);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(93, 20);
-            this.label11.TabIndex = 13;
+            this.label11.TabIndex = 14;
             this.label11.Text = "Cover Photo:";
             // 
-            // ratingTextBox
+            // RatingTextBox
             // 
-            this.ratingTextBox.Location = new System.Drawing.Point(767, 241);
-            this.ratingTextBox.Name = "ratingTextBox";
-            this.ratingTextBox.Size = new System.Drawing.Size(135, 27);
-            this.ratingTextBox.TabIndex = 12;
+            this.RatingTextBox.Location = new System.Drawing.Point(767, 266);
+            this.RatingTextBox.Name = "RatingTextBox";
+            this.RatingTextBox.Size = new System.Drawing.Size(135, 27);
+            this.RatingTextBox.TabIndex = 13;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(703, 244);
+            this.label10.Location = new System.Drawing.Point(703, 269);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 20);
-            this.label10.TabIndex = 11;
+            this.label10.TabIndex = 12;
             this.label10.Text = "Rating:";
             this.label10.TextAlign = System.Drawing.ContentAlignment.TopCenter;
             // 
-            // authorTextBox
+            // AuthorTextBox
             // 
-            this.authorTextBox.Location = new System.Drawing.Point(112, 241);
-            this.authorTextBox.Name = "authorTextBox";
-            this.authorTextBox.Size = new System.Drawing.Size(125, 27);
-            this.authorTextBox.TabIndex = 10;
+            this.AuthorTextBox.Location = new System.Drawing.Point(112, 266);
+            this.AuthorTextBox.Name = "AuthorTextBox";
+            this.AuthorTextBox.Size = new System.Drawing.Size(125, 27);
+            this.AuthorTextBox.TabIndex = 11;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(16, 241);
+            this.label9.Location = new System.Drawing.Point(16, 266);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(57, 20);
-            this.label9.TabIndex = 9;
+            this.label9.TabIndex = 10;
             this.label9.Text = "Author:";
             // 
-            // titleTextBox
+            // TitleTextBox
             // 
-            this.titleTextBox.Location = new System.Drawing.Point(112, 64);
-            this.titleTextBox.Name = "titleTextBox";
-            this.titleTextBox.Size = new System.Drawing.Size(790, 27);
-            this.titleTextBox.TabIndex = 5;
+            this.TitleTextBox.Location = new System.Drawing.Point(112, 64);
+            this.TitleTextBox.Name = "TitleTextBox";
+            this.TitleTextBox.Size = new System.Drawing.Size(790, 27);
+            this.TitleTextBox.TabIndex = 5;
             // 
             // label8
             // 
@@ -239,20 +293,20 @@ namespace WalkingClubAdmin
             // 
             // ReportTextBox
             // 
-            this.ReportTextBox.Location = new System.Drawing.Point(112, 107);
+            this.ReportTextBox.Location = new System.Drawing.Point(112, 132);
             this.ReportTextBox.Multiline = true;
             this.ReportTextBox.Name = "ReportTextBox";
             this.ReportTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.ReportTextBox.Size = new System.Drawing.Size(790, 113);
-            this.ReportTextBox.TabIndex = 7;
+            this.ReportTextBox.TabIndex = 9;
             // 
             // label7
             // 
             this.label7.AutoSize = true;
-            this.label7.Location = new System.Drawing.Point(16, 110);
+            this.label7.Location = new System.Drawing.Point(16, 135);
             this.label7.Name = "label7";
             this.label7.Size = new System.Drawing.Size(57, 20);
-            this.label7.TabIndex = 6;
+            this.label7.TabIndex = 8;
             this.label7.Text = "Report:";
             // 
             // DatePicker
@@ -300,7 +354,7 @@ namespace WalkingClubAdmin
             this.eventsTabPage.Location = new System.Drawing.Point(4, 29);
             this.eventsTabPage.Name = "eventsTabPage";
             this.eventsTabPage.Padding = new System.Windows.Forms.Padding(3);
-            this.eventsTabPage.Size = new System.Drawing.Size(926, 573);
+            this.eventsTabPage.Size = new System.Drawing.Size(926, 605);
             this.eventsTabPage.TabIndex = 0;
             this.eventsTabPage.Text = "Events";
             this.eventsTabPage.UseVisualStyleBackColor = true;
@@ -489,26 +543,11 @@ namespace WalkingClubAdmin
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
-            // Filename
-            // 
-            this.Filename.HeaderText = "Filename";
-            this.Filename.MinimumWidth = 6;
-            this.Filename.Name = "Filename";
-            this.Filename.Width = 250;
-            // 
-            // Caption
-            // 
-            this.Caption.HeaderText = "Caption";
-            this.Caption.MinimumWidth = 6;
-            this.Caption.Name = "Caption";
-            this.Caption.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Caption.Width = 480;
-            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(944, 655);
+            this.ClientSize = new System.Drawing.Size(944, 690);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;
@@ -562,21 +601,24 @@ namespace WalkingClubAdmin
         private System.Windows.Forms.Label label4;
         private System.Windows.Forms.Label label7;
         private System.Windows.Forms.TextBox ReportTextBox;
-        private System.Windows.Forms.TextBox ratingTextBox;
+        private System.Windows.Forms.TextBox RatingTextBox;
         private System.Windows.Forms.Label label10;
-        private System.Windows.Forms.TextBox authorTextBox;
+        private System.Windows.Forms.TextBox AuthorTextBox;
         private System.Windows.Forms.Label label9;
-        private System.Windows.Forms.TextBox titleTextBox;
+        private System.Windows.Forms.TextBox TitleTextBox;
         private System.Windows.Forms.Label label8;
         private System.Windows.Forms.Button CreateButton;
         private System.Windows.Forms.DataGridView PhotosGrid;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox photographerTextBox;
+        private System.Windows.Forms.TextBox PhotographerTextBox;
         private System.Windows.Forms.Label label12;
-        private System.Windows.Forms.TextBox photoTextBox;
+        private System.Windows.Forms.TextBox PhotoTextBox;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.DataGridViewTextBoxColumn Filename;
         private System.Windows.Forms.DataGridViewTextBoxColumn Caption;
+        private System.Windows.Forms.Button ClearButton;
+        private System.Windows.Forms.Label label14;
+        private System.Windows.Forms.ComboBox SubjectTypeCombobox;
     }
 }
 

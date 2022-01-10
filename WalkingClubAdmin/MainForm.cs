@@ -154,12 +154,13 @@ namespace WalkingClubAdmin
             {
                 Id = IdTextBox.Text,
                 Date = DatePicker.Value.Date,
-                Title = titleTextBox.Text,
+                Title = TitleTextBox.Text,
+                SubjectType = SubjectTypeCombobox.Text,
                 Report = ReportTextBox.Text,
-                ReportBy = authorTextBox.Text,
-                Rating = ratingTextBox.Text,
-                CoverPhoto = photoTextBox.Text,
-                Photographer = photographerTextBox.Text,
+                ReportBy = AuthorTextBox.Text,
+                Rating = RatingTextBox.Text,
+                CoverPhoto = PhotoTextBox.Text,
+                Photographer = PhotographerTextBox.Text,
             };
 
             try
@@ -182,6 +183,20 @@ namespace WalkingClubAdmin
             {
                 MessageBox.Show(ex.Message, "Validation Error");
             }
+        }
+
+        private void ClearButton_Click(object sender, EventArgs e)
+        {
+            IdTextBox.Text = "";
+            DatePicker.Value = DateTime.Today;
+            TitleTextBox.Text = "";
+            SubjectTypeCombobox.SelectedIndex = 0;
+            ReportTextBox.Text = "";
+            AuthorTextBox.Text = "";
+            RatingTextBox.Text = "";
+            PhotoTextBox.Text = "";
+            PhotographerTextBox.Text = "";
+            PhotosGrid.Rows.Clear();
         }
     }
 }

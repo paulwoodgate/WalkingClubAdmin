@@ -50,6 +50,19 @@ namespace ReportGen.Tests
         }
 
         [Fact]
+        public void ShouldPopulateSubjectType()
+        {
+            const string subjectType = "Group";
+            var data = new ReportData
+            {
+                SubjectType = subjectType
+            };
+
+            var report = new Report(data);
+
+            Assert.Equal(subjectType, report.SubjectType);
+        }
+        [Fact]
         public void ShouldPopulateReportText()
         {
             const string reportText = "This is the first paragraph\r\nThis is the second paragraph\r\nand this is the third paragraph";
@@ -149,6 +162,7 @@ namespace ReportGen.Tests
                 Id = "walk140421",
                 Date = new DateTime(2021, 4, 14),
                 Title = "Yelden",
+                SubjectType = "Day",
                 Report = "This is an interesting walk\r\nvery interesting indeed",
                 ReportBy = "Sue",
                 Rating = "Average",
@@ -169,6 +183,7 @@ namespace ReportGen.Tests
             Assert.Contains("\t\"date\": {\"$date\":\"2021-04-14T00:00:00Z\"},\r\n", json);
             Assert.Contains("\t\"year\": \"2021\",\r\n", json);
             Assert.Contains("\t\"title\": \"Yelden\",\r\n", json);
+            Assert.Contains("\t\"subjectType\": \"Day\",\r\n", json);
             Assert.Contains("\t\"report\": [\"This is an interesting walk\",\"very interesting indeed\"],\r\n", json);
             Assert.Contains("\t\"reportBy\": \"Sue\",\r\n", json);
             Assert.Contains("\t\"walkRating\": \"Average\",\r\n", json);

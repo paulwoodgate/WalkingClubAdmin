@@ -9,6 +9,8 @@
                 return filename;
             }
 
+            filename = filename.Replace("~", "_");
+
             var index = filename.LastIndexOf("/");
 
             if (index == -1)

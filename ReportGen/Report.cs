@@ -2,7 +2,6 @@
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
-using System.Threading.Tasks;
 
 namespace ReportGen
 {
@@ -12,6 +11,7 @@ namespace ReportGen
         public DateTime Date { get; set; }
         public int Year => Date.Year;
         public string Title { get; set; }
+        public string SubjectType { get; set; }
         public string[] Text { get; set; }
         public string Author { get; set; }
         public string Rating { get; set; }
@@ -24,6 +24,7 @@ namespace ReportGen
             Id = data.Id;
             Date = data.Date;
             Title = data.Title;
+            SubjectType = data.SubjectType;
             Author = data.ReportBy;
             Rating = data.Rating;
             CoverPhoto = PhotoService.StripPathFromFilename(data.CoverPhoto);
@@ -45,7 +46,11 @@ namespace ReportGen
             sb.Append("\t\"date\": ").Append("{\"$date\":\"").AppendFormat("{0:yyyy-MM-ddT00:00:00Z}", Date).Append("\"}").AppendLine(",");
             sb.Append("\t\"year\": \"").Append(Year).AppendLine("\",");
             sb.Append("\t\"title\": \"").Append(Title).AppendLine("\",");
-            if (Text != null)
+            if (!string.IsNullOrEmpty(SubjectType))
+            {
+                sb.Append("\t\"subjectType\": \"").Append(SubjectType).AppendLine("\",");
+            }
+            if (Text?.Length > 0)
             {
                 sb.Append("\t\"report\": [\"").AppendJoin("\",\"", Text).AppendLine("\"],");
             }

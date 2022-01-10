@@ -87,6 +87,20 @@ namespace ReportGen.Tests
         }
 
         [Fact]
+        public void ValidateShouldErrorIfInvalidSubjectType()
+        {
+            var data = new ReportData
+            {
+                Id = "walk_2021_02",
+                Title = "Walk Title",
+                Date = DateTime.Today,
+                SubjectType = "week"
+            };
+
+            var ex = Assert.Throws<ArgumentException>(() => data.Validate());
+            Assert.Equal("The Subject Type must be empty, Day, or Group", ex.Message);
+        }
+        [Fact]
         public void ValidateShouldReturnTrueIfSuccessful()
         {
             var data = new ReportData
