@@ -75,6 +75,8 @@ namespace WalkingClubAdmin
             this.label1 = new System.Windows.Forms.Label();
             this.YearCombo = new System.Windows.Forms.ComboBox();
             this.pictureBox1 = new System.Windows.Forms.PictureBox();
+            this.EndDatePicker = new System.Windows.Forms.DateTimePicker();
+            this.label15 = new System.Windows.Forms.Label();
             this.tabControl1.SuspendLayout();
             this.reportsTabPage.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.PhotosGrid)).BeginInit();
@@ -98,6 +100,8 @@ namespace WalkingClubAdmin
             // reportsTabPage
             // 
             this.reportsTabPage.BorderStyle = System.Windows.Forms.BorderStyle.FixedSingle;
+            this.reportsTabPage.Controls.Add(this.label15);
+            this.reportsTabPage.Controls.Add(this.EndDatePicker);
             this.reportsTabPage.Controls.Add(this.label14);
             this.reportsTabPage.Controls.Add(this.SubjectTypeCombobox);
             this.reportsTabPage.Controls.Add(this.ClearButton);
@@ -131,11 +135,11 @@ namespace WalkingClubAdmin
             // label14
             // 
             this.label14.AutoSize = true;
-            this.label14.Location = new System.Drawing.Point(16, 101);
+            this.label14.Location = new System.Drawing.Point(655, 23);
             this.label14.Name = "label14";
-            this.label14.Size = new System.Drawing.Size(96, 20);
+            this.label14.Size = new System.Drawing.Size(83, 20);
             this.label14.TabIndex = 6;
-            this.label14.Text = "Subject Type:";
+            this.label14.Text = "Event Type:";
             // 
             // SubjectTypeCombobox
             // 
@@ -146,10 +150,11 @@ namespace WalkingClubAdmin
             "",
             "Day",
             "Group"});
-            this.SubjectTypeCombobox.Location = new System.Drawing.Point(112, 98);
+            this.SubjectTypeCombobox.Location = new System.Drawing.Point(744, 20);
             this.SubjectTypeCombobox.Name = "SubjectTypeCombobox";
-            this.SubjectTypeCombobox.Size = new System.Drawing.Size(151, 28);
-            this.SubjectTypeCombobox.TabIndex = 7;
+            this.SubjectTypeCombobox.Size = new System.Drawing.Size(158, 28);
+            this.SubjectTypeCombobox.TabIndex = 2;
+            this.SubjectTypeCombobox.SelectedValueChanged += new System.EventHandler(this.SubjectTypeCombobox_SelectedValueChanged);
             // 
             // ClearButton
             // 
@@ -177,13 +182,13 @@ namespace WalkingClubAdmin
             this.PhotosGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
             this.Filename,
             this.Caption});
-            this.PhotosGrid.Location = new System.Drawing.Point(112, 351);
+            this.PhotosGrid.Location = new System.Drawing.Point(119, 351);
             this.PhotosGrid.Name = "PhotosGrid";
             this.PhotosGrid.RowHeadersWidth = 51;
             this.PhotosGrid.RowTemplate.Height = 29;
             this.PhotosGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.PhotosGrid.Size = new System.Drawing.Size(790, 204);
-            this.PhotosGrid.TabIndex = 19;
+            this.PhotosGrid.Size = new System.Drawing.Size(783, 204);
+            this.PhotosGrid.TabIndex = 11;
             // 
             // Filename
             // 
@@ -211,15 +216,15 @@ namespace WalkingClubAdmin
             // 
             // PhotographerTextBox
             // 
-            this.PhotographerTextBox.Location = new System.Drawing.Point(767, 306);
+            this.PhotographerTextBox.Location = new System.Drawing.Point(119, 306);
             this.PhotographerTextBox.Name = "PhotographerTextBox";
-            this.PhotographerTextBox.Size = new System.Drawing.Size(135, 27);
-            this.PhotographerTextBox.TabIndex = 17;
+            this.PhotographerTextBox.Size = new System.Drawing.Size(158, 27);
+            this.PhotographerTextBox.TabIndex = 9;
             // 
             // label12
             // 
             this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(655, 309);
+            this.label12.Location = new System.Drawing.Point(16, 309);
             this.label12.Name = "label12";
             this.label12.Size = new System.Drawing.Size(103, 20);
             this.label12.TabIndex = 16;
@@ -228,15 +233,15 @@ namespace WalkingClubAdmin
             // 
             // PhotoTextBox
             // 
-            this.PhotoTextBox.Location = new System.Drawing.Point(112, 306);
+            this.PhotoTextBox.Location = new System.Drawing.Point(744, 306);
             this.PhotoTextBox.Name = "PhotoTextBox";
-            this.PhotoTextBox.Size = new System.Drawing.Size(125, 27);
-            this.PhotoTextBox.TabIndex = 15;
+            this.PhotoTextBox.Size = new System.Drawing.Size(158, 27);
+            this.PhotoTextBox.TabIndex = 10;
             // 
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(16, 309);
+            this.label11.Location = new System.Drawing.Point(645, 309);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(93, 20);
             this.label11.TabIndex = 14;
@@ -244,15 +249,15 @@ namespace WalkingClubAdmin
             // 
             // RatingTextBox
             // 
-            this.RatingTextBox.Location = new System.Drawing.Point(767, 266);
+            this.RatingTextBox.Location = new System.Drawing.Point(744, 269);
             this.RatingTextBox.Name = "RatingTextBox";
-            this.RatingTextBox.Size = new System.Drawing.Size(135, 27);
-            this.RatingTextBox.TabIndex = 13;
+            this.RatingTextBox.Size = new System.Drawing.Size(158, 27);
+            this.RatingTextBox.TabIndex = 8;
             // 
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(703, 269);
+            this.label10.Location = new System.Drawing.Point(683, 272);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(55, 20);
             this.label10.TabIndex = 12;
@@ -261,15 +266,15 @@ namespace WalkingClubAdmin
             // 
             // AuthorTextBox
             // 
-            this.AuthorTextBox.Location = new System.Drawing.Point(112, 266);
+            this.AuthorTextBox.Location = new System.Drawing.Point(119, 269);
             this.AuthorTextBox.Name = "AuthorTextBox";
-            this.AuthorTextBox.Size = new System.Drawing.Size(125, 27);
-            this.AuthorTextBox.TabIndex = 11;
+            this.AuthorTextBox.Size = new System.Drawing.Size(158, 27);
+            this.AuthorTextBox.TabIndex = 7;
             // 
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(16, 266);
+            this.label9.Location = new System.Drawing.Point(12, 272);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(57, 20);
             this.label9.TabIndex = 10;
@@ -277,15 +282,15 @@ namespace WalkingClubAdmin
             // 
             // TitleTextBox
             // 
-            this.TitleTextBox.Location = new System.Drawing.Point(112, 64);
+            this.TitleTextBox.Location = new System.Drawing.Point(119, 93);
             this.TitleTextBox.Name = "TitleTextBox";
-            this.TitleTextBox.Size = new System.Drawing.Size(790, 27);
+            this.TitleTextBox.Size = new System.Drawing.Size(783, 27);
             this.TitleTextBox.TabIndex = 5;
             // 
             // label8
             // 
             this.label8.AutoSize = true;
-            this.label8.Location = new System.Drawing.Point(16, 67);
+            this.label8.Location = new System.Drawing.Point(12, 96);
             this.label8.Name = "label8";
             this.label8.Size = new System.Drawing.Size(48, 20);
             this.label8.TabIndex = 4;
@@ -293,12 +298,12 @@ namespace WalkingClubAdmin
             // 
             // ReportTextBox
             // 
-            this.ReportTextBox.Location = new System.Drawing.Point(112, 132);
+            this.ReportTextBox.Location = new System.Drawing.Point(119, 132);
             this.ReportTextBox.Multiline = true;
             this.ReportTextBox.Name = "ReportTextBox";
             this.ReportTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ReportTextBox.Size = new System.Drawing.Size(790, 113);
-            this.ReportTextBox.TabIndex = 9;
+            this.ReportTextBox.Size = new System.Drawing.Size(783, 128);
+            this.ReportTextBox.TabIndex = 6;
             // 
             // label7
             // 
@@ -313,16 +318,16 @@ namespace WalkingClubAdmin
             // 
             this.DatePicker.CustomFormat = "dd/MM/yyyy";
             this.DatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            this.DatePicker.Location = new System.Drawing.Point(767, 21);
+            this.DatePicker.Location = new System.Drawing.Point(119, 57);
             this.DatePicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             this.DatePicker.Name = "DatePicker";
-            this.DatePicker.Size = new System.Drawing.Size(135, 27);
+            this.DatePicker.Size = new System.Drawing.Size(158, 27);
             this.DatePicker.TabIndex = 3;
             // 
             // label6
             // 
             this.label6.AutoSize = true;
-            this.label6.Location = new System.Drawing.Point(717, 26);
+            this.label6.Location = new System.Drawing.Point(16, 62);
             this.label6.Name = "label6";
             this.label6.Size = new System.Drawing.Size(44, 20);
             this.label6.TabIndex = 2;
@@ -330,9 +335,9 @@ namespace WalkingClubAdmin
             // 
             // IdTextBox
             // 
-            this.IdTextBox.Location = new System.Drawing.Point(112, 20);
+            this.IdTextBox.Location = new System.Drawing.Point(119, 20);
             this.IdTextBox.Name = "IdTextBox";
-            this.IdTextBox.Size = new System.Drawing.Size(128, 27);
+            this.IdTextBox.Size = new System.Drawing.Size(158, 27);
             this.IdTextBox.TabIndex = 1;
             // 
             // label4
@@ -543,6 +548,26 @@ namespace WalkingClubAdmin
             this.pictureBox1.TabIndex = 1;
             this.pictureBox1.TabStop = false;
             // 
+            // EndDatePicker
+            // 
+            this.EndDatePicker.CustomFormat = "dd/MM/yyyy";
+            this.EndDatePicker.Enabled = false;
+            this.EndDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
+            this.EndDatePicker.Location = new System.Drawing.Point(744, 57);
+            this.EndDatePicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
+            this.EndDatePicker.Name = "EndDatePicker";
+            this.EndDatePicker.Size = new System.Drawing.Size(158, 27);
+            this.EndDatePicker.TabIndex = 4;
+            // 
+            // label15
+            // 
+            this.label15.AutoSize = true;
+            this.label15.Location = new System.Drawing.Point(665, 62);
+            this.label15.Name = "label15";
+            this.label15.Size = new System.Drawing.Size(73, 20);
+            this.label15.TabIndex = 23;
+            this.label15.Text = "End Date:";
+            // 
             // MainForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(8F, 20F);
@@ -619,6 +644,8 @@ namespace WalkingClubAdmin
         private System.Windows.Forms.Button ClearButton;
         private System.Windows.Forms.Label label14;
         private System.Windows.Forms.ComboBox SubjectTypeCombobox;
+        private System.Windows.Forms.Label label15;
+        private System.Windows.Forms.DateTimePicker EndDatePicker;
     }
 }
 

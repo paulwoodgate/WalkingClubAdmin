@@ -194,6 +194,40 @@ namespace ReportGen.Tests
         }
 
         [Fact]
+        public void ShouldGenerateJsonForGroup()
+        {
+            var files = new List<string> { "walk230421_1.jpg", "walk230421_2.jpg", "walk230421_3.jpg" };
+            var captions = new List<string> { "Photo 1", "", "Photo 3" };
+            var data = new ReportData(files, captions)
+            {
+                Id = "walk140421",
+                Date = new DateTime(2021, 4, 14),
+                EndDate = new DateTime(2021, 4, 17),
+                Title = "Yelden",
+                SubjectType = "Group",
+                CoverPhoto = "walk140421_1.jpg"
+            };
+
+            var report = new Report(data);
+            var json = report.ToJson();
+
+            Assert.StartsWith("[{", json);
+            Assert.Contains("\t\"id\": \"walk140421\",\r\n", json);
+            Assert.Contains("\t\"date\": {\"$date\":\"2021-04-14T00:00:00Z\"},\r\n", json);
+            Assert.Contains("\t\"endDate\": {\"$date\":\"2021-04-17T00:00:00Z\"},\r\n", json);
+            Assert.Contains("\t\"year\": \"2021\",\r\n", json);
+            Assert.Contains("\t\"title\": \"Yelden\",\r\n", json);
+            Assert.Contains("\t\"subjectType\": \"Group\",\r\n", json);
+            Assert.Contains("\t\"coverPhoto\": \"walk140421_1.jpg\",\r\n", json);
+            Assert.DoesNotContain("\t\"report\": [", json);
+            Assert.DoesNotContain("\t\"reportBy\": ", json);
+            Assert.DoesNotContain("\t\"walkRating\": ", json);
+            Assert.DoesNotContain("\t\"photographer\": ", json);
+            Assert.DoesNotContain("\t\"photos\": ", json);
+            Assert.EndsWith("}]\r\n", json);
+        }
+
+        [Fact]
         public void ToJsonShouldOmitPhotosElementIfNoPhotos()
         {
             var data = new ReportData()

@@ -9,6 +9,7 @@ namespace ReportGen
         public string Title { get; set; }
         public string SubjectType { get; set; }
         public DateTime Date { get; set; }
+        public DateTime EndDate { get; set; }
         public string Report { get; set; }
         public string ReportBy { get; set; }
         public string Rating { get; set; }
@@ -54,6 +55,17 @@ namespace ReportGen
             if (Date > DateTime.Today || Date < new DateTime(2000, 1, 1))
             {
                 throw new ArgumentException("You must enter a valid date for the event.");
+            }
+            if (SubjectType == "Group")
+            {
+                if (EndDate == DateTime.MinValue)
+                {
+                    throw new ArgumentException("You must enter the end date of the event.");
+                }
+                if (EndDate > DateTime.Today || EndDate < Date)
+                {
+                    throw new ArgumentException("You must enter a valid end date for the event.");
+                }
             }
             if (!string.IsNullOrEmpty(SubjectType) && SubjectType != "Day" && SubjectType != "Group")
             {

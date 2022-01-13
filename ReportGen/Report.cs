@@ -9,6 +9,7 @@ namespace ReportGen
     {
         public string Id { get; set; }
         public DateTime Date { get; set; }
+        public DateTime EndDate { get; set; }
         public int Year => Date.Year;
         public string Title { get; set; }
         public string SubjectType { get; set; }
@@ -23,6 +24,7 @@ namespace ReportGen
         {
             Id = data.Id;
             Date = data.Date;
+            EndDate = data.EndDate;
             Title = data.Title;
             SubjectType = data.SubjectType;
             Author = data.ReportBy;
@@ -44,6 +46,10 @@ namespace ReportGen
             sb.AppendLine("[{");
             sb.Append("\t\"id\": \"").Append(Id).AppendLine("\",");
             sb.Append("\t\"date\": ").Append("{\"$date\":\"").AppendFormat("{0:yyyy-MM-ddT00:00:00Z}", Date).Append("\"}").AppendLine(",");
+            if (SubjectType == "Group")
+            {
+                sb.Append("\t\"endDate\": ").Append("{\"$date\":\"").AppendFormat("{0:yyyy-MM-ddT00:00:00Z}", EndDate).Append("\"}").AppendLine(",");
+            }
             sb.Append("\t\"year\": \"").Append(Year).AppendLine("\",");
             sb.Append("\t\"title\": \"").Append(Title).AppendLine("\",");
             if (!string.IsNullOrEmpty(SubjectType))
@@ -54,15 +60,22 @@ namespace ReportGen
             {
                 sb.Append("\t\"report\": [\"").AppendJoin("\",\"", Text).AppendLine("\"],");
             }
-            sb.Append("\t\"reportBy\": \"").Append(Author).AppendLine("\",");
-            sb.Append("\t\"walkRating\": \"").Append(Rating).AppendLine("\",");
-            sb.Append("\t\"coverPhoto\": \"").Append(CoverPhoto).AppendLine("\",");
-            sb.Append("\t\"photographer\": \"").Append(Photographer).AppendLine("\",");
-            if (Photos?.Count > 0)
+            if (SubjectType != "Group")
             {
-                sb.Append("\t\"photos\": [").AppendJoin(", ", Photos.Select(p => p.ToJson())).AppendLine("]");
+                sb.Append("\t\"reportBy\": \"").Append(Author).AppendLine("\",");
+                sb.Append("\t\"walkRating\": \"").Append(Rating).AppendLine("\",");
+            }
+            sb.Append("\t\"coverPhoto\": \"").Append(CoverPhoto).AppendLine("\",");
+            if (SubjectType != "Group")
+            {
+                sb.Append("\t\"photographer\": \"").Append(Photographer).AppendLine("\",");
+                if (Photos?.Count > 0)
+                {
+                    sb.Append("\t\"photos\": [").AppendJoin(", ", Photos.Select(p => p.ToJson())).AppendLine("]");
+                }
             }
             sb.AppendLine("}]");
+
             return sb.ToString();
         }
     }

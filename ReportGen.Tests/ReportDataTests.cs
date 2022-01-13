@@ -46,6 +46,53 @@ namespace ReportGen.Tests
         }
 
         [Fact]
+        public void ValidateShouldErrorIfNoEndDateandGroup()
+        {
+            var data = new ReportData
+            {
+                Id = "Walk_240421",
+                Title = "A walk on the wild side",
+                Date = new DateTime(2021, 12, 31),
+                SubjectType = "Group"
+            };
+
+            var ex = Assert.Throws<ArgumentException>(() => data.Validate());
+            Assert.Equal("You must enter the end date of the event.", ex.Message);
+        }
+
+        [Fact]
+        public void ValidateShouldErrorIfEndDateBeforeDate()
+        {
+            var data = new ReportData
+            {
+                Id = "Walk_240421",
+                Title = "A walk on the wild side",
+                Date = new DateTime(2021, 12, 31),
+                EndDate = new DateTime(2021, 12, 30),
+                SubjectType = "Group"
+            };
+
+            var ex = Assert.Throws<ArgumentException>(() => data.Validate());
+            Assert.Equal("You must enter a valid end date for the event.", ex.Message);
+        }
+
+        [Fact]
+        public void ValidateShouldErrorIfEndDateAfterToday()
+        {
+            var data = new ReportData
+            {
+                Id = "Walk_240421",
+                Title = "A walk on the wild side",
+                Date = DateTime.Today,
+                EndDate = DateTime.Today.AddDays(1),
+                SubjectType = "Group"
+            };
+
+            var ex = Assert.Throws<ArgumentException>(() => data.Validate());
+            Assert.Equal("You must enter a valid end date for the event.", ex.Message);
+        }
+
+        [Fact]
         public void ValidateShouldErrorIfNoDate()
         {
             var data = new ReportData

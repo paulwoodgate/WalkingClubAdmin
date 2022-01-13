@@ -198,5 +198,29 @@ namespace WalkingClubAdmin
             PhotographerTextBox.Text = "";
             PhotosGrid.Rows.Clear();
         }
+
+        private void SubjectTypeCombobox_SelectedValueChanged(object sender, EventArgs e)
+        {
+            if (SubjectTypeCombobox.Text == "Group")
+            {
+                EndDatePicker.Enabled = true;
+                ReportTextBox.Enabled = false;
+                AuthorTextBox.Enabled = false;
+                RatingTextBox.Enabled = false;
+                PhotoTextBox.Enabled = false;
+                PhotographerTextBox.Enabled = false;
+                PhotosGrid.Enabled = false;
+            }
+            else
+            {
+                EndDatePicker.Enabled = false;
+                ReportTextBox.Enabled = true;
+                AuthorTextBox.Enabled = true;
+                RatingTextBox.Enabled = true;
+                PhotoTextBox.Enabled = true;
+                PhotographerTextBox.Enabled = true;
+                PhotosGrid.Enabled = true;
+            }
+        }
     }
 }
