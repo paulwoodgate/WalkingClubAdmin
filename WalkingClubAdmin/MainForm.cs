@@ -1,13 +1,8 @@
 ﻿using ReportGen;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 using WalkPageGen;
 
@@ -154,6 +149,7 @@ namespace WalkingClubAdmin
             {
                 Id = IdTextBox.Text,
                 Date = DatePicker.Value.Date,
+                EndDate = EndDatePicker.Value.Date,
                 Title = TitleTextBox.Text,
                 SubjectType = SubjectTypeCombobox.Text,
                 Report = ReportTextBox.Text,
@@ -189,6 +185,7 @@ namespace WalkingClubAdmin
         {
             IdTextBox.Text = "";
             DatePicker.Value = DateTime.Today;
+            EndDatePicker.Value = DateTime.Today;
             TitleTextBox.Text = "";
             SubjectTypeCombobox.SelectedIndex = 0;
             ReportTextBox.Text = "";
@@ -207,7 +204,6 @@ namespace WalkingClubAdmin
                 ReportTextBox.Enabled = false;
                 AuthorTextBox.Enabled = false;
                 RatingTextBox.Enabled = false;
-                PhotoTextBox.Enabled = false;
                 PhotographerTextBox.Enabled = false;
                 PhotosGrid.Enabled = false;
             }
@@ -217,7 +213,6 @@ namespace WalkingClubAdmin
                 ReportTextBox.Enabled = true;
                 AuthorTextBox.Enabled = true;
                 RatingTextBox.Enabled = true;
-                PhotoTextBox.Enabled = true;
                 PhotographerTextBox.Enabled = true;
                 PhotosGrid.Enabled = true;
             }
