@@ -8,24 +8,13 @@ namespace WalkPageGen
     {
         public static void GeneratePage(Options options)
         {
-            try
-            {
-                var settings = AppSettings.ReadFromFile("appsettings.json");
+            var settings = AppSettings.ReadFromFile("appsettings.json");
 
-                List<IEvent> walks = (settings.ReadFromGoogle)
-                    ? GetEventsFromGoogle(options, settings)
-                    : GetEventsFromExcel(options, settings);
+            List<IEvent> walks = (options.ReadFromGoogle)
+                ? GetEventsFromGoogle(options, settings)
+                : GetEventsFromExcel(options, settings);
 
-                if (options.GenerateHtml)
-                    CreateHtmlFile(options, walks);
-
-                if (options.GenerateJson)
-                    CreateJsonFile(options, walks);
-            }
-            catch
-            {
-                throw;
-            }
+            CreateJsonFile(options, walks);
         }
 
         private static List<IEvent> GetEventsFromGoogle(Options options, AppSettings settings)
@@ -47,14 +36,6 @@ namespace WalkPageGen
                 .ToList<IEvent>();
         }
 
-        private static void CreateHtmlFile(Options options, List<IEvent> walks)
-        {
-            var sourceHtml = File.ReadAllText(options.HtmlSourceFile);
-            var html = GenerateHtml(options.Year, walks, sourceHtml);
-
-            File.WriteAllText(options.HtmlOutputFile, html);
-        }
-
         private static string GenerateHtml(int year, List<IEvent> walks, string html)
         {
             var pageGen = new HtmlGenerator(walks);
@@ -68,7 +49,7 @@ namespace WalkPageGen
         {
             var json = GenerateJson(walks, options.MongoDbDates);
 
-            File.WriteAllText(options.JsonOutputFile, json);
+            File.WriteAllText(options.OutputFile, json);
         }
 
         private static string GenerateJson(List<IEvent> walks, bool useMongoDateFormat)

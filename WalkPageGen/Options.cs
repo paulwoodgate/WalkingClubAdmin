@@ -10,36 +10,27 @@ namespace WalkPageGen
         private static readonly string appFolder = Directory.GetCurrentDirectory();
 
         public int Year { get; set; }
-        public string HtmlSourceFile { get; set; }
-        public string HtmlOutputFile { get; set; }
-        public string JsonOutputFile { get; set; }
-        public bool GenerateHtml { get; set; }
-        public bool GenerateJson { get; set; }
+        public string ExcelSourceFile { get; set; }
+        public string OutputFile { get; set; }
+        public bool ReadFromGoogle { get; set; }
         public bool MongoDbDates { get; set; }
 
         public Options()
         {
             Year = DateTime.Now.Year + 1;
-            GenerateHtml = true;
-            GenerateJson = true;
-            HtmlSourceFile = "source.html";
-            HtmlOutputFile = $"walks{Year}.html";
-            JsonOutputFile = $"walks{Year}.json";
+            ReadFromGoogle = true;
+            ExcelSourceFile = "source.xlsx";
+            OutputFile = $"walks{Year}.json";
         }
 
         public void Validate()
         {
             ValidateYear();
-            ValidateCheckboxes();
-            if (GenerateHtml)
+            if (!ReadFromGoogle)
             {
-                ValidateHtmlOptions();
+                ValidateExcelOptions();
             }
-
-            if (GenerateJson)
-            {
-                ValidateJsonOptions();
-            }
+            ValidateOutputOptions();
         }
 
         private void ValidateYear()
@@ -56,41 +47,23 @@ namespace WalkPageGen
             }
         }
 
-        private void ValidateCheckboxes()
+
+        private void ValidateExcelOptions()
         {
-            if (!(GenerateHtml || GenerateJson))
+            if (string.IsNullOrWhiteSpace(ExcelSourceFile))
             {
-                throw new ArgumentException("At least one checkbox should be checked");
+                throw new ArgumentException("You must supply the location of the Excel source file");
+            }
+
+            if (!File.Exists(ExcelSourceFile))
+            {
+                throw new ArgumentException("The Excel source file does not exist");
             }
         }
 
-        private void ValidateHtmlOptions()
+        private void ValidateOutputOptions()
         {
-            if (string.IsNullOrWhiteSpace(HtmlSourceFile))
-            {
-                throw new ArgumentException("You must supply the location of the HTML source file");
-            }
-
-            if (!File.Exists(HtmlSourceFile))
-            {
-                throw new ArgumentException("The HTML source file does not exist");
-            }
-
-            if (string.IsNullOrWhiteSpace(HtmlOutputFile))
-            {
-                throw new ArgumentException("You must supply the name of the HTML output file");
-            }
-
-            var folderPath = Path.GetDirectoryName(HtmlOutputFile);
-            if (!Directory.Exists(folderPath))
-            {
-                throw new ArgumentException($"The folder \"{folderPath}\" does not exist");
-            }
-        }
-
-        private void ValidateJsonOptions()
-        {
-            var folderPath = Path.GetDirectoryName(JsonOutputFile);
+            var folderPath = Path.GetDirectoryName(OutputFile);
             if (!Directory.Exists(folderPath))
             {
                 throw new ArgumentException($"The folder \"{folderPath}\" does not exist");

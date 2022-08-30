@@ -3,8 +3,14 @@
   <PropertyGroup />
   <ItemGroup />
   <ItemGroup>
+    <Compile Update="EventsForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="MainForm.cs">
       <SubType>Form</SubType>
+    </Compile>
+    <Compile Update="ReportForm.cs">
+      <SubType>UserControl</SubType>
     </Compile>
   </ItemGroup>
 </Project>
