@@ -19,6 +19,7 @@ namespace WalkPageGen
         public string NearTo { get; set; }
         public int DistanceAway { get; set; }
         public double Length { get; set; }
+        public int? Nights { get; set; }
         public double Duration { get; set; }
         public string Source { get; set; }
         public string Url { get; set; }
@@ -64,8 +65,8 @@ namespace WalkPageGen
             const int type = 2;
             const int id = 3;
             const int title = 4;
-            const int start = 5;
-            const int county = 6;
+            const int county = 5;
+            const int start = 6;
             const int away = 7;
             const int length = 8;
             const int ascent = 9;
@@ -82,6 +83,7 @@ namespace WalkPageGen
             const int grading = 20;
             const int fuelCost = 21;
             const int image = 22;
+            const int nights = 23;
 
             if (values.Count < 23)
             {
@@ -108,6 +110,20 @@ namespace WalkPageGen
             Terrain = Convert.ToString(values[terrain]);
             County = Convert.ToString(values[county]);
             Image = Convert.ToString(values[image]);
+
+            if (Type == "Weekend")
+            {
+                if (values.Count < 24)
+                {
+                    throw new ArgumentException("You must supply the number of nights for a weekend");
+                }
+
+                Nights = int.TryParse(Convert.ToString(values[nights]), out int nightsAway) ? nightsAway : 0;
+                if (Nights < 0)
+                {
+                    throw new ArgumentException("The number of nights must be greater than 0");
+                }
+            }
 
             ValidateGrading(Convert.ToString(values[grading]));
 

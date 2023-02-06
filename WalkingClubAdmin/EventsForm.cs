@@ -33,7 +33,11 @@ namespace WalkingClubAdmin
         {
             var options = Options.Read();
             YearCombo.SelectedItem = options.Year;
-            GoogleRadioButton.Checked = options.ReadFromGoogle;
+            if (options.ReadFromGoogle)
+                GoogleRadioButton.Checked = true;
+            else
+                ExcelRadioButton.Checked = true;
+            ExcelSourceFileTextBox.Text = options.ExcelSourceFile;
             OutputFileTextBox.Text = options.OutputFile;
             MongoDbDatesCheckBox.Checked = options.MongoDbDates;
         }

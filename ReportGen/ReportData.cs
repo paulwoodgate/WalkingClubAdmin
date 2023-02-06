@@ -15,25 +15,32 @@ namespace ReportGen
         public string Rating { get; set; }
         public string CoverPhoto { get; set; }
         public string Photographer { get; set; }
-        public List<ReportPhoto> Photos { get; } = new List<ReportPhoto>();
+        public List<PhotoList> PhotoSets { get; } = new List<PhotoList>();
 
-        public ReportData(List<string> filenames = null, List<string> captions = null)
+        public ReportData(List<string> photographers = null, List<string> filenames = null, List<string> captions = null)
         {
-            if (filenames?.Count != captions?.Count)
+            if (filenames?.Count != captions?.Count || photographers?.Count != filenames?.Count)
             {
-                throw new ArgumentException("You must supply the same number of captions as files");
+                throw new ArgumentException("You must supply the same number of photographers and captions as files");
             }
 
-            CreatePhotoList(filenames, captions);
+            CreatePhotoList(photographers, filenames, captions);
         }
 
-        private void CreatePhotoList(List<string> filenames, List<string> captions)
+        private void CreatePhotoList(List<string> photographers, List<string> filenames, List<string> captions)
         {
             if (filenames != null)
             {
+                PhotoList photos = new PhotoList();
                 for (int i = 0; i < filenames.Count; i++)
                 {
-                    Photos.Add(new ReportPhoto(filenames[i], captions[i]));
+                    if (!string.IsNullOrWhiteSpace(photographers[i]))
+                    {
+                        photos = new PhotoList();
+                        PhotoSets.Add(photos);
+                        photos.Photographer = photographers[i];
+                    }
+                    photos.Photos.Add(new ReportPhoto(filenames[i], captions[i]));
                 }
             }
         }
@@ -67,9 +74,9 @@ namespace ReportGen
                     throw new ArgumentException("You must enter a valid end date for the event.");
                 }
             }
-            if (!string.IsNullOrEmpty(SubjectType) && SubjectType != "Day" && SubjectType != "Group")
+            if (!string.IsNullOrEmpty(SubjectType) && SubjectType != "Day" && SubjectType != "Group" && SubjectType != "Walk")
             {
-                throw new ArgumentException("The Subject Type must be empty, Day, or Group");
+                throw new ArgumentException("The Subject Type must be empty, Day, Group, or Walk");
             }
             return true;
         }

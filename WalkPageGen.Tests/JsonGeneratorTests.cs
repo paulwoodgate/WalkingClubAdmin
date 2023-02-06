@@ -76,7 +76,7 @@ namespace WalkPageGen.Tests
             const double length = 11.3;
             const string ascent = "177m (581ft)";
             var url = string.Empty;
-            const string description = "Walking through undulating countryside in the Beane valley this route takes in 3 of the most attractive villages of Hertfordshire.";
+            const string description = "[Walking through undulating countryside in the Beane valley this route takes in 3 of the most attractive villages of Hertfordshire.]";
             const string depart = "8:30am The Woodman";
             const string map = "193";
             const string w3words = "///f.f.f";

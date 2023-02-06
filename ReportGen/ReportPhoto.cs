@@ -18,8 +18,6 @@ namespace ReportGen
             Caption = caption;
         }
 
-
-
         public string ToJson()
         {
             return $"{{\"file\": \"{Filename}\", \"caption\": \"{Caption}\"}}";

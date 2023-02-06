@@ -17,8 +17,7 @@ namespace ReportGen
         public string Author { get; set; }
         public string Rating { get; set; }
         public string CoverPhoto { get; set; }
-        public string Photographer { get; set; }
-        public List<ReportPhoto> Photos {get;set;}
+        public List<PhotoList> PhotoSets {get;set;}
 
         public Report(ReportData data)
         {
@@ -30,14 +29,13 @@ namespace ReportGen
             Author = data.ReportBy;
             Rating = data.Rating;
             CoverPhoto = PhotoService.StripPathFromFilename(data.CoverPhoto);
-            Photographer = data.Photographer;
 
             if (!string.IsNullOrWhiteSpace(data.Report))
             {
                 Text = data.Report.Split("\r\n").Where(t => t.Length > 0).ToArray();
             }
 
-            Photos = data.Photos;
+            PhotoSets = data.PhotoSets;
         }
 
         public string ToJson()
@@ -66,13 +64,9 @@ namespace ReportGen
                 sb.Append("\t\"walkRating\": \"").Append(Rating).AppendLine("\",");
             }
             sb.Append("\t\"coverPhoto\": \"").Append(CoverPhoto).AppendLine("\",");
-            if (SubjectType != "Group")
+            if (SubjectType != "Group" && PhotoSets?.Count > 0)
             {
-                sb.Append("\t\"photographer\": \"").Append(Photographer).AppendLine("\",");
-                if (Photos?.Count > 0)
-                {
-                    sb.Append("\t\"photos\": [").AppendJoin(", ", Photos.Select(p => p.ToJson())).AppendLine("]");
-                }
+                sb.Append("\t\"photoSets\": [").AppendJoin(", ", PhotoSets?.Select(p => p.ToJson())).AppendLine("]");
             }
             sb.AppendLine("}]");
 

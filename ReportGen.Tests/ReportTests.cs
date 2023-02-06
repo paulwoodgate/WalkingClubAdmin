@@ -122,42 +122,34 @@ namespace ReportGen.Tests
         }
 
         [Fact]
-        public void ShouldPopulatePhotographer()
+        public void ShouldPopulatePhotoSets()
         {
-            const string photographer = "Alan & Alexandra";
-            var data = new ReportData
-            {
-                Photographer = photographer
-            };
-
-            var report = new Report(data);
-
-            Assert.Equal(photographer, report.Photographer);
-        }
-
-        [Fact]
-        public void ShouldPopulatePhotos()
-        {
+            var photographers = new List<string> { "Alan", null, null, null, null, null };
             var captions = new List<string> { "an interesting photo", "", "Something or else", "", "", "The end" };
             var files = new List<string> { "walk140421_1.jpg", "walk140421_2.jpg", "walk140421_3.jpg", "walk140421_4.jpg", "walk140421_5.jpg", "walk140421_6.jpg" };
 
-            var data = new ReportData(files, captions);
+            var data = new ReportData(photographers, files, captions);
             var report = new Report(data);
 
-            Assert.Equal(captions.Count, report.Photos.Count);
+            Assert.Single(report.PhotoSets);
+            var photoSet = report.PhotoSets[0];
+
+            Assert.Equal(photographers[0], photoSet.Photographer);
+            Assert.Equal(captions.Count, photoSet.Photos.Count);
             for(var x = 0; x < captions.Count; x++)
             {
-                Assert.Equal(files[x], report.Photos[x].Filename);
-                Assert.Equal(captions[x], report.Photos[x].Caption);
+                Assert.Equal(files[x], photoSet.Photos[x].Filename);
+                Assert.Equal(captions[x], photoSet.Photos[x].Caption);
             }
         }
 
         [Fact]
         public void ShouldGenerateJson()
         {
+            var photographers = new List<string> { "Alan", null, null };
             var files = new List<string> { "walk230421_1.jpg", "walk230421_2.jpg", "walk230421_3.jpg" };
             var captions = new List<string> { "Photo 1", "", "Photo 3" };
-            var data = new ReportData(files, captions)
+            var data = new ReportData(photographers, files, captions)
             {
                 Id = "walk140421",
                 Date = new DateTime(2021, 4, 14),
@@ -177,6 +169,11 @@ namespace ReportGen.Tests
                 "{\"file\": \"walk230421_2.jpg\", \"caption\": \"\"}, " +
                 "{\"file\": \"walk230421_3.jpg\", \"caption\": \"Photo 3\"}" +
             "]";
+            const string expectedPhotoSets = "[{" +
+            "\"photographer\": \"Alan\", " +
+            "\"photos\": " + expectedPhotos +
+            "}]";
+
 
             Assert.StartsWith("[{", json);
             Assert.Contains("\t\"id\": \"walk140421\",\r\n", json);
@@ -188,17 +185,17 @@ namespace ReportGen.Tests
             Assert.Contains("\t\"reportBy\": \"Sue\",\r\n", json);
             Assert.Contains("\t\"walkRating\": \"Average\",\r\n", json);
             Assert.Contains("\t\"coverPhoto\": \"walk140421_1.jpg\",\r\n", json);
-            Assert.Contains("\t\"photographer\": \"Alan\",\r\n", json);
-            Assert.Contains($"\t\"photos\": {expectedPhotos}", json);
+            Assert.Contains($"\t\"photoSets\": {expectedPhotoSets}", json);
             Assert.EndsWith("}]\r\n", json);
         }
 
         [Fact]
         public void ShouldGenerateJsonForGroup()
         {
+            var photographers = new List<string> { "Alan", null, null };
             var files = new List<string> { "walk230421_1.jpg", "walk230421_2.jpg", "walk230421_3.jpg" };
             var captions = new List<string> { "Photo 1", "", "Photo 3" };
-            var data = new ReportData(files, captions)
+            var data = new ReportData(photographers, files, captions)
             {
                 Id = "walk140421",
                 Date = new DateTime(2021, 4, 14),
@@ -222,13 +219,13 @@ namespace ReportGen.Tests
             Assert.DoesNotContain("\t\"report\": [", json);
             Assert.DoesNotContain("\t\"reportBy\": ", json);
             Assert.DoesNotContain("\t\"walkRating\": ", json);
-            Assert.DoesNotContain("\t\"photographer\": ", json);
-            Assert.DoesNotContain("\t\"photos\": ", json);
+            Assert.DoesNotContain("\"photographer\": ", json);
+            Assert.DoesNotContain("\"photos\": ", json);
             Assert.EndsWith("}]\r\n", json);
         }
 
         [Fact]
-        public void ToJsonShouldOmitPhotosElementIfNoPhotos()
+        public void ToJsonShouldOmitPhotoSetsElementIfNoPhotos()
         {
             var data = new ReportData()
             {
@@ -238,8 +235,7 @@ namespace ReportGen.Tests
                 Report = "This is an interesting walk\r\nvery interesting indeed",
                 ReportBy = "Sue",
                 Rating = "Average",
-                CoverPhoto = "walk140421_1.jpg",
-                Photographer = "Alan"
+                CoverPhoto = "walk140421_1.jpg"
             };
 
             var report = new Report(data);
@@ -254,8 +250,7 @@ namespace ReportGen.Tests
             Assert.Contains("\t\"reportBy\": \"Sue\",\r\n", json);
             Assert.Contains("\t\"walkRating\": \"Average\",\r\n", json);
             Assert.Contains("\t\"coverPhoto\": \"walk140421_1.jpg\",\r\n", json);
-            Assert.Contains("\t\"photographer\": \"Alan\",\r\n", json);
-            Assert.DoesNotContain("\t\"photos\":", json);
+            Assert.DoesNotContain("\t\"photoSets\":", json);
             Assert.EndsWith("}]\r\n", json);
         }
 

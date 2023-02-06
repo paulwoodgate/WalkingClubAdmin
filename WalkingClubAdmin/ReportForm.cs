@@ -27,7 +27,6 @@ namespace WalkingClubAdmin
                 ReportTextBox.Enabled = false;
                 AuthorTextBox.Enabled = false;
                 RatingTextBox.Enabled = false;
-                PhotographerTextBox.Enabled = false;
                 PhotosGrid.Enabled = false;
             }
             else
@@ -36,7 +35,6 @@ namespace WalkingClubAdmin
                 ReportTextBox.Enabled = true;
                 AuthorTextBox.Enabled = true;
                 RatingTextBox.Enabled = true;
-                PhotographerTextBox.Enabled = true;
                 PhotosGrid.Enabled = true;
             }
         }
@@ -47,32 +45,33 @@ namespace WalkingClubAdmin
             DatePicker.Value = DateTime.Today;
             EndDatePicker.Value = DateTime.Today;
             TitleTextBox.Text = "";
-            SubjectTypeCombobox.SelectedIndex = 0;
+            SubjectTypeCombobox.Text = "Walk";
             ReportTextBox.Text = "";
             AuthorTextBox.Text = "";
             RatingTextBox.Text = "";
             PhotoTextBox.Text = "";
-            PhotographerTextBox.Text = "";
             PhotosGrid.Rows.Clear();
         }
 
         private void CreateButton_Click(object sender, EventArgs e)
         {
+            var photographers = new List<string>();
             var files = new List<string>();
             var captions = new List<string>();
 
 #pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
             foreach (var row in PhotosGrid.Rows.OfType<DataGridViewRow>())
             {
-                if (!string.IsNullOrWhiteSpace((string)row.Cells[0].Value))
+                if (!string.IsNullOrWhiteSpace((string)row.Cells[1].Value))
                 {
-                    files.Add(row.Cells[0].Value.ToString());
-                    captions.Add(row.Cells[1].Value?.ToString());
+                    photographers.Add(row.Cells[0].Value?.ToString());
+                    files.Add(row.Cells[1].Value?.ToString());
+                    captions.Add(row.Cells[2].Value?.ToString());
                 }
             }
 #pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
 
-            var data = new ReportData(files, captions)
+            var data = new ReportData(photographers, files, captions)
             {
                 Id = IdTextBox.Text,
                 Date = DatePicker.Value.Date,
@@ -83,7 +82,6 @@ namespace WalkingClubAdmin
                 ReportBy = AuthorTextBox.Text,
                 Rating = RatingTextBox.Text,
                 CoverPhoto = PhotoTextBox.Text,
-                Photographer = PhotographerTextBox.Text,
             };
 
             try

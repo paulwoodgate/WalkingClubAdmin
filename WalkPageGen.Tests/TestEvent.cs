@@ -36,5 +36,6 @@ namespace WalkPageGen.Tests
         public bool IsRoute { get; set; } = true;
         public string County { get; set; }
         public string Image { get; set; }
+        public int? Nights { get; set; }
     }
 }

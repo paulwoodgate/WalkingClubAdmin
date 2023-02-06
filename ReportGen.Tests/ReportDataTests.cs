@@ -11,7 +11,7 @@ namespace ReportGen.Tests
         {
             var data = new ReportData();
 
-            Assert.NotNull(data.Photos);
+            Assert.NotNull(data.PhotoSets);
         }
 
         [Fact]
@@ -19,9 +19,21 @@ namespace ReportGen.Tests
         {
             var files = new List<string> { "file1.jpg", "file2.jpg", "file2.jpg" };
             var captions = new List<string> { "Caption1", "Caption2" };
+            var photographers = new List<string> { "Alan", null, null };
 
-            var ex = Assert.Throws<ArgumentException>(() => new ReportData(files, captions));
-            Assert.Equal("You must supply the same number of captions as files", ex.Message);
+            var ex = Assert.Throws<ArgumentException>(() => new ReportData(photographers, files, captions));
+            Assert.Equal("You must supply the same number of photographers and captions as files", ex.Message);
+        }
+
+        [Fact]
+        public void ShouldThrowExceptionIfDifferentNumbersOfFilesAndPhotographers()
+        {
+            var files = new List<string> { "file1.jpg", "file2.jpg", "file2.jpg" };
+            var captions = new List<string> { "Caption1", "Caption2", "" };
+            var photographers = new List<string> { "Alan", null };
+
+            var ex = Assert.Throws<ArgumentException>(() => new ReportData(photographers, files, captions));
+            Assert.Equal("You must supply the same number of photographers and captions as files", ex.Message);
         }
 
         [Fact]
@@ -145,7 +157,7 @@ namespace ReportGen.Tests
             };
 
             var ex = Assert.Throws<ArgumentException>(() => data.Validate());
-            Assert.Equal("The Subject Type must be empty, Day, or Group", ex.Message);
+            Assert.Equal("The Subject Type must be empty, Day, Group, or Walk", ex.Message);
         }
         [Fact]
         public void ValidateShouldReturnTrueIfSuccessful()
@@ -159,6 +171,36 @@ namespace ReportGen.Tests
 
             var success = data.Validate();
             Assert.True(success);
+        }
+
+        [Fact]
+        public void ShouldCreatePhotoSet()
+        {
+            var files = new List<string> { "file1.jpg", "file2.jpg", "file2.jpg" };
+            var captions = new List<string> { "Caption1", "Caption2", "Caption3" };
+            var photographers = new List<string> { "Alan", null, null };
+
+            var data = new ReportData(photographers, files, captions);
+
+            Assert.Single(data.PhotoSets);
+            Assert.Equal("Alan", data.PhotoSets[0].Photographer);
+            Assert.Equal(3, data.PhotoSets[0].Photos.Count);
+        }
+
+        [Fact]
+        public void ShouldCreatePhotoSets()
+        {
+            var files = new List<string> { "file1.jpg", "file2.jpg", "file3.jpg", "file4.jpg" };
+            var captions = new List<string> { "Caption1", "Caption2", "Caption3", "Caption4" };
+            var photographers = new List<string> { "Alan", null, null, "Paul" };
+
+            var data = new ReportData(photographers, files, captions);
+
+            Assert.Equal(2, data.PhotoSets.Count);
+            Assert.Equal("Alan", data.PhotoSets[0].Photographer);
+            Assert.Equal(3, data.PhotoSets[0].Photos.Count);
+            Assert.Equal("Paul", data.PhotoSets[1].Photographer);
+            Assert.Single(data.PhotoSets[1].Photos);
         }
     }
 }

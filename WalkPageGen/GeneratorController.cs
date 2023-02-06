@@ -31,7 +31,8 @@ namespace WalkPageGen
         {
             var walkData = new ExcelReader(settings.Workbook, options.Year.ToString())
                 .ReadRangeValues(settings.Range);
-            return walkData.ConvertAll(w => new Event(w))
+            return walkData.Where(w => !string.IsNullOrEmpty((string)w[2])).ToList()
+                .ConvertAll(w => new Event(w))
                 .OrderBy(w => w.EventDate)
                 .ToList<IEvent>();
         }

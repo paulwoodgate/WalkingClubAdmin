@@ -35,11 +35,10 @@
             this.ClearButton = new System.Windows.Forms.Button();
             this.CreateButton = new System.Windows.Forms.Button();
             this.PhotosGrid = new System.Windows.Forms.DataGridView();
+            this.Photographer = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.Caption = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label13 = new System.Windows.Forms.Label();
-            this.PhotographerTextBox = new System.Windows.Forms.TextBox();
-            this.label12 = new System.Windows.Forms.Label();
             this.PhotoTextBox = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
             this.RatingTextBox = new System.Windows.Forms.TextBox();
@@ -95,14 +94,15 @@
             this.SubjectTypeCombobox.AutoCompleteSource = System.Windows.Forms.AutoCompleteSource.ListItems;
             this.SubjectTypeCombobox.FormattingEnabled = true;
             this.SubjectTypeCombobox.Items.AddRange(new object[] {
-            "",
             "Day",
-            "Group"});
+            "Group",
+            "Walk"});
             this.SubjectTypeCombobox.Location = new System.Drawing.Point(1121, 20);
             this.SubjectTypeCombobox.Margin = new System.Windows.Forms.Padding(4);
             this.SubjectTypeCombobox.Name = "SubjectTypeCombobox";
             this.SubjectTypeCombobox.Size = new System.Drawing.Size(235, 38);
             this.SubjectTypeCombobox.TabIndex = 26;
+            this.SubjectTypeCombobox.Text = "Walk";
             this.SubjectTypeCombobox.SelectedIndexChanged += new System.EventHandler(this.SubjectTypeCombobox_SelectedIndexChanged);
             // 
             // ClearButton
@@ -131,6 +131,7 @@
             // 
             this.PhotosGrid.ColumnHeadersHeightSizeMode = System.Windows.Forms.DataGridViewColumnHeadersHeightSizeMode.AutoSize;
             this.PhotosGrid.Columns.AddRange(new System.Windows.Forms.DataGridViewColumn[] {
+            this.Photographer,
             this.Filename,
             this.Caption});
             this.PhotosGrid.Location = new System.Drawing.Point(183, 516);
@@ -141,6 +142,13 @@
             this.PhotosGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.PhotosGrid.Size = new System.Drawing.Size(1174, 306);
             this.PhotosGrid.TabIndex = 40;
+            // 
+            // Photographer
+            // 
+            this.Photographer.HeaderText = "Photographer";
+            this.Photographer.MinimumWidth = 9;
+            this.Photographer.Name = "Photographer";
+            this.Photographer.Width = 175;
             // 
             // Filename
             // 
@@ -167,28 +175,9 @@
             this.label13.TabIndex = 44;
             this.label13.Text = "Photos:";
             // 
-            // PhotographerTextBox
-            // 
-            this.PhotographerTextBox.Location = new System.Drawing.Point(183, 449);
-            this.PhotographerTextBox.Margin = new System.Windows.Forms.Padding(4);
-            this.PhotographerTextBox.Name = "PhotographerTextBox";
-            this.PhotographerTextBox.Size = new System.Drawing.Size(235, 35);
-            this.PhotographerTextBox.TabIndex = 37;
-            // 
-            // label12
-            // 
-            this.label12.AutoSize = true;
-            this.label12.Location = new System.Drawing.Point(29, 454);
-            this.label12.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
-            this.label12.Name = "label12";
-            this.label12.Size = new System.Drawing.Size(145, 30);
-            this.label12.TabIndex = 43;
-            this.label12.Text = "Photographer:";
-            this.label12.TextAlign = System.Drawing.ContentAlignment.TopCenter;
-            // 
             // PhotoTextBox
             // 
-            this.PhotoTextBox.Location = new System.Drawing.Point(1121, 449);
+            this.PhotoTextBox.Location = new System.Drawing.Point(183, 449);
             this.PhotoTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.PhotoTextBox.Name = "PhotoTextBox";
             this.PhotoTextBox.Size = new System.Drawing.Size(235, 35);
@@ -197,7 +186,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(973, 454);
+            this.label11.Location = new System.Drawing.Point(29, 452);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(132, 30);
@@ -330,8 +319,6 @@
             this.Controls.Add(this.CreateButton);
             this.Controls.Add(this.PhotosGrid);
             this.Controls.Add(this.label13);
-            this.Controls.Add(this.PhotographerTextBox);
-            this.Controls.Add(this.label12);
             this.Controls.Add(this.PhotoTextBox);
             this.Controls.Add(this.label11);
             this.Controls.Add(this.RatingTextBox);
@@ -363,11 +350,7 @@
         private System.Windows.Forms.Button ClearButton;
         private System.Windows.Forms.Button CreateButton;
         private System.Windows.Forms.DataGridView PhotosGrid;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Filename;
-        private System.Windows.Forms.DataGridViewTextBoxColumn Caption;
         private System.Windows.Forms.Label label13;
-        private System.Windows.Forms.TextBox PhotographerTextBox;
-        private System.Windows.Forms.Label label12;
         private System.Windows.Forms.TextBox PhotoTextBox;
         private System.Windows.Forms.Label label11;
         private System.Windows.Forms.TextBox RatingTextBox;
@@ -382,5 +365,8 @@
         private System.Windows.Forms.Label label6;
         private System.Windows.Forms.TextBox IdTextBox;
         private System.Windows.Forms.Label label4;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Photographer;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Filename;
+        private System.Windows.Forms.DataGridViewTextBoxColumn Caption;
     }
 }
