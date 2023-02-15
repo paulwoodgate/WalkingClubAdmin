@@ -56,7 +56,8 @@ namespace ReportGen
             }
             if (Text?.Length > 0)
             {
-                sb.Append("\t\"report\": [\"").AppendJoin("\",\"", Text).AppendLine("\"],");
+                var lines = Text.Select(t => t.Replace("\"", "\\\"")).ToArray();
+                sb.Append("\t\"report\": [\"").AppendJoin("\",\"", lines).AppendLine("\"],");
             }
             if (SubjectType != "Group")
             {

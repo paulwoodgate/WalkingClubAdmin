@@ -35,9 +35,6 @@
             this.ClearButton = new System.Windows.Forms.Button();
             this.CreateButton = new System.Windows.Forms.Button();
             this.PhotosGrid = new System.Windows.Forms.DataGridView();
-            this.Photographer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Caption = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label13 = new System.Windows.Forms.Label();
             this.PhotoTextBox = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -53,6 +50,9 @@
             this.label6 = new System.Windows.Forms.Label();
             this.IdTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
+            this.Photographer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Caption = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.PhotosGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -142,28 +142,6 @@
             this.PhotosGrid.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
             this.PhotosGrid.Size = new System.Drawing.Size(1174, 306);
             this.PhotosGrid.TabIndex = 40;
-            // 
-            // Photographer
-            // 
-            this.Photographer.HeaderText = "Photographer";
-            this.Photographer.MinimumWidth = 9;
-            this.Photographer.Name = "Photographer";
-            this.Photographer.Width = 175;
-            // 
-            // Filename
-            // 
-            this.Filename.HeaderText = "Filename";
-            this.Filename.MinimumWidth = 6;
-            this.Filename.Name = "Filename";
-            this.Filename.Width = 250;
-            // 
-            // Caption
-            // 
-            this.Caption.HeaderText = "Caption";
-            this.Caption.MinimumWidth = 6;
-            this.Caption.Name = "Caption";
-            this.Caption.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Caption.Width = 480;
             // 
             // label13
             // 
@@ -306,6 +284,28 @@
             this.label4.Size = new System.Drawing.Size(39, 30);
             this.label4.TabIndex = 24;
             this.label4.Text = "ID:";
+            // 
+            // Photographer
+            // 
+            this.Photographer.HeaderText = "Photographer";
+            this.Photographer.MinimumWidth = 9;
+            this.Photographer.Name = "Photographer";
+            this.Photographer.Width = 175;
+            // 
+            // Filename
+            // 
+            this.Filename.HeaderText = "Filename";
+            this.Filename.MinimumWidth = 6;
+            this.Filename.Name = "Filename";
+            this.Filename.Width = 250;
+            // 
+            // Caption
+            // 
+            this.Caption.HeaderText = "Caption";
+            this.Caption.MinimumWidth = 6;
+            this.Caption.Name = "Caption";
+            this.Caption.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Caption.Width = 650;
             // 
             // ReportForm
             // 

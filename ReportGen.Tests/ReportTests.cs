@@ -255,6 +255,36 @@ namespace ReportGen.Tests
         }
 
         [Fact]
+        public void ToJsonShouldEscapeDoubleQuotesInText()
+        {
+            const string reportText = "This has \"quote\" marks";
+
+            var data = new ReportData
+            {
+                Report = reportText
+            };
+
+            var report = new Report(data);
+            var json = report.ToJson();
+
+            Assert.Contains("\t\"report\": [\"This has \\\"quote\\\" marks\"],\r\n", json);
+        }
+
+        [Fact]
+        public void ToJsonShouldEscapeDoubleQuotesInCaptions()
+        {
+            var photographers = new List<string> { "Alan" };
+            var captions = new List<string> { "an \"interesting\" photo" };
+            var files = new List<string> { "walk140421_1.jpg" };
+
+            var data = new ReportData(photographers, files, captions);
+            var report = new Report(data);
+            var json = report.ToJson();
+
+            Assert.Contains("\"caption\": \"an \\\"interesting\\\" photo\"", json);
+        }
+
+        [Fact]
         public void ShouldStripBlankLinesFromReport()
         {
             var data = new ReportData
