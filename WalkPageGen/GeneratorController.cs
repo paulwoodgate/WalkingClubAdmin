@@ -37,15 +37,6 @@ namespace WalkPageGen
                 .ToList<IEvent>();
         }
 
-        private static string GenerateHtml(int year, List<IEvent> walks, string html)
-        {
-            var pageGen = new HtmlGenerator(walks);
-            var table = pageGen.CreateShortcutTable(year);
-            html = html.Replace("{ShortcutTable}", table);
-            var walksTable = pageGen.CreateWalksList();
-            return html.Replace("{WalksTable}", walksTable);
-        }
-
         private static void CreateJsonFile(Options options, List<IEvent> walks)
         {
             var json = GenerateJson(walks, options.MongoDbDates);

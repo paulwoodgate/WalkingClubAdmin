@@ -11,8 +11,8 @@ namespace WalkPageGen
 {
     public class SheetService
     {
-        public string ApplicationName;
-        public string SpreadsheetId;
+        public string ApplicationName { get; set; }
+        public string SpreadsheetId { get; set; }
         private readonly string[] Scopes = { SheetsService.Scope.SpreadsheetsReadonly };
 
         public SheetService(string applicationName, string spreadSheetId)
@@ -46,7 +46,7 @@ namespace WalkPageGen
             {
                 const string credentialPath = "token.json";
                 credential = GoogleWebAuthorizationBroker.AuthorizeAsync(
-                    GoogleClientSecrets.Load(stream).Secrets,
+                    GoogleClientSecrets.FromStream(stream).Secrets,
                     Scopes,
                     "user",
                     CancellationToken.None,
