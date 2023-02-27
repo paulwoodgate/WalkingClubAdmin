@@ -30,7 +30,7 @@ namespace WalkPageGen
         public double FuelCost { get; set; }
         public string County { get; set; }
         public string Image { get; set; }
-        public string Identifier => $"{Type.ToLower()}-{EventDate.ToString("yyyy-MM-dd")}";
+        public string Identifier => $"{Type.ToLower()}-{EventDate:yyyy-MM-dd}";
         public string FormattedDate => IsRoute || Duration == 0
             ? DateHelper.FormatWalkDate(EventDate)
             : DateHelper.FormatEventDates(EventDate, Duration);
