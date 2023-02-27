@@ -47,7 +47,7 @@ namespace WalkingClubAdmin
             this.tabControl1.Margin = new System.Windows.Forms.Padding(4);
             this.tabControl1.Name = "tabControl1";
             this.tabControl1.SelectedIndex = 0;
-            this.tabControl1.Size = new System.Drawing.Size(1400, 957);
+            this.tabControl1.Size = new System.Drawing.Size(1400, 1147);
             this.tabControl1.TabIndex = 0;
             // 
             // reportsTabPage
@@ -57,7 +57,7 @@ namespace WalkingClubAdmin
             this.reportsTabPage.Margin = new System.Windows.Forms.Padding(4);
             this.reportsTabPage.Name = "reportsTabPage";
             this.reportsTabPage.Padding = new System.Windows.Forms.Padding(4);
-            this.reportsTabPage.Size = new System.Drawing.Size(1392, 914);
+            this.reportsTabPage.Size = new System.Drawing.Size(1392, 1104);
             this.reportsTabPage.TabIndex = 1;
             this.reportsTabPage.Text = "Reports";
             this.reportsTabPage.UseVisualStyleBackColor = true;
@@ -88,7 +88,7 @@ namespace WalkingClubAdmin
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            this.ClientSize = new System.Drawing.Size(1416, 1035);
+            this.ClientSize = new System.Drawing.Size(1416, 1225);
             this.Controls.Add(this.pictureBox1);
             this.Controls.Add(this.tabControl1);
             this.FormBorderStyle = System.Windows.Forms.FormBorderStyle.FixedDialog;

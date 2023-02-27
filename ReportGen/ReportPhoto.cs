@@ -20,7 +20,7 @@ namespace ReportGen
 
         public string ToJson()
         {
-            return $"{{\"file\": \"{Filename}\", \"caption\": \"{Caption.Replace("\"", "\\\"")}\"}}";
+            return $"{{\"file\": \"{Filename}\", \"caption\": \"{Caption?.Replace("\"", "\\\"")}\"}}";
         }
     }
 }

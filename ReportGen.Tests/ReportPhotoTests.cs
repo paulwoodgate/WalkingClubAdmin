@@ -28,5 +28,15 @@ namespace ReportGen.Tests
 
             Assert.Equal($"{{\"file\": \"{photo.Filename}\", \"caption\": \"{photo.Caption}\"}}", photo.ToJson());
         }
+
+        [Fact]
+        public void ToJsonShouldNotErrorIfNullCaption()
+        {
+            var photo = new ReportPhoto("photo_1_1.jpg", null);
+
+            var json = photo.ToJson();
+
+            Assert.NotNull(json);
+        }
     }
 }

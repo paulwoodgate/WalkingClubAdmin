@@ -35,6 +35,9 @@
             this.ClearButton = new System.Windows.Forms.Button();
             this.CreateButton = new System.Windows.Forms.Button();
             this.PhotosGrid = new System.Windows.Forms.DataGridView();
+            this.Photographer = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
+            this.Caption = new System.Windows.Forms.DataGridViewTextBoxColumn();
             this.label13 = new System.Windows.Forms.Label();
             this.PhotoTextBox = new System.Windows.Forms.TextBox();
             this.label11 = new System.Windows.Forms.Label();
@@ -50,9 +53,6 @@
             this.label6 = new System.Windows.Forms.Label();
             this.IdTextBox = new System.Windows.Forms.TextBox();
             this.label4 = new System.Windows.Forms.Label();
-            this.Photographer = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Filename = new System.Windows.Forms.DataGridViewTextBoxColumn();
-            this.Caption = new System.Windows.Forms.DataGridViewTextBoxColumn();
             ((System.ComponentModel.ISupportInitialize)(this.PhotosGrid)).BeginInit();
             this.SuspendLayout();
             // 
@@ -107,7 +107,7 @@
             // 
             // ClearButton
             // 
-            this.ClearButton.Location = new System.Drawing.Point(1059, 832);
+            this.ClearButton.Location = new System.Drawing.Point(1059, 1029);
             this.ClearButton.Margin = new System.Windows.Forms.Padding(4);
             this.ClearButton.Name = "ClearButton";
             this.ClearButton.Size = new System.Drawing.Size(141, 44);
@@ -118,7 +118,7 @@
             // 
             // CreateButton
             // 
-            this.CreateButton.Location = new System.Drawing.Point(1217, 832);
+            this.CreateButton.Location = new System.Drawing.Point(1217, 1029);
             this.CreateButton.Margin = new System.Windows.Forms.Padding(4);
             this.CreateButton.Name = "CreateButton";
             this.CreateButton.Size = new System.Drawing.Size(141, 44);
@@ -134,7 +134,7 @@
             this.Photographer,
             this.Filename,
             this.Caption});
-            this.PhotosGrid.Location = new System.Drawing.Point(183, 516);
+            this.PhotosGrid.Location = new System.Drawing.Point(183, 706);
             this.PhotosGrid.Margin = new System.Windows.Forms.Padding(4);
             this.PhotosGrid.Name = "PhotosGrid";
             this.PhotosGrid.RowHeadersWidth = 51;
@@ -143,10 +143,32 @@
             this.PhotosGrid.Size = new System.Drawing.Size(1174, 306);
             this.PhotosGrid.TabIndex = 40;
             // 
+            // Photographer
+            // 
+            this.Photographer.HeaderText = "Photographer";
+            this.Photographer.MinimumWidth = 9;
+            this.Photographer.Name = "Photographer";
+            this.Photographer.Width = 175;
+            // 
+            // Filename
+            // 
+            this.Filename.HeaderText = "Filename";
+            this.Filename.MinimumWidth = 6;
+            this.Filename.Name = "Filename";
+            this.Filename.Width = 250;
+            // 
+            // Caption
+            // 
+            this.Caption.HeaderText = "Caption";
+            this.Caption.MinimumWidth = 6;
+            this.Caption.Name = "Caption";
+            this.Caption.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
+            this.Caption.Width = 650;
+            // 
             // label13
             // 
             this.label13.AutoSize = true;
-            this.label13.Location = new System.Drawing.Point(29, 516);
+            this.label13.Location = new System.Drawing.Point(29, 706);
             this.label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label13.Name = "label13";
             this.label13.Size = new System.Drawing.Size(82, 30);
@@ -155,7 +177,7 @@
             // 
             // PhotoTextBox
             // 
-            this.PhotoTextBox.Location = new System.Drawing.Point(183, 449);
+            this.PhotoTextBox.Location = new System.Drawing.Point(183, 639);
             this.PhotoTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.PhotoTextBox.Name = "PhotoTextBox";
             this.PhotoTextBox.Size = new System.Drawing.Size(235, 35);
@@ -164,7 +186,7 @@
             // label11
             // 
             this.label11.AutoSize = true;
-            this.label11.Location = new System.Drawing.Point(29, 452);
+            this.label11.Location = new System.Drawing.Point(29, 639);
             this.label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label11.Name = "label11";
             this.label11.Size = new System.Drawing.Size(132, 30);
@@ -173,7 +195,7 @@
             // 
             // RatingTextBox
             // 
-            this.RatingTextBox.Location = new System.Drawing.Point(1121, 394);
+            this.RatingTextBox.Location = new System.Drawing.Point(1121, 584);
             this.RatingTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.RatingTextBox.Name = "RatingTextBox";
             this.RatingTextBox.Size = new System.Drawing.Size(235, 35);
@@ -182,7 +204,7 @@
             // label10
             // 
             this.label10.AutoSize = true;
-            this.label10.Location = new System.Drawing.Point(1029, 398);
+            this.label10.Location = new System.Drawing.Point(1029, 584);
             this.label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label10.Name = "label10";
             this.label10.Size = new System.Drawing.Size(78, 30);
@@ -192,7 +214,7 @@
             // 
             // AuthorTextBox
             // 
-            this.AuthorTextBox.Location = new System.Drawing.Point(183, 394);
+            this.AuthorTextBox.Location = new System.Drawing.Point(183, 584);
             this.AuthorTextBox.Margin = new System.Windows.Forms.Padding(4);
             this.AuthorTextBox.Name = "AuthorTextBox";
             this.AuthorTextBox.Size = new System.Drawing.Size(235, 35);
@@ -201,7 +223,7 @@
             // label9
             // 
             this.label9.AutoSize = true;
-            this.label9.Location = new System.Drawing.Point(23, 398);
+            this.label9.Location = new System.Drawing.Point(23, 584);
             this.label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             this.label9.Name = "label9";
             this.label9.Size = new System.Drawing.Size(82, 30);
@@ -233,7 +255,7 @@
             this.ReportTextBox.Multiline = true;
             this.ReportTextBox.Name = "ReportTextBox";
             this.ReportTextBox.ScrollBars = System.Windows.Forms.ScrollBars.Vertical;
-            this.ReportTextBox.Size = new System.Drawing.Size(1172, 190);
+            this.ReportTextBox.Size = new System.Drawing.Size(1172, 380);
             this.ReportTextBox.TabIndex = 32;
             // 
             // label7
@@ -285,28 +307,6 @@
             this.label4.TabIndex = 24;
             this.label4.Text = "ID:";
             // 
-            // Photographer
-            // 
-            this.Photographer.HeaderText = "Photographer";
-            this.Photographer.MinimumWidth = 9;
-            this.Photographer.Name = "Photographer";
-            this.Photographer.Width = 175;
-            // 
-            // Filename
-            // 
-            this.Filename.HeaderText = "Filename";
-            this.Filename.MinimumWidth = 6;
-            this.Filename.Name = "Filename";
-            this.Filename.Width = 250;
-            // 
-            // Caption
-            // 
-            this.Caption.HeaderText = "Caption";
-            this.Caption.MinimumWidth = 6;
-            this.Caption.Name = "Caption";
-            this.Caption.SortMode = System.Windows.Forms.DataGridViewColumnSortMode.NotSortable;
-            this.Caption.Width = 650;
-            // 
             // ReportForm
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
@@ -334,7 +334,7 @@
             this.Controls.Add(this.IdTextBox);
             this.Controls.Add(this.label4);
             this.Name = "ReportForm";
-            this.Size = new System.Drawing.Size(1403, 908);
+            this.Size = new System.Drawing.Size(1403, 1100);
             ((System.ComponentModel.ISupportInitialize)(this.PhotosGrid)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
