@@ -9,7 +9,7 @@ namespace WalkPageGen
     {
         public int Sequence { get; set; }
         public DateTime EventDate { get; set; }
-        public string Type { get; set; } = "";
+        public EventType Type { get; set; }
         public string Title { get; set; }
         public string Description { get; set; }
         public string Depart { get; set; }
@@ -30,32 +30,18 @@ namespace WalkPageGen
         public double FuelCost { get; set; }
         public string County { get; set; }
         public string Image { get; set; }
-        public string Identifier => $"{Type.ToLower()}-{EventDate:yyyy-MM-dd}";
+        public string Identifier => $"{Type.ToString().ToLower()}-{EventDate:yyyy-MM-dd}";
         public string FormattedDate => IsRoute || Duration == 0
             ? DateHelper.FormatWalkDate(EventDate)
             : DateHelper.FormatEventDates(EventDate, Duration);
         public string SortDate => EventDate.ToString("yyyy-MM-dd");
-        public string FileId => $"{Type.ToLower()}-{EventDate.Year}-{Sequence:D2}";
-        public string FormattedDuration
-        {
-            get
-            {
-                if (Duration == 0 || !IsRoute)
-                    return string.Empty;
-
-                var desc = $"{Math.Floor(Duration)} hours";
-                var minutes = Duration % 1 * 60;
-                if (minutes > 0)
-                    desc += $" {minutes} minutes";
-
-                return desc;
-            }
-        }
+        public string FileId => $"{Type.ToString().ToLower()}-{EventDate.Year}-{Sequence:D2}";
+        public string FormattedDuration => EventHelper.FormatDuration(Duration, IsRoute);
 
         public string MapName => string.IsNullOrEmpty(Map) ? string.Empty : $"Explorer {Map}";
-        public string FormattedDistance => DistanceAway > 0 ? $"{DistanceAway} miles" : string.Empty;
-        public string FormattedLength=> Length > 0 ? $"{Length} miles" : string.Empty;
-        public string FormattedCost => FuelCost > 0 ? FuelCost.ToString("C2") : string.Empty;
+        public string FormattedDistance => EventHelper.FormatDistance(DistanceAway);
+        public string FormattedLength => EventHelper.FormatDistance(Length);
+        public string FormattedCost => EventHelper.FormatCost(FuelCost);
         public bool IsRoute { get; }
 
         public Event(IList<object> values)
@@ -92,7 +78,7 @@ namespace WalkPageGen
 
             Sequence = Convert.ToInt32(values[sequence]);
             EventDate = Convert.ToDateTime(values[eventDate]);
-            Type = Convert.ToString(values[type]);
+            Type = Enum.Parse<EventType>(values[type].ToString());
             Title = Convert.ToString(values[title]);
             StartLocation = Convert.ToString(values[start]);
             DistanceAway = int.TryParse(Convert.ToString(values[away]), out int distanceAway) ? distanceAway : 0;
@@ -111,7 +97,7 @@ namespace WalkPageGen
             County = Convert.ToString(values[county]);
             Image = Convert.ToString(values[image]);
 
-            if (Type == "Weekend")
+            if (Type == EventType.Weekend)
             {
                 if (values.Count < 24)
                 {

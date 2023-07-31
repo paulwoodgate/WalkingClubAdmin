@@ -2,11 +2,13 @@
 
 namespace WalkPageGen
 {
+    public enum EventType { Walk, Social, Weekend}
+
     public interface IEvent
     {
         int Sequence { get; set; }
         DateTime EventDate { get; set; }
-        string Type { get; set; }
+        EventType Type { get; set; }
 
         string Title { get; set; }
         string Identifier { get; }

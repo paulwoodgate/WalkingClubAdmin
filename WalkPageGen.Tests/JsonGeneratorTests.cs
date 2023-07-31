@@ -1,4 +1,6 @@
-﻿using System;
+﻿// Ignore Spelling: Json Mongo
+
+using System;
 using System.Collections.Generic;
 using Xunit;
 
@@ -22,7 +24,7 @@ namespace WalkPageGen.Tests
             {
                 new TestEvent()
             };
-            const string expected = "\t\t\"type\": \"\",\r\n";
+            const string expected = "\t\t\"type\": \"Walk\",\r\n";
             var json = JsonGenerator.CreateJson(walks, false);
 
             Assert.Contains(expected, json);
@@ -33,8 +35,8 @@ namespace WalkPageGen.Tests
         {
             var walks = new List<IEvent>
             {
-                new TestEvent{Sequence = 1, Type = "Walk", EventDate = DateTime.Parse("2020-01-05")},
-                new TestEvent{Sequence = 2, Type = "Walk", EventDate = DateTime.Parse("2020-01-19")}
+                new TestEvent{Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05")},
+                new TestEvent{Sequence = 2, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-19")}
             };
 
             var json = JsonGenerator.CreateJson(walks, false);
@@ -47,9 +49,9 @@ namespace WalkPageGen.Tests
         {
             var walks = new List<IEvent>
             {
-                new TestEvent{Sequence = 1, Type = "Walk", EventDate = DateTime.Parse("2020-01-05")},
-                new TestEvent{Sequence = 2, Type = "Weekend", EventDate = DateTime.Parse("2020-01-05"), IsRoute = false},
-                new TestEvent{Sequence = 3, Type = "Social", EventDate = DateTime.Parse("2020-01-19"), IsRoute = false}
+                new TestEvent{Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05")},
+                new TestEvent{Sequence = 2, Type = EventType.Weekend, EventDate = DateTime.Parse("2020-01-05"), IsRoute = false},
+                new TestEvent{Sequence = 3, Type = EventType.Social, EventDate = DateTime.Parse("2020-01-19"), IsRoute = false}
             };
             const string expected1 = "\t\t\"id\": \"walk-2020-01\",\r\n";
             const string expected2 = "\t\t\"id\": \"weekend-2020-02\",\r\n";
@@ -127,7 +129,7 @@ namespace WalkPageGen.Tests
         {
             var walks = new List<IEvent>
             {
-                new TestEvent{Sequence = 1, Type = "Social", EventDate = DateTime.Parse("2020-01-05")}
+                new TestEvent{Sequence = 1, Type = EventType.Social, EventDate = DateTime.Parse("2020-01-05")}
             };
             const string expected = "\t\t\"date\": {\"$date\":\"2020-01-05T00:00:00Z\"},\r\n";
 
@@ -141,7 +143,7 @@ namespace WalkPageGen.Tests
         {
             var testEvent = new TestEvent{
                     Sequence = 1,
-                    Type = "Walk",
+                    Type = EventType.Walk,
                     EventDate = DateTime.Parse("2020-01-05"),
                     Duration=5,
                     FuelCost=5,
@@ -159,10 +161,10 @@ namespace WalkPageGen.Tests
         }
 
         [Theory]
-        [InlineData("Social")]
-        [InlineData("Walk")]
-        [InlineData("Weekend")]
-        public void ShouldHaveCorrectEventTypeAndId(string eventType)
+        [InlineData(EventType.Social)]
+        [InlineData(EventType.Walk)]
+        [InlineData(EventType.Weekend)]
+        public void ShouldHaveCorrectEventTypeAndId(EventType eventType)
         {
             var testEvent = new TestEvent
             {
@@ -174,7 +176,7 @@ namespace WalkPageGen.Tests
                 Length = 10
             };
             var expectedType = $"\t\t\"type\": \"{testEvent.Type}\",\r\n";
-            var expectedId = $"\t\t\"id\": \"{testEvent.Type.ToLower()}-{testEvent.EventDate.Year}-{testEvent.Sequence:D2}\",\r\n";
+            var expectedId = $"\t\t\"id\": \"{testEvent.Type.ToString().ToLower()}-{testEvent.EventDate.Year}-{testEvent.Sequence:D2}\",\r\n";
 
             var json = JsonGenerator.CreateJson(new List<IEvent> { testEvent }, true);
 

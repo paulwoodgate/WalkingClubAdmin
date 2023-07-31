@@ -14,6 +14,9 @@ namespace WalkPageGen
         public string OutputFile { get; set; }
         public bool ReadFromGoogle { get; set; }
         public bool MongoDbDates { get; set; }
+        public bool CreateJson { get; set; }
+        public bool CreateMarkdown { get; set; }
+        public string MarkdownFolder { get; set; }
 
         public Options()
         {
@@ -21,6 +24,8 @@ namespace WalkPageGen
             ReadFromGoogle = true;
             ExcelSourceFile = "source.xlsx";
             OutputFile = $"walks{Year}.json";
+            CreateJson = true;
+            CreateMarkdown = false;
         }
 
         public void Validate()
@@ -63,10 +68,30 @@ namespace WalkPageGen
 
         private void ValidateOutputOptions()
         {
-            var folderPath = Path.GetDirectoryName(OutputFile);
-            if (!Directory.Exists(folderPath))
+            if (CreateJson)
             {
-                throw new ArgumentException($"The folder \"{folderPath}\" does not exist");
+                ValidateJsonOptions();
+            }
+            if (CreateMarkdown)
+            {
+                ValidateMarkdownOptions();
+            }
+        }
+
+        private void ValidateJsonOptions()
+        {
+            var jsonFolderPath = Path.GetDirectoryName(OutputFile);
+            if (!Directory.Exists(jsonFolderPath))
+            {
+                throw new ArgumentException($"The folder \"{jsonFolderPath}\" does not exist");
+            }
+        }
+
+        private void ValidateMarkdownOptions()
+        {
+            if (!Directory.Exists(MarkdownFolder))
+            {
+                throw new ArgumentException($"The folder \"{MarkdownFolder}\" does not exist");
             }
         }
 

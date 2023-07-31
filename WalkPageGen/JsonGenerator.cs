@@ -1,4 +1,6 @@
-﻿using System.Collections.Generic;
+﻿// Ignore Spelling: Mongo Json
+
+using System.Collections.Generic;
 using System.Text;
 
 namespace WalkPageGen

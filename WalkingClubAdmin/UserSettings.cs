@@ -19,7 +19,7 @@ namespace WalkingClubAdmin
             CreateHtml = true;
             CreateJson = true;
             HtmlSourceFile = "source.html";
-            HtmlOutputFile = $"walks{Year}.htnl";
+            HtmlOutputFile = $"walks{Year}.html";
             JsonOutputFile = $"walks{Year}.json";
         }
         public void Save(string filename)

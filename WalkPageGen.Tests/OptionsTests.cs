@@ -7,7 +7,7 @@ namespace WalkPageGen.Tests
     public class OptionsTests
     {
         [Fact]
-        public void SaveShouldCreateFIle()
+        public void SaveShouldCreateFile()
         {
             var options = new Options
             {
@@ -31,6 +31,26 @@ namespace WalkPageGen.Tests
 
             if (File.Exists(expectedPath))
                 File.Delete(expectedPath);
+        }
+
+        [Fact]
+        public void SaveShouldSaveMarkdownOptions()
+        {
+            var options = new Options
+            {
+                Year = 2023,
+                CreateJson = false,
+                CreateMarkdown = true,
+                MarkdownFolder = "c:\\documents\\events"
+            };
+            const string filename = "optionsTest.json";
+
+            options.Save(filename);
+            var savedOptions = Options.Read(filename);
+
+            Assert.False(savedOptions.CreateJson, "CreateJson");
+            Assert.True(savedOptions.CreateMarkdown, "CreateMarkdown");
+            Assert.Equal(options.MarkdownFolder, savedOptions.MarkdownFolder);
         }
 
         [Fact]
@@ -80,6 +100,7 @@ namespace WalkPageGen.Tests
             {
                 Year = DateTime.Today.Date.Year,
                 ReadFromGoogle = true,
+                CreateJson = true,
                 ExcelSourceFile = "source.xlsx",
                 OutputFile = Path.Combine(Directory.GetCurrentDirectory(), "walks2021.json")
             };
@@ -110,7 +131,24 @@ namespace WalkPageGen.Tests
             {
                 Year = DateTime.Now.Year,
                 ReadFromGoogle = true,
+                CreateJson = true,
                 OutputFile = "c:\\invalidFolder\\walks2020.html"
+            };
+
+            var ex = Assert.Throws<ArgumentException>(() => options.Validate());
+            Assert.Equal("The folder \"c:\\invalidFolder\" does not exist", ex.Message);
+        }
+
+        [Fact]
+        public void ValidateShouldErrorIfMarkdownFolderDoesNotExist()
+        {
+            var options = new Options
+            {
+                Year = DateTime.Now.Year,
+                ReadFromGoogle = true,
+                CreateMarkdown = true,
+                CreateJson = false,
+                MarkdownFolder = "c:\\invalidFolder"
             };
 
             var ex = Assert.Throws<ArgumentException>(() => options.Validate());

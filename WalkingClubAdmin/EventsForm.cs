@@ -40,6 +40,9 @@ namespace WalkingClubAdmin
             ExcelSourceFileTextBox.Text = options.ExcelSourceFile;
             OutputFileTextBox.Text = options.OutputFile;
             MongoDbDatesCheckBox.Checked = options.MongoDbDates;
+            JsonCheckBox.Checked = options.CreateJson;
+            MarkdownCheckBox.Checked = options.CreateMarkdown;
+            MarkdownFolderTextBox.Text = options.MarkdownFolder;
         }
 
         private void GoogleRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -96,7 +99,10 @@ namespace WalkingClubAdmin
                     ReadFromGoogle = GoogleRadioButton.Checked,
                     ExcelSourceFile = ExcelSourceFileTextBox.Text,
                     OutputFile = OutputFileTextBox.Text,
-                    MongoDbDates = MongoDbDatesCheckBox.Checked
+                    MongoDbDates = MongoDbDatesCheckBox.Checked,
+                    CreateJson = JsonCheckBox.Checked,
+                    CreateMarkdown = MarkdownCheckBox.Checked,
+                    MarkdownFolder = MarkdownFolderTextBox.Text,
                 };
 
                 options.Validate();
@@ -107,6 +113,35 @@ namespace WalkingClubAdmin
             catch (ArgumentException ex)
             {
                 MessageBox.Show(ex.Message);
+            }
+        }
+
+        private void JsonCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            OutputFileTextBox.Enabled = JsonCheckBox.Checked;
+            OutputFileBrowseButton.Enabled = JsonCheckBox.Checked;
+            MongoDbDatesCheckBox.Enabled = JsonCheckBox.Checked;
+            GenerateButton.Enabled = JsonCheckBox.Checked || MarkdownCheckBox.Checked;
+        }
+
+        private void MarkdownCheckBox_CheckedChanged(object sender, EventArgs e)
+        {
+            MarkdownFolderTextBox.Enabled = MarkdownCheckBox.Checked;
+            MarkdownFolderButton.Enabled = MarkdownCheckBox.Checked;
+            GenerateButton.Enabled = JsonCheckBox.Checked || MarkdownCheckBox.Checked;
+        }
+
+        private void MarkdownFolderButton_Click(object sender, EventArgs e)
+        {
+            var dialog = new FolderBrowserDialog
+            {
+                InitialDirectory = MarkdownFolderTextBox.Text,
+                ShowNewFolderButton = true
+            };
+
+            if (dialog.ShowDialog(this) == DialogResult.OK)
+            {
+                MarkdownFolderTextBox.Text = dialog.SelectedPath;
             }
         }
     }

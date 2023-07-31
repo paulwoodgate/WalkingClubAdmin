@@ -10,11 +10,18 @@ namespace WalkPageGen
         {
             var settings = AppSettings.ReadFromFile("appsettings.json");
 
-            List<IEvent> walks = (options.ReadFromGoogle)
+            List<IEvent> events = (options.ReadFromGoogle)
                 ? GetEventsFromGoogle(options, settings)
                 : GetEventsFromExcel(options, settings);
 
-            CreateJsonFile(options, walks);
+            if (options.CreateJson)
+            {
+                CreateJsonFile(events, options);
+            }
+            if (options.CreateMarkdown)
+            {
+                CreateMarkdownFiles(events, options);
+            }
         }
 
         private static List<IEvent> GetEventsFromGoogle(Options options, AppSettings settings)
@@ -37,16 +44,20 @@ namespace WalkPageGen
                 .ToList<IEvent>();
         }
 
-        private static void CreateJsonFile(Options options, List<IEvent> walks)
+        private static void CreateJsonFile(List<IEvent> walks, Options options)
         {
-            var json = GenerateJson(walks, options.MongoDbDates);
+            var json = JsonGenerator.CreateJson(walks, options.MongoDbDates);
 
             File.WriteAllText(options.OutputFile, json);
         }
 
-        private static string GenerateJson(List<IEvent> walks, bool useMongoDateFormat)
+        private static void CreateMarkdownFiles(List<IEvent> events, Options options)
         {
-            return JsonGenerator.CreateJson(walks, useMongoDateFormat);
+            foreach (var ev in events)
+            {
+                var markdown = MarkdownGenerator.CreateMarkdown(ev);
+                File.WriteAllText(Path.Combine(options.MarkdownFolder, ev.FileId + ".md"), markdown);
+            }
         }
     }
 }
