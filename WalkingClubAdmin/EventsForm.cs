@@ -110,7 +110,7 @@ namespace WalkingClubAdmin
                 GeneratorController.GeneratePage(options);
                 MessageBox.Show($"The walks for {options.Year} have been successfully generated");
             }
-            catch (ArgumentException ex)
+            catch (Exception ex)
             {
                 MessageBox.Show(ex.Message);
             }

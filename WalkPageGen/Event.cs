@@ -51,8 +51,8 @@ namespace WalkPageGen
             const int type = 2;
             const int id = 3;
             const int title = 4;
-            const int start = 5;
-            const int county = 6;
+            const int start = 6;
+            const int county = 5;
             const int away = 7;
             const int length = 8;
             const int ascent = 9;

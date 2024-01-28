@@ -93,7 +93,7 @@ namespace WalkPageGen.Tests
 
             var objects = new object[]
             {
-                sequence, date, type, id, title, start, county, away, length, ascent, url, w3words, description, depart,
+                sequence, date, type, id, title, county, start, away, length, ascent, url, w3words, description, depart,
                 map, gridRef, nearTo, source, duration, terrain, grading, fuelCost, image
             };
 

@@ -45,7 +45,7 @@ namespace WalkPageGen.Tests
             const double fuelCost = 2.5;
             const string image = "empty.png";
 
-            var values = new object[] { sequence, date, type.ToString(), 3, title, start, county, distanceAway, length, ascent, url, w3w, description,
+            var values = new object[] { sequence, date, type.ToString(), 3, title, county, start, distanceAway, length, ascent, url, w3w, description,
                 leave, map, mapRef, closeTo, source, duration, terrain, grading, fuelCost, image};
 
             var ev = new Event(values);
@@ -101,7 +101,7 @@ namespace WalkPageGen.Tests
             const string image = "empty.png";
             const int nights = 3;
 
-            var values = new object[] { sequence, date, type.ToString(), 3, title, start, county, distanceAway, length, ascent, url, w3w, description,
+            var values = new object[] { sequence, date, type.ToString(), 3, title, county, start, distanceAway, length, ascent, url, w3w, description,
                 leave, map, mapRef, closeTo, source, duration, terrain, grading, fuelCost, image, nights};
 
             var ev = new Event(values);
@@ -214,7 +214,7 @@ namespace WalkPageGen.Tests
             const string image = "empty.png";
             const int nights = -3;
 
-            var values = new object[] { sequence, date, type.ToString(), 3, title, start, county, distanceAway, length, ascent, url, w3w, description,
+            var values = new object[] { sequence, date, type.ToString(), 3, title, county, start, distanceAway, length, ascent, url, w3w, description,
                 leave, map, mapRef, closeTo, source, duration, terrain, grading, fuelCost, image, nights};
 
             var ev = new Event(values);

@@ -105,14 +105,16 @@
             // 
             // ExcelSourceBrowseButton
             // 
+            ExcelSourceBrowseButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             ExcelSourceBrowseButton.Enabled = false;
+            ExcelSourceBrowseButton.ForeColor = System.Drawing.SystemColors.ControlLight;
             ExcelSourceBrowseButton.Location = new System.Drawing.Point(1294, 222);
             ExcelSourceBrowseButton.Margin = new System.Windows.Forms.Padding(4);
             ExcelSourceBrowseButton.Name = "ExcelSourceBrowseButton";
             ExcelSourceBrowseButton.Size = new System.Drawing.Size(58, 44);
             ExcelSourceBrowseButton.TabIndex = 10;
             ExcelSourceBrowseButton.Text = "...";
-            ExcelSourceBrowseButton.UseVisualStyleBackColor = true;
+            ExcelSourceBrowseButton.UseVisualStyleBackColor = false;
             ExcelSourceBrowseButton.Click += ExcelSourceBrowseButton_Click;
             // 
             // ExcelSourceFileTextBox
@@ -167,24 +169,28 @@
             // 
             // GenerateButton
             // 
+            GenerateButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            GenerateButton.ForeColor = System.Drawing.SystemColors.ControlLight;
             GenerateButton.Location = new System.Drawing.Point(715, 705);
             GenerateButton.Margin = new System.Windows.Forms.Padding(4);
             GenerateButton.Name = "GenerateButton";
             GenerateButton.Size = new System.Drawing.Size(141, 44);
             GenerateButton.TabIndex = 14;
             GenerateButton.Text = "Generate";
-            GenerateButton.UseVisualStyleBackColor = true;
+            GenerateButton.UseVisualStyleBackColor = false;
             GenerateButton.Click += GenerateButton_Click;
             // 
             // OutputFileBrowseButton
             // 
+            OutputFileBrowseButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            OutputFileBrowseButton.ForeColor = System.Drawing.SystemColors.ControlLight;
             OutputFileBrowseButton.Location = new System.Drawing.Point(1296, 372);
             OutputFileBrowseButton.Margin = new System.Windows.Forms.Padding(4);
             OutputFileBrowseButton.Name = "OutputFileBrowseButton";
             OutputFileBrowseButton.Size = new System.Drawing.Size(58, 44);
             OutputFileBrowseButton.TabIndex = 15;
             OutputFileBrowseButton.Text = "...";
-            OutputFileBrowseButton.UseVisualStyleBackColor = true;
+            OutputFileBrowseButton.UseVisualStyleBackColor = false;
             OutputFileBrowseButton.Click += OutputFileBrowseButton_Click;
             // 
             // JsonCheckBox
@@ -241,13 +247,15 @@
             // 
             // MarkdownFolderButton
             // 
+            MarkdownFolderButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
+            MarkdownFolderButton.ForeColor = System.Drawing.SystemColors.ControlLight;
             MarkdownFolderButton.Location = new System.Drawing.Point(1293, 575);
             MarkdownFolderButton.Margin = new System.Windows.Forms.Padding(4);
             MarkdownFolderButton.Name = "MarkdownFolderButton";
             MarkdownFolderButton.Size = new System.Drawing.Size(58, 44);
             MarkdownFolderButton.TabIndex = 21;
             MarkdownFolderButton.Text = "...";
-            MarkdownFolderButton.UseVisualStyleBackColor = true;
+            MarkdownFolderButton.UseVisualStyleBackColor = false;
             MarkdownFolderButton.Click += MarkdownFolderButton_Click;
             // 
             // groupBox2
@@ -262,6 +270,7 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
+            BackColor = System.Drawing.SystemColors.AppWorkspace;
             Controls.Add(MarkdownFolderButton);
             Controls.Add(label4);
             Controls.Add(MarkdownFolderTextBox);
