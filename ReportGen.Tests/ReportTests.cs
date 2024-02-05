@@ -23,7 +23,7 @@ namespace ReportGen.Tests
         [Fact]
         public void ShouldPopulateDateAndYear()
         {
-            var eventDate = new DateTime(2021, 5, 18);
+            var eventDate = new DateTime(2021, 5, 18, 0, 0, 0, DateTimeKind.Local);
             var data = new ReportData
             {
                 Date = eventDate
@@ -62,6 +62,7 @@ namespace ReportGen.Tests
 
             Assert.Equal(subjectType, report.SubjectType);
         }
+
         [Fact]
         public void ShouldPopulateReportText()
         {
@@ -152,7 +153,7 @@ namespace ReportGen.Tests
             var data = new ReportData(photographers, files, captions)
             {
                 Id = "walk140421",
-                Date = new DateTime(2021, 4, 14),
+                Date = new DateTime(2021, 4, 14, 0, 0, 0, DateTimeKind.Local),
                 Title = "Yelden",
                 SubjectType = "Day",
                 Report = "This is an interesting walk\r\nvery interesting indeed",
@@ -173,7 +174,6 @@ namespace ReportGen.Tests
             "\"photographer\": \"Alan\", " +
             "\"photos\": " + expectedPhotos +
             "}]";
-
 
             Assert.StartsWith("[{", json);
             Assert.Contains("\t\"id\": \"walk140421\",\r\n", json);
@@ -198,8 +198,8 @@ namespace ReportGen.Tests
             var data = new ReportData(photographers, files, captions)
             {
                 Id = "walk140421",
-                Date = new DateTime(2021, 4, 14),
-                EndDate = new DateTime(2021, 4, 17),
+                Date = new DateTime(2021, 4, 14, 0, 0, 0, DateTimeKind.Local),
+                EndDate = new DateTime(2021, 4, 17, 0, 0, 0, DateTimeKind.Local),
                 Title = "Yelden",
                 SubjectType = "Group",
                 CoverPhoto = "walk140421_1.jpg"
@@ -230,7 +230,7 @@ namespace ReportGen.Tests
             var data = new ReportData()
             {
                 Id = "walk140421",
-                Date = new DateTime(2021, 4, 14),
+                Date = new DateTime(2021, 4, 14, 0, 0, 0, DateTimeKind.Local),
                 Title = "Yelden",
                 Report = "This is an interesting walk\r\nvery interesting indeed",
                 ReportBy = "Sue",

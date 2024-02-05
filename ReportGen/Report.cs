@@ -9,10 +9,23 @@ namespace ReportGen
     {
         public string Id { get; set; }
         public DateTime Date { get; set; }
-        public DateTime EndDate { get; set; }
+        public DateTime? EndDate { get; set; }
         public int Year => Date.Year;
         public string Title { get; set; }
         public string SubjectType { get; set; }
+        public string ReportType
+        {
+            get
+            {
+                return SubjectType switch
+                {
+                    "Group" => "Group",
+                    "Day" => "Child",
+                    _ => "Single",
+                };
+            }
+        }
+
         public string[] Text { get; set; }
         public string Author { get; set; }
         public string Rating { get; set; }
@@ -72,6 +85,76 @@ namespace ReportGen
             sb.AppendLine("}]");
 
             return sb.ToString();
+        }
+
+        public string ToMarkDown()
+        {
+            var sb = new StringBuilder();
+
+            CreateFrontmatter(sb);
+            CreateBody(sb);
+            return sb.ToString();
+        }
+
+        private void CreateFrontmatter(StringBuilder sb)
+        {
+            sb.AppendLine("---");
+            sb.Append("reportId: '").Append(Id).AppendLine("'");
+            sb.Append("reportType: '").Append(ReportType).AppendLine("'");
+            sb.Append("title: '").Append(Title).AppendLine("'");
+            sb.Append("reportDate: ").AppendFormat("{0:yyyy-MM-ddT00:00:00Z}", Date).AppendLine();
+            if (ReportType == "Group")
+            {
+                sb.Append("endDate: ").AppendFormat("{0:yyyy-MM-ddT00:00:00Z}", EndDate).AppendLine();
+            }
+            sb.Append("year: ").Append(Date.Year).AppendLine();
+            sb.Append("image: '").Append($"./images/{Year}/{CoverPhoto}").AppendLine("'");
+            sb.AppendLine("---");
+        }
+
+        private void CreateBody(StringBuilder sb)
+        {
+            if (Text?.Length > 0)
+            {
+                foreach (var para in Text)
+                {
+                    sb.AppendLine(para);
+                    sb.AppendLine();
+                }
+            }
+
+            sb.Append("**Report by:** ").Append(Author).AppendLine("   ");
+            sb.Append("**Walk Rating:** ").Append(Rating).AppendLine("   ");
+
+            if (PhotoSets?.Count > 0)
+            {
+                foreach(var photoset in PhotoSets)
+                {
+                    CreatePhotoSet(photoset, sb);
+                }
+            }
+        }
+
+        private void CreatePhotoSet(PhotoList list, StringBuilder sb)
+        {
+            sb.AppendLine();
+            sb.Append("**Photographer:** ").AppendLine(list.Photographer);
+            foreach (var photo in list.Photos)
+            {
+                CreatePhoto(photo, sb);
+            }
+        }
+
+        private void CreatePhoto(ReportPhoto photo, StringBuilder sb)
+        {
+            sb.AppendLine("<figure>");
+            sb.AppendLine($"  <img src=\"./images/{Year}/{photo.Filename}\" alt=\"{(string.IsNullOrWhiteSpace(photo.Caption) ? "Unknown photo" : photo.Caption)}\">");
+            if (!string.IsNullOrWhiteSpace(photo.Caption))
+            {
+                sb.AppendLine($"  <figcaption>{photo.Caption}</figcaption>");
+            }
+            sb.AppendLine("</figure>");
+            sb.AppendLine();
         }
     }
 }

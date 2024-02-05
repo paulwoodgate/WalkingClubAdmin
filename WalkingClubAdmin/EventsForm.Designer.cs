@@ -107,7 +107,7 @@
             // 
             ExcelSourceBrowseButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             ExcelSourceBrowseButton.Enabled = false;
-            ExcelSourceBrowseButton.ForeColor = System.Drawing.SystemColors.ControlLight;
+            ExcelSourceBrowseButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             ExcelSourceBrowseButton.Location = new System.Drawing.Point(1294, 222);
             ExcelSourceBrowseButton.Margin = new System.Windows.Forms.Padding(4);
             ExcelSourceBrowseButton.Name = "ExcelSourceBrowseButton";
@@ -170,7 +170,7 @@
             // GenerateButton
             // 
             GenerateButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            GenerateButton.ForeColor = System.Drawing.SystemColors.ControlLight;
+            GenerateButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             GenerateButton.Location = new System.Drawing.Point(715, 705);
             GenerateButton.Margin = new System.Windows.Forms.Padding(4);
             GenerateButton.Name = "GenerateButton";
@@ -183,7 +183,7 @@
             // OutputFileBrowseButton
             // 
             OutputFileBrowseButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            OutputFileBrowseButton.ForeColor = System.Drawing.SystemColors.ControlLight;
+            OutputFileBrowseButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             OutputFileBrowseButton.Location = new System.Drawing.Point(1296, 372);
             OutputFileBrowseButton.Margin = new System.Windows.Forms.Padding(4);
             OutputFileBrowseButton.Name = "OutputFileBrowseButton";
@@ -248,7 +248,7 @@
             // MarkdownFolderButton
             // 
             MarkdownFolderButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            MarkdownFolderButton.ForeColor = System.Drawing.SystemColors.ControlLight;
+            MarkdownFolderButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             MarkdownFolderButton.Location = new System.Drawing.Point(1293, 575);
             MarkdownFolderButton.Margin = new System.Windows.Forms.Padding(4);
             MarkdownFolderButton.Name = "MarkdownFolderButton";
@@ -270,7 +270,7 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor = System.Drawing.SystemColors.AppWorkspace;
+            BackColor = System.Drawing.SystemColors.ControlDark;
             Controls.Add(MarkdownFolderButton);
             Controls.Add(label4);
             Controls.Add(MarkdownFolderTextBox);

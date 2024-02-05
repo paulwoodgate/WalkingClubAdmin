@@ -3,6 +3,9 @@
   <PropertyGroup />
   <ItemGroup />
   <ItemGroup>
+    <Compile Update="ConvertForm.cs">
+      <SubType>UserControl</SubType>
+    </Compile>
     <Compile Update="EventsForm.cs">
       <SubType>UserControl</SubType>
     </Compile>

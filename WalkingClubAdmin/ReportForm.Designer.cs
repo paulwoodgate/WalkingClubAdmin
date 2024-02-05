@@ -59,7 +59,7 @@
             // label15
             // 
             label15.AutoSize = true;
-            label15.Location = new System.Drawing.Point(1003, 83);
+            label15.Location = new System.Drawing.Point(1010, 80);
             label15.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label15.Name = "label15";
             label15.Size = new System.Drawing.Size(103, 30);
@@ -71,7 +71,7 @@
             EndDatePicker.CustomFormat = "dd/MM/yyyy";
             EndDatePicker.Enabled = false;
             EndDatePicker.Format = System.Windows.Forms.DateTimePickerFormat.Custom;
-            EndDatePicker.Location = new System.Drawing.Point(1121, 76);
+            EndDatePicker.Location = new System.Drawing.Point(1120, 76);
             EndDatePicker.Margin = new System.Windows.Forms.Padding(4);
             EndDatePicker.MinDate = new System.DateTime(2000, 1, 1, 0, 0, 0, 0);
             EndDatePicker.Name = "EndDatePicker";
@@ -81,7 +81,7 @@
             // label14
             // 
             label14.AutoSize = true;
-            label14.Location = new System.Drawing.Point(987, 24);
+            label14.Location = new System.Drawing.Point(1003, 23);
             label14.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label14.Name = "label14";
             label14.Size = new System.Drawing.Size(118, 30);
@@ -105,7 +105,7 @@
             // ClearButton
             // 
             ClearButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            ClearButton.ForeColor = System.Drawing.SystemColors.ControlLight;
+            ClearButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             ClearButton.Location = new System.Drawing.Point(1059, 1029);
             ClearButton.Margin = new System.Windows.Forms.Padding(4);
             ClearButton.Name = "ClearButton";
@@ -118,7 +118,7 @@
             // CreateButton
             // 
             CreateButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
-            CreateButton.ForeColor = System.Drawing.SystemColors.ControlLight;
+            CreateButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
             CreateButton.Location = new System.Drawing.Point(1217, 1029);
             CreateButton.Margin = new System.Windows.Forms.Padding(4);
             CreateButton.Name = "CreateButton";
@@ -166,7 +166,7 @@
             // label13
             // 
             label13.AutoSize = true;
-            label13.Location = new System.Drawing.Point(29, 706);
+            label13.Location = new System.Drawing.Point(26, 715);
             label13.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label13.Name = "label13";
             label13.Size = new System.Drawing.Size(82, 30);
@@ -184,7 +184,7 @@
             // label11
             // 
             label11.AutoSize = true;
-            label11.Location = new System.Drawing.Point(29, 639);
+            label11.Location = new System.Drawing.Point(29, 642);
             label11.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label11.Name = "label11";
             label11.Size = new System.Drawing.Size(132, 30);
@@ -202,7 +202,7 @@
             // label10
             // 
             label10.AutoSize = true;
-            label10.Location = new System.Drawing.Point(1029, 584);
+            label10.Location = new System.Drawing.Point(1035, 584);
             label10.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label10.Name = "label10";
             label10.Size = new System.Drawing.Size(78, 30);
@@ -221,7 +221,7 @@
             // label9
             // 
             label9.AutoSize = true;
-            label9.Location = new System.Drawing.Point(23, 584);
+            label9.Location = new System.Drawing.Point(29, 584);
             label9.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label9.Name = "label9";
             label9.Size = new System.Drawing.Size(82, 30);
@@ -239,7 +239,7 @@
             // label8
             // 
             label8.AutoSize = true;
-            label8.Location = new System.Drawing.Point(23, 134);
+            label8.Location = new System.Drawing.Point(29, 133);
             label8.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label8.Name = "label8";
             label8.Size = new System.Drawing.Size(69, 30);
@@ -259,7 +259,7 @@
             // label7
             // 
             label7.AutoSize = true;
-            label7.Location = new System.Drawing.Point(29, 192);
+            label7.Location = new System.Drawing.Point(26, 191);
             label7.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
             label7.Name = "label7";
             label7.Size = new System.Drawing.Size(79, 30);
@@ -309,7 +309,7 @@
             // 
             AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
-            BackColor = System.Drawing.SystemColors.AppWorkspace;
+            BackColor = System.Drawing.SystemColors.ControlDark;
             Controls.Add(label15);
             Controls.Add(EndDatePicker);
             Controls.Add(label14);

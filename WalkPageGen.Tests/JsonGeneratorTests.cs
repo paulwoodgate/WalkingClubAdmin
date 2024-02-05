@@ -2,6 +2,7 @@
 
 using System;
 using System.Collections.Generic;
+using System.Globalization;
 using Xunit;
 
 namespace WalkPageGen.Tests
@@ -35,8 +36,8 @@ namespace WalkPageGen.Tests
         {
             var walks = new List<IEvent>
             {
-                new TestEvent{Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05")},
-                new TestEvent{Sequence = 2, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-19")}
+                new TestEvent{Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat)},
+                new TestEvent{Sequence = 2, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-19", CultureInfo.CurrentCulture.DateTimeFormat)}
             };
 
             var json = JsonGenerator.CreateJson(walks, false);
@@ -49,9 +50,9 @@ namespace WalkPageGen.Tests
         {
             var walks = new List<IEvent>
             {
-                new TestEvent{Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05")},
-                new TestEvent{Sequence = 2, Type = EventType.Weekend, EventDate = DateTime.Parse("2020-01-05"), IsRoute = false},
-                new TestEvent{Sequence = 3, Type = EventType.Social, EventDate = DateTime.Parse("2020-01-19"), IsRoute = false}
+                new TestEvent{Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat)},
+                new TestEvent{Sequence = 2, Type = EventType.Weekend, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat), IsRoute = false},
+                new TestEvent{Sequence = 3, Type = EventType.Social, EventDate = DateTime.Parse("2020-01-19", CultureInfo.CurrentCulture.DateTimeFormat), IsRoute = false}
             };
             const string expected1 = "\t\t\"id\": \"walk-2020-01\",\r\n";
             const string expected2 = "\t\t\"id\": \"weekend-2020-02\",\r\n";
@@ -68,7 +69,7 @@ namespace WalkPageGen.Tests
         public void ShouldExportAllFields()
         {
             const int sequence = 1;
-            var date = DateTime.Parse("2020-01-05");
+            var date = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat);
             const string type = "Walk";
             const int id = 21;
             const string title = "Belton";
@@ -129,7 +130,7 @@ namespace WalkPageGen.Tests
         {
             var walks = new List<IEvent>
             {
-                new TestEvent{Sequence = 1, Type = EventType.Social, EventDate = DateTime.Parse("2020-01-05")}
+                new TestEvent{Sequence = 1, Type = EventType.Social, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat)}
             };
             const string expected = "\t\t\"date\": {\"$date\":\"2020-01-05T00:00:00Z\"},\r\n";
 
@@ -144,7 +145,7 @@ namespace WalkPageGen.Tests
             var testEvent = new TestEvent{
                     Sequence = 1,
                     Type = EventType.Walk,
-                    EventDate = DateTime.Parse("2020-01-05"),
+                    EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat),
                     Duration=5,
                     FuelCost=5,
                     Length=10
@@ -170,7 +171,7 @@ namespace WalkPageGen.Tests
             {
                 Sequence = 1,
                 Type = eventType,
-                EventDate = DateTime.Parse("2020-01-05"),
+                EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat),
                 Duration = 5,
                 FuelCost = 5,
                 Length = 10
