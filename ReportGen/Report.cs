@@ -108,7 +108,7 @@ namespace ReportGen
                 sb.Append("endDate: ").AppendFormat("{0:yyyy-MM-ddT00:00:00Z}", EndDate).AppendLine();
             }
             sb.Append("year: ").Append(Date.Year).AppendLine();
-            sb.Append("image: '").Append($"./images/{Year}/{CoverPhoto}").AppendLine("'");
+            sb.Append("coverPhoto: '").Append($"./images/{Year}/{CoverPhoto}").AppendLine("'");
             sb.AppendLine("---");
         }
 
@@ -147,13 +147,11 @@ namespace ReportGen
 
         private void CreatePhoto(ReportPhoto photo, StringBuilder sb)
         {
-            sb.AppendLine("<figure>");
-            sb.AppendLine($"  <img src=\"./images/{Year}/{photo.Filename}\" alt=\"{(string.IsNullOrWhiteSpace(photo.Caption) ? "Unknown photo" : photo.Caption)}\">");
+            sb.AppendLine($"<img src=\"/src/content/reports/images/{Year}/{photo.Filename}\" alt=\"{(string.IsNullOrWhiteSpace(photo.Caption) ? "Unknown photo" : photo.Caption)}\">");
             if (!string.IsNullOrWhiteSpace(photo.Caption))
             {
-                sb.AppendLine($"  <figcaption>{photo.Caption}</figcaption>");
+                sb.AppendLine(photo.Caption);
             }
-            sb.AppendLine("</figure>");
             sb.AppendLine();
         }
     }

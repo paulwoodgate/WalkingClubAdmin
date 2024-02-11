@@ -45,11 +45,11 @@ namespace WalkingClubAdmin
             tabControl1.Controls.Add(eventsTabPage);
             tabControl1.Controls.Add(convertTabPage);
             tabControl1.Dock = System.Windows.Forms.DockStyle.Bottom;
-            tabControl1.Location = new System.Drawing.Point(5, 44);
+            tabControl1.Location = new System.Drawing.Point(5, 37);
             tabControl1.Margin = new System.Windows.Forms.Padding(2);
             tabControl1.Name = "tabControl1";
             tabControl1.SelectedIndex = 0;
-            tabControl1.Size = new System.Drawing.Size(816, 493);
+            tabControl1.Size = new System.Drawing.Size(816, 569);
             tabControl1.TabIndex = 0;
             // 
             // reportsTabPage
@@ -60,7 +60,7 @@ namespace WalkingClubAdmin
             reportsTabPage.Margin = new System.Windows.Forms.Padding(2);
             reportsTabPage.Name = "reportsTabPage";
             reportsTabPage.Padding = new System.Windows.Forms.Padding(2);
-            reportsTabPage.Size = new System.Drawing.Size(808, 465);
+            reportsTabPage.Size = new System.Drawing.Size(808, 541);
             reportsTabPage.TabIndex = 1;
             reportsTabPage.Text = "Reports";
             // 
@@ -72,7 +72,7 @@ namespace WalkingClubAdmin
             eventsTabPage.Margin = new System.Windows.Forms.Padding(2);
             eventsTabPage.Name = "eventsTabPage";
             eventsTabPage.Padding = new System.Windows.Forms.Padding(2);
-            eventsTabPage.Size = new System.Drawing.Size(808, 465);
+            eventsTabPage.Size = new System.Drawing.Size(808, 555);
             eventsTabPage.TabIndex = 0;
             eventsTabPage.Text = "Events";
             // 
@@ -83,7 +83,7 @@ namespace WalkingClubAdmin
             convertTabPage.Margin = new System.Windows.Forms.Padding(2);
             convertTabPage.Name = "convertTabPage";
             convertTabPage.Padding = new System.Windows.Forms.Padding(2);
-            convertTabPage.Size = new System.Drawing.Size(808, 465);
+            convertTabPage.Size = new System.Drawing.Size(808, 555);
             convertTabPage.TabIndex = 2;
             convertTabPage.Text = "Convert";
             // 
@@ -103,7 +103,7 @@ namespace WalkingClubAdmin
             AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.SystemColors.ControlDark;
-            ClientSize = new System.Drawing.Size(826, 541);
+            ClientSize = new System.Drawing.Size(826, 610);
             Controls.Add(pictureBox1);
             Controls.Add(tabControl1);
             ForeColor = System.Drawing.SystemColors.ControlDarkDark;

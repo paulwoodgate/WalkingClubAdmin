@@ -36,7 +36,7 @@ namespace ReportGen.Tests
             Assert.Equal("title: 'Yelden'", lines[i++]);
             Assert.Equal("reportDate: 2021-04-04T00:00:00Z", lines[i++]);
             Assert.Equal("year: 2021", lines[i++]);
-            Assert.Equal("image: './images/2021/walk140421_1.jpg'", lines[i++]);
+            Assert.Equal("coverPhoto: './images/2021/walk140421_1.jpg'", lines[i++]);
             Assert.Equal("---", lines[i]);
         }
 
@@ -65,7 +65,7 @@ namespace ReportGen.Tests
             Assert.Equal("reportDate: 2023-07-06T00:00:00Z", lines[i++]);
             Assert.Equal("endDate: 2023-07-12T00:00:00Z", lines[i++]);
             Assert.Equal("year: 2023", lines[i++]);
-            Assert.Equal("image: './images/2023/IMG_7302.jpg'", lines[i++]);
+            Assert.Equal("coverPhoto: './images/2023/IMG_7302.jpg'", lines[i++]);
             Assert.Equal("---", lines[i]);
         }
 
@@ -101,19 +101,13 @@ namespace ReportGen.Tests
             Assert.Equal("**Walk Rating:** Average   ", lines[i++]);
             Assert.Equal("", lines[i++]);
             Assert.Equal("**Photographer:** Alan", lines[i++]);
-            Assert.Equal("<figure>", lines[i++]);
-            Assert.Equal("  <img src=\"./images/2021/walk230421_1.jpg\" alt=\"Photo 1\">", lines[i++]);
-            Assert.Equal("  <figcaption>Photo 1</figcaption>", lines[i++]);
-            Assert.Equal("</figure>", lines[i++]);
+            Assert.Equal("<img src=\"/src/content/reports/images/2021/walk230421_1.jpg\" alt=\"Photo 1\">", lines[i++]);
+            Assert.Equal("Photo 1", lines[i++]);
             Assert.Equal("", lines[i++]);
-            Assert.Equal("<figure>", lines[i++]);
-            Assert.Equal("  <img src=\"./images/2021/walk230421_2.jpg\" alt=\"Unknown photo\">", lines[i++]);
-            Assert.Equal("</figure>", lines[i++]);
+            Assert.Equal("<img src=\"/src/content/reports/images/2021/walk230421_2.jpg\" alt=\"Unknown photo\">", lines[i++]);
             Assert.Equal("", lines[i++]);
-            Assert.Equal("<figure>", lines[i++]);
-            Assert.Equal("  <img src=\"./images/2021/walk230421_3.jpg\" alt=\"Photo 3\">", lines[i++]);
-            Assert.Equal("  <figcaption>Photo 3</figcaption>", lines[i++]);
-            Assert.Equal("</figure>", lines[i++]);
+            Assert.Equal("<img src=\"/src/content/reports/images/2021/walk230421_3.jpg\" alt=\"Photo 3\">", lines[i++]);
+            Assert.Equal("Photo 3", lines[i++]);
             Assert.Equal("", lines[i]);
         }
     }

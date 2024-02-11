@@ -58,13 +58,13 @@ namespace ReportGen.Tests
         }
 
         [Fact]
-        public void ValidateShouldErrorIfNoEndDateandGroup()
+        public void ValidateShouldErrorIfNoEndDateAndGroup()
         {
             var data = new ReportData
             {
                 Id = "Walk_240421",
                 Title = "A walk on the wild side",
-                Date = new DateTime(2021, 12, 31),
+                Date = new DateTime(2021, 12, 31, 0, 0, 0, DateTimeKind.Local),
                 SubjectType = "Group"
             };
 
@@ -79,8 +79,8 @@ namespace ReportGen.Tests
             {
                 Id = "Walk_240421",
                 Title = "A walk on the wild side",
-                Date = new DateTime(2021, 12, 31),
-                EndDate = new DateTime(2021, 12, 30),
+                Date = new DateTime(2021, 12, 31, 0, 0, 0, DateTimeKind.Local),
+                EndDate = new DateTime(2021, 12, 30, 0, 0, 0, DateTimeKind.Local),
                 SubjectType = "Group"
             };
 
@@ -124,7 +124,7 @@ namespace ReportGen.Tests
             {
                 Id = "Walk_240421",
                 Title = "A walk on the wild side",
-                Date = new DateTime(1999, 12, 31)
+                Date = new DateTime(1999, 12, 31, 0, 0, 0, DateTimeKind.Local)
             };
 
             var ex = Assert.Throws<ArgumentException>(() => data.Validate());
@@ -201,6 +201,21 @@ namespace ReportGen.Tests
             Assert.Equal(3, data.PhotoSets[0].Photos.Count);
             Assert.Equal("Paul", data.PhotoSets[1].Photographer);
             Assert.Single(data.PhotoSets[1].Photos);
+        }
+
+        [Fact]
+        public void ValidateShouldErrorIfDayAndNoParent()
+        {
+            var data = new ReportData
+            {
+                Id = "walk_2021_02",
+                Title = "Walk Title",
+                Date = DateTime.Today,
+                SubjectType = "Day"
+            };
+
+            var ex = Assert.Throws<ArgumentException>(() => data.Validate());
+            Assert.Equal("You must enter a Parent event", ex.Message);
         }
     }
 }
