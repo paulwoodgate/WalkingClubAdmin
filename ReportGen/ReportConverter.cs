@@ -1,6 +1,5 @@
 ﻿
 using System.IO;
-using System.Text.Json;
 
 namespace ReportGen
 {
@@ -36,17 +35,12 @@ namespace ReportGen
 
         public void ConvertFile(string filename)
         {
-            var jsonOptions = new JsonSerializerOptions 
-            {
-                IncludeFields = true,
-                PropertyNameCaseInsensitive = true
-            };
             var fileContents = File.ReadAllText(filename);
-            var report = JsonSerializer.Deserialize<Report>(fileContents[1..^1], jsonOptions);
+            var report = new Report(fileContents);
 
-                var markdown = report.ToMarkDown();
-                var outputFile = Path.Combine(Options.OutputPath, $"{report.Id}.md");
-                File.WriteAllText(outputFile, markdown);
+            var markdown = report.ToMarkDown();
+            var outputFile = Path.Combine(Options.OutputPath, $"{report.Id}.md");
+            File.WriteAllText(outputFile, markdown);
         }
     }
 }

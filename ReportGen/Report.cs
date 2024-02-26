@@ -25,7 +25,7 @@ namespace ReportGen
                 };
             }
         }
-
+        public string Parent { get; set; }
         public string[] Text { get; set; }
         public string Author { get; set; }
         public string Rating { get; set; }
@@ -43,12 +43,34 @@ namespace ReportGen
             Rating = data.Rating;
             CoverPhoto = PhotoService.StripPathFromFilename(data.CoverPhoto);
 
+            if (data.SubjectType == "Day")
+            {
+                Parent = data.Parent;
+            }
             if (!string.IsNullOrWhiteSpace(data.Report))
             {
                 Text = data.Report.Split("\r\n").Where(t => t.Length > 0).ToArray();
             }
 
             PhotoSets = data.PhotoSets;
+        }
+
+        public Report(string json)
+        {
+            Id = JsonHelper.FindString("\"id\"", json);
+            Date = JsonHelper.FindDate("\"date\"", json).GetValueOrDefault();
+            EndDate = JsonHelper.FindDate("\"endDate\"", json);
+            Title = JsonHelper.FindString("\"title\"", json);
+            SubjectType = JsonHelper.FindString("\"subjectType\"", json);
+            if (SubjectType == "Day")
+            {
+                Parent = Id[..^2];
+            }
+            Text = JsonHelper.FindArray("\"report\"", json) as string[];
+            Author = JsonHelper.FindString("\"reportBy\"", json);
+            Rating = JsonHelper.FindString("\"walkRating\"", json);
+            CoverPhoto = JsonHelper.FindString("\"coverPhoto\"", json);
+            PhotoSets = JsonHelper.CreatePhotoSets(json);
         }
 
         public string ToJson()
@@ -101,6 +123,10 @@ namespace ReportGen
             sb.AppendLine("---");
             sb.Append("reportId: '").Append(Id).AppendLine("'");
             sb.Append("reportType: '").Append(ReportType).AppendLine("'");
+            if (ReportType == "Child")
+            {
+                sb.Append("parent: '").Append(Parent).AppendLine("'");
+            }
             sb.Append("title: '").Append(Title).AppendLine("'");
             sb.Append("reportDate: ").AppendFormat("{0:yyyy-MM-ddT00:00:00Z}", Date).AppendLine();
             if (ReportType == "Group")

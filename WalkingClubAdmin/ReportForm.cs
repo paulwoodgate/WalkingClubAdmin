@@ -1,13 +1,8 @@
 ﻿using ReportGen;
 using System;
 using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
 using System.IO;
 using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
 
 namespace WalkingClubAdmin
@@ -24,7 +19,6 @@ namespace WalkingClubAdmin
             if (SubjectTypeCombobox.Text == "Group")
             {
                 EndDatePicker.Enabled = true;
-                ParentTextBox.Enabled = true;
                 ReportTextBox.Enabled = false;
                 AuthorTextBox.Enabled = false;
                 RatingTextBox.Enabled = false;
@@ -33,12 +27,13 @@ namespace WalkingClubAdmin
             else
             {
                 EndDatePicker.Enabled = false;
-                ParentTextBox.Enabled = false;
                 ReportTextBox.Enabled = true;
                 AuthorTextBox.Enabled = true;
                 RatingTextBox.Enabled = true;
                 PhotosGrid.Enabled = true;
             }
+
+            ParentTextBox.Enabled = SubjectTypeCombobox.Text == "Day";
         }
 
         private void ClearButton_Click(object sender, EventArgs e)
@@ -111,6 +106,7 @@ namespace WalkingClubAdmin
                 ReportBy = AuthorTextBox.Text,
                 Rating = RatingTextBox.Text,
                 CoverPhoto = PhotoTextBox.Text,
+                Parent = ParentTextBox.Text
             };
             return data;
         }
