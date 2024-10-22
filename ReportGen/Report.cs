@@ -64,9 +64,9 @@ namespace ReportGen
             SubjectType = JsonHelper.FindString("\"subjectType\"", json);
             if (SubjectType == "Day")
             {
-                Parent = Id[..^2];
+                Parent = Id[..Id.LastIndexOf("-")];
             }
-            Text = JsonHelper.FindArray("\"report\"", json) as string[];
+            Text = JsonHelper.FindArray("\"report\"", json);
             Author = JsonHelper.FindString("\"reportBy\"", json);
             Rating = JsonHelper.FindString("\"walkRating\"", json);
             CoverPhoto = JsonHelper.FindString("\"coverPhoto\"", json);
@@ -99,7 +99,7 @@ namespace ReportGen
                 sb.Append("\t\"reportBy\": \"").Append(Author).AppendLine("\",");
                 sb.Append("\t\"walkRating\": \"").Append(Rating).AppendLine("\",");
             }
-            sb.Append("\t\"coverPhoto\": \"").Append(CoverPhoto).AppendLine("\",");
+            sb.Append("\t\"coverPhoto\": \"").Append(CoverPhoto).AppendLine($"\"{(PhotoSets?.Count > 0 ? "," : "")}");
             if (SubjectType != "Group" && PhotoSets?.Count > 0)
             {
                 sb.Append("\t\"photoSets\": [").AppendJoin(", ", PhotoSets?.Select(p => p.ToJson())).AppendLine("]");
@@ -121,20 +121,20 @@ namespace ReportGen
         private void CreateFrontmatter(StringBuilder sb)
         {
             sb.AppendLine("---");
-            sb.Append("reportId: '").Append(Id).AppendLine("'");
-            sb.Append("reportType: '").Append(ReportType).AppendLine("'");
+            sb.Append("reportId: \"").Append(Id).AppendLine("\"");
+            sb.Append("reportType: \"").Append(ReportType).AppendLine("\"");
             if (ReportType == "Child")
             {
-                sb.Append("parent: '").Append(Parent).AppendLine("'");
+                sb.Append("parent: \"").Append(Parent).AppendLine("\"");
             }
-            sb.Append("title: '").Append(Title).AppendLine("'");
+            sb.Append("title: \"").Append(Title).AppendLine("\"");
             sb.Append("reportDate: ").AppendFormat("{0:yyyy-MM-ddT00:00:00Z}", Date).AppendLine();
             if (ReportType == "Group")
             {
                 sb.Append("endDate: ").AppendFormat("{0:yyyy-MM-ddT00:00:00Z}", EndDate).AppendLine();
             }
             sb.Append("year: ").Append(Date.Year).AppendLine();
-            sb.Append("coverPhoto: '").Append($"./images/{Year}/{CoverPhoto}").AppendLine("'");
+            sb.Append("coverPhoto: \"").Append($"./images/{Year}/{CoverPhoto}").AppendLine("\"");
             sb.AppendLine("---");
         }
 
@@ -149,8 +149,11 @@ namespace ReportGen
                 }
             }
 
-            sb.Append("**Report by:** ").Append(Author).AppendLine("   ");
-            sb.Append("**Walk Rating:** ").Append(Rating).AppendLine("   ");
+            if (ReportType != "Group")
+            {
+                sb.Append("**Report by:** ").Append(Author).AppendLine("   ");
+                sb.Append("**Walk Rating:** ").Append(Rating).AppendLine("   ");
+            }
 
             if (PhotoSets?.Count > 0)
             {
@@ -165,15 +168,21 @@ namespace ReportGen
         {
             sb.AppendLine();
             sb.Append("**Photographer:** ").AppendLine(list.Photographer);
+            sb.AppendLine();
+            sb.AppendLine("<center>");
+            sb.AppendLine();
+
             foreach (var photo in list.Photos)
             {
                 CreatePhoto(photo, sb);
             }
+            sb.AppendLine("</center>");
+            sb.AppendLine();
         }
 
         private void CreatePhoto(ReportPhoto photo, StringBuilder sb)
         {
-            sb.AppendLine($"<img src=\"/src/content/reports/images/{Year}/{photo.Filename}\" alt=\"{(string.IsNullOrWhiteSpace(photo.Caption) ? "Unknown photo" : photo.Caption)}\">");
+            sb.Append("![").Append(string.IsNullOrWhiteSpace(photo.Caption) ? "Unknown photo" : photo.Caption).Append("](./images/").Append(Year).Append('/').Append(photo.Filename).AppendLine(")");
             if (!string.IsNullOrWhiteSpace(photo.Caption))
             {
                 sb.AppendLine(photo.Caption);

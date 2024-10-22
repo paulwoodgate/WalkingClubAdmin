@@ -54,29 +54,30 @@
             // label1
             // 
             label1.AutoSize = true;
-            label1.Location = new System.Drawing.Point(151, 53);
-            label1.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label1.Location = new System.Drawing.Point(88, 26);
+            label1.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             label1.Name = "label1";
-            label1.Size = new System.Drawing.Size(57, 30);
+            label1.Size = new System.Drawing.Size(32, 15);
             label1.TabIndex = 3;
             label1.Text = "Year:";
             // 
             // YearCombo
             // 
             YearCombo.FormattingEnabled = true;
-            YearCombo.Location = new System.Drawing.Point(218, 50);
-            YearCombo.Margin = new System.Windows.Forms.Padding(4);
+            YearCombo.Location = new System.Drawing.Point(127, 25);
+            YearCombo.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             YearCombo.Name = "YearCombo";
-            YearCombo.Size = new System.Drawing.Size(132, 38);
+            YearCombo.Size = new System.Drawing.Size(79, 23);
             YearCombo.TabIndex = 2;
             // 
             // GoogleRadioButton
             // 
             GoogleRadioButton.AutoSize = true;
             GoogleRadioButton.Checked = true;
-            GoogleRadioButton.Location = new System.Drawing.Point(218, 125);
+            GoogleRadioButton.Location = new System.Drawing.Point(127, 62);
+            GoogleRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             GoogleRadioButton.Name = "GoogleRadioButton";
-            GoogleRadioButton.Size = new System.Drawing.Size(171, 34);
+            GoogleRadioButton.Size = new System.Drawing.Size(100, 19);
             GoogleRadioButton.TabIndex = 4;
             GoogleRadioButton.TabStop = true;
             GoogleRadioButton.Text = "Google Sheets";
@@ -86,9 +87,10 @@
             // ExcelRadioButton
             // 
             ExcelRadioButton.AutoSize = true;
-            ExcelRadioButton.Location = new System.Drawing.Point(218, 165);
+            ExcelRadioButton.Location = new System.Drawing.Point(127, 82);
+            ExcelRadioButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             ExcelRadioButton.Name = "ExcelRadioButton";
-            ExcelRadioButton.Size = new System.Drawing.Size(185, 34);
+            ExcelRadioButton.Size = new System.Drawing.Size(110, 19);
             ExcelRadioButton.TabIndex = 6;
             ExcelRadioButton.Text = "Excel Workbook";
             ExcelRadioButton.UseVisualStyleBackColor = true;
@@ -97,9 +99,10 @@
             // label2
             // 
             label2.AutoSize = true;
-            label2.Location = new System.Drawing.Point(25, 127);
+            label2.Location = new System.Drawing.Point(15, 64);
+            label2.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             label2.Name = "label2";
-            label2.Size = new System.Drawing.Size(183, 30);
+            label2.Size = new System.Drawing.Size(104, 15);
             label2.TabIndex = 7;
             label2.Text = "Read Events From:";
             // 
@@ -108,10 +111,10 @@
             ExcelSourceBrowseButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             ExcelSourceBrowseButton.Enabled = false;
             ExcelSourceBrowseButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            ExcelSourceBrowseButton.Location = new System.Drawing.Point(1294, 222);
-            ExcelSourceBrowseButton.Margin = new System.Windows.Forms.Padding(4);
+            ExcelSourceBrowseButton.Location = new System.Drawing.Point(755, 111);
+            ExcelSourceBrowseButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             ExcelSourceBrowseButton.Name = "ExcelSourceBrowseButton";
-            ExcelSourceBrowseButton.Size = new System.Drawing.Size(58, 44);
+            ExcelSourceBrowseButton.Size = new System.Drawing.Size(34, 22);
             ExcelSourceBrowseButton.TabIndex = 10;
             ExcelSourceBrowseButton.Text = "...";
             ExcelSourceBrowseButton.UseVisualStyleBackColor = false;
@@ -120,19 +123,19 @@
             // ExcelSourceFileTextBox
             // 
             ExcelSourceFileTextBox.Enabled = false;
-            ExcelSourceFileTextBox.Location = new System.Drawing.Point(218, 226);
-            ExcelSourceFileTextBox.Margin = new System.Windows.Forms.Padding(4);
+            ExcelSourceFileTextBox.Location = new System.Drawing.Point(127, 113);
+            ExcelSourceFileTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             ExcelSourceFileTextBox.Name = "ExcelSourceFileTextBox";
-            ExcelSourceFileTextBox.Size = new System.Drawing.Size(1068, 35);
+            ExcelSourceFileTextBox.Size = new System.Drawing.Size(625, 23);
             ExcelSourceFileTextBox.TabIndex = 9;
             // 
             // label3
             // 
             label3.AutoSize = true;
-            label3.Location = new System.Drawing.Point(90, 229);
-            label3.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label3.Location = new System.Drawing.Point(52, 114);
+            label3.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             label3.Name = "label3";
-            label3.Size = new System.Drawing.Size(118, 30);
+            label3.Size = new System.Drawing.Size(67, 15);
             label3.TabIndex = 8;
             label3.Text = "Source File:";
             // 
@@ -141,29 +144,29 @@
             MongoDbDatesCheckBox.AutoSize = true;
             MongoDbDatesCheckBox.Checked = true;
             MongoDbDatesCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            MongoDbDatesCheckBox.Location = new System.Drawing.Point(220, 444);
-            MongoDbDatesCheckBox.Margin = new System.Windows.Forms.Padding(4);
+            MongoDbDatesCheckBox.Location = new System.Drawing.Point(128, 222);
+            MongoDbDatesCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             MongoDbDatesCheckBox.Name = "MongoDbDatesCheckBox";
-            MongoDbDatesCheckBox.Size = new System.Drawing.Size(192, 34);
+            MongoDbDatesCheckBox.Size = new System.Drawing.Size(112, 19);
             MongoDbDatesCheckBox.TabIndex = 13;
             MongoDbDatesCheckBox.Text = "MongoDB Dates";
             MongoDbDatesCheckBox.UseVisualStyleBackColor = true;
             // 
             // OutputFileTextBox
             // 
-            OutputFileTextBox.Location = new System.Drawing.Point(220, 376);
-            OutputFileTextBox.Margin = new System.Windows.Forms.Padding(4);
+            OutputFileTextBox.Location = new System.Drawing.Point(128, 188);
+            OutputFileTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             OutputFileTextBox.Name = "OutputFileTextBox";
-            OutputFileTextBox.Size = new System.Drawing.Size(1068, 35);
+            OutputFileTextBox.Size = new System.Drawing.Size(625, 23);
             OutputFileTextBox.TabIndex = 12;
             // 
             // label5
             // 
             label5.AutoSize = true;
-            label5.Location = new System.Drawing.Point(71, 380);
-            label5.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label5.Location = new System.Drawing.Point(41, 190);
+            label5.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             label5.Name = "label5";
-            label5.Size = new System.Drawing.Size(121, 30);
+            label5.Size = new System.Drawing.Size(69, 15);
             label5.TabIndex = 11;
             label5.Text = "Output File:";
             // 
@@ -171,10 +174,10 @@
             // 
             GenerateButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             GenerateButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            GenerateButton.Location = new System.Drawing.Point(715, 705);
-            GenerateButton.Margin = new System.Windows.Forms.Padding(4);
+            GenerateButton.Location = new System.Drawing.Point(417, 352);
+            GenerateButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             GenerateButton.Name = "GenerateButton";
-            GenerateButton.Size = new System.Drawing.Size(141, 44);
+            GenerateButton.Size = new System.Drawing.Size(82, 28);
             GenerateButton.TabIndex = 14;
             GenerateButton.Text = "Generate";
             GenerateButton.UseVisualStyleBackColor = false;
@@ -184,10 +187,10 @@
             // 
             OutputFileBrowseButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             OutputFileBrowseButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            OutputFileBrowseButton.Location = new System.Drawing.Point(1296, 372);
-            OutputFileBrowseButton.Margin = new System.Windows.Forms.Padding(4);
+            OutputFileBrowseButton.Location = new System.Drawing.Point(756, 186);
+            OutputFileBrowseButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             OutputFileBrowseButton.Name = "OutputFileBrowseButton";
-            OutputFileBrowseButton.Size = new System.Drawing.Size(58, 44);
+            OutputFileBrowseButton.Size = new System.Drawing.Size(34, 22);
             OutputFileBrowseButton.TabIndex = 15;
             OutputFileBrowseButton.Text = "...";
             OutputFileBrowseButton.UseVisualStyleBackColor = false;
@@ -198,9 +201,10 @@
             JsonCheckBox.AutoSize = true;
             JsonCheckBox.Checked = true;
             JsonCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            JsonCheckBox.Location = new System.Drawing.Point(15, 0);
+            JsonCheckBox.Location = new System.Drawing.Point(9, 0);
+            JsonCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             JsonCheckBox.Name = "JsonCheckBox";
-            JsonCheckBox.Size = new System.Drawing.Size(146, 34);
+            JsonCheckBox.Size = new System.Drawing.Size(86, 19);
             JsonCheckBox.TabIndex = 16;
             JsonCheckBox.Text = "Create Json";
             JsonCheckBox.UseVisualStyleBackColor = true;
@@ -209,9 +213,11 @@
             // groupBox1
             // 
             groupBox1.Controls.Add(JsonCheckBox);
-            groupBox1.Location = new System.Drawing.Point(56, 318);
+            groupBox1.Location = new System.Drawing.Point(33, 159);
+            groupBox1.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             groupBox1.Name = "groupBox1";
-            groupBox1.Size = new System.Drawing.Size(1319, 175);
+            groupBox1.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            groupBox1.Size = new System.Drawing.Size(769, 88);
             groupBox1.TabIndex = 17;
             groupBox1.TabStop = false;
             // 
@@ -220,9 +226,10 @@
             MarkdownCheckBox.AutoSize = true;
             MarkdownCheckBox.Checked = true;
             MarkdownCheckBox.CheckState = System.Windows.Forms.CheckState.Checked;
-            MarkdownCheckBox.Location = new System.Drawing.Point(71, 539);
+            MarkdownCheckBox.Location = new System.Drawing.Point(41, 270);
+            MarkdownCheckBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             MarkdownCheckBox.Name = "MarkdownCheckBox";
-            MarkdownCheckBox.Size = new System.Drawing.Size(203, 34);
+            MarkdownCheckBox.Size = new System.Drawing.Size(120, 19);
             MarkdownCheckBox.TabIndex = 18;
             MarkdownCheckBox.Text = "Create Markdown";
             MarkdownCheckBox.UseVisualStyleBackColor = true;
@@ -230,18 +237,19 @@
             // 
             // MarkdownFolderTextBox
             // 
-            MarkdownFolderTextBox.Location = new System.Drawing.Point(220, 579);
+            MarkdownFolderTextBox.Location = new System.Drawing.Point(128, 290);
+            MarkdownFolderTextBox.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             MarkdownFolderTextBox.Name = "MarkdownFolderTextBox";
-            MarkdownFolderTextBox.Size = new System.Drawing.Size(1066, 35);
+            MarkdownFolderTextBox.Size = new System.Drawing.Size(624, 23);
             MarkdownFolderTextBox.TabIndex = 19;
             // 
             // label4
             // 
             label4.AutoSize = true;
-            label4.Location = new System.Drawing.Point(66, 582);
-            label4.Margin = new System.Windows.Forms.Padding(4, 0, 4, 0);
+            label4.Location = new System.Drawing.Point(38, 291);
+            label4.Margin = new System.Windows.Forms.Padding(2, 0, 2, 0);
             label4.Name = "label4";
-            label4.Size = new System.Drawing.Size(147, 30);
+            label4.Size = new System.Drawing.Size(84, 15);
             label4.TabIndex = 20;
             label4.Text = "Output Folder:";
             // 
@@ -249,10 +257,10 @@
             // 
             MarkdownFolderButton.BackColor = System.Drawing.SystemColors.ControlDarkDark;
             MarkdownFolderButton.ForeColor = System.Drawing.SystemColors.ControlLightLight;
-            MarkdownFolderButton.Location = new System.Drawing.Point(1293, 575);
-            MarkdownFolderButton.Margin = new System.Windows.Forms.Padding(4);
+            MarkdownFolderButton.Location = new System.Drawing.Point(754, 288);
+            MarkdownFolderButton.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             MarkdownFolderButton.Name = "MarkdownFolderButton";
-            MarkdownFolderButton.Size = new System.Drawing.Size(58, 44);
+            MarkdownFolderButton.Size = new System.Drawing.Size(34, 22);
             MarkdownFolderButton.TabIndex = 21;
             MarkdownFolderButton.Text = "...";
             MarkdownFolderButton.UseVisualStyleBackColor = false;
@@ -260,15 +268,17 @@
             // 
             // groupBox2
             // 
-            groupBox2.Location = new System.Drawing.Point(56, 537);
+            groupBox2.Location = new System.Drawing.Point(33, 268);
+            groupBox2.Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             groupBox2.Name = "groupBox2";
-            groupBox2.Size = new System.Drawing.Size(1319, 125);
+            groupBox2.Padding = new System.Windows.Forms.Padding(2, 2, 2, 2);
+            groupBox2.Size = new System.Drawing.Size(769, 62);
             groupBox2.TabIndex = 22;
             groupBox2.TabStop = false;
             // 
             // EventsForm
             // 
-            AutoScaleDimensions = new System.Drawing.SizeF(12F, 30F);
+            AutoScaleDimensions = new System.Drawing.SizeF(7F, 15F);
             AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             BackColor = System.Drawing.SystemColors.ControlDark;
             Controls.Add(MarkdownFolderButton);
@@ -290,8 +300,9 @@
             Controls.Add(YearCombo);
             Controls.Add(groupBox1);
             Controls.Add(groupBox2);
+            Margin = new System.Windows.Forms.Padding(2, 2, 2, 2);
             Name = "EventsForm";
-            Size = new System.Drawing.Size(1539, 836);
+            Size = new System.Drawing.Size(898, 418);
             groupBox1.ResumeLayout(false);
             groupBox1.PerformLayout();
             ResumeLayout(false);

@@ -19,7 +19,7 @@ namespace ReportGen.Tests
         [Fact]
         public void ShouldPopulateDate() 
         {
-            const string json = "[{\"date\": {\"$date\":\"2023-12-17T00:00:00Z\"},}]";
+            const string json = "[{\"date\": { \"$date\": \"2023-12-17T00:00:00Z\"},}]";
 
             var report = new Report(json);
 
@@ -29,7 +29,7 @@ namespace ReportGen.Tests
         [Fact]
         public void ShouldPopulateEndDate()
         {
-            const string json = "[{\"endDate\": {\"$date\":\"2023-12-17T00:00:00Z\"},}]";
+            const string json = "[{\"endDate\": { \"$date\": \"2023-12-17T00:00:00Z\"},}]";
 
             var report = new Report(json);
 
@@ -40,6 +40,16 @@ namespace ReportGen.Tests
         public void ShouldPopulateParentForDayEvents()
         {
             const string json = "[{\"id\": \"weekend-2023-1\", \"subjectType\": \"Day\"}]";
+
+            var report = new Report(json);
+
+            Assert.Equal("weekend-2023", report.Parent);
+        }
+
+        [Fact]
+        public void ShouldPopulateParentWithMultiCharSuffix()
+        {
+            const string json = "[{\"id\": \"weekend-2023-2a\", \"subjectType\": \"Day\"}]";
 
             var report = new Report(json);
 
@@ -59,7 +69,7 @@ namespace ReportGen.Tests
         [Fact]
         public void ShouldLeaveEndDateNullIfMissing()
         {
-            const string json = "[{\"date\": {\"$date\":\"2023-12-17T00:00:00Z\"},}]";
+            const string json = "[{\"date\": { \"$date\": \"2023-12-17T00:00:00Z\"},}]";
 
             var report = new Report(json);
 

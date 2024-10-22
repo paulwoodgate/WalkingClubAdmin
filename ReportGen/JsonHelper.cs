@@ -61,20 +61,24 @@ namespace ReportGen
             }
 
             var start = pos + key.Length + 12;
+            if (json[start+12] == 'T')
+            {
+                start += 2;
+            }
             var dateValue = json.Substring(start, 10);
             return Convert.ToDateTime(dateValue);
         }
 
         public static string[] FindArray(string key, string json)
         {
+            json = json.Replace("\r\n", "");
             var pos = json.IndexOf(key);
             if (pos == -1)
             {
                 return Array.Empty<string>();
             }
 
-            json = json.Replace("\r\n", "");
-            var start = json.IndexOf('[', pos + key.Length) + 1;
+            var start = json.IndexOf('[', pos) + 1;
             var end = FindEndOfObject(json, start, '[', ']') - 1;
             List<string> temp = FindObjects(json[start..end]);
 

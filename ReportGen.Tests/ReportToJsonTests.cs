@@ -111,7 +111,7 @@ namespace ReportGen.Tests
             Assert.Contains("\t\"report\": [\"This is an interesting walk\",\"very interesting indeed\"],\r\n", json);
             Assert.Contains("\t\"reportBy\": \"Sue\",\r\n", json);
             Assert.Contains("\t\"walkRating\": \"Average\",\r\n", json);
-            Assert.Contains("\t\"coverPhoto\": \"walk140421_1.jpg\",\r\n", json);
+            Assert.Contains("\t\"coverPhoto\": \"walk140421_1.jpg\"\r\n", json);
             Assert.DoesNotContain("\t\"photoSets\":", json);
             Assert.EndsWith("}]\r\n", json);
         }
