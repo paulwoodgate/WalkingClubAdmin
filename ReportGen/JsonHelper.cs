@@ -1,9 +1,7 @@
 ﻿using System;
 using System.Collections.Generic;
 using System.Linq;
-using System.Text;
 using System.Text.Json;
-using System.Threading.Tasks;
 
 namespace ReportGen
 {
@@ -14,9 +12,9 @@ namespace ReportGen
             var photoSets = new List<PhotoList>();
             var setJson = FindArray("photoSets", json);
 
-            if (setJson ==  null)
+            if (setJson == null || setJson.Length == 0)
             {
-                return photoSets;
+                setJson = new[] { json };
             }
 
             foreach (var photoSet in setJson)
