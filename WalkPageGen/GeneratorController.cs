@@ -38,7 +38,7 @@ namespace WalkPageGen
         {
             var walkData = new ExcelReader(settings.Workbook, options.Year.ToString())
                 .ReadRangeValues(settings.Range);
-            return walkData.Where(w => !string.IsNullOrEmpty((string)w[2])).ToList()
+            return walkData
                 .ConvertAll(w => new Event(w))
                 .OrderBy(w => w.EventDate)
                 .ToList<IEvent>();
@@ -46,7 +46,7 @@ namespace WalkPageGen
 
         private static void CreateJsonFile(List<IEvent> walks, Options options)
         {
-            var json = JsonGenerator.CreateJson(walks, options.MongoDbDates);
+            var json = JsonGenerator.CreateJson(walks, options.MongoDbDates, options.FlattenSource);
 
             File.WriteAllText(options.OutputFile, json);
         }

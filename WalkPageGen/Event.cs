@@ -1,5 +1,6 @@
 using System;
 using System.Collections.Generic;
+using System.Text.Json.Serialization;
 
 namespace WalkPageGen
 {
@@ -7,41 +8,73 @@ namespace WalkPageGen
 
     public class Event : IEvent
     {
+        [JsonPropertyName("id")]
+        public string Id => $"{EventDate.Year}-{Sequence}";
+        [JsonIgnore]
         public int Sequence { get; set; }
+        [JsonPropertyName("date")]
         public DateTime EventDate { get; set; }
+        [JsonPropertyName("type")]
         public EventType Type { get; set; }
+        [JsonPropertyName("title")]
         public string Title { get; set; }
+        [JsonPropertyName("description")]
         public string Description { get; set; }
+        [JsonPropertyName("leave")]
         public string Depart { get; set; }
+        [JsonPropertyName("leave_from")]
         public string StartLocation { get; set; }
+        [JsonPropertyName("os_ref")]
         public string StartGridRef { get; set; }
+        [JsonIgnore]
         public string Map { get; set; }
+        [JsonPropertyName("near_to")]
         public string NearTo { get; set; }
+        [JsonPropertyName("distance_away")]
         public int DistanceAway { get; set; }
+        [JsonPropertyName("length")]
         public double Length { get; set; }
-        public int? Nights { get; set; }
+        [JsonPropertyName("duration")]
         public double Duration { get; set; }
+        [JsonPropertyName("source")]
         public string Source { get; set; }
+        [JsonPropertyName("map_url")]
         public string Url { get; set; }
+        [JsonPropertyName("w3w")]
         public string ThreeWords { get; set; }
+        [JsonPropertyName("ascent")]
         public string Ascent { get; set; }
+        [JsonPropertyName("terrain")]
         public string Terrain { get; set; }
+        [JsonPropertyName("grading")]
         public WalkGrading Grading { get; set; }
+        [JsonPropertyName("fuel_cost")]
         public double FuelCost { get; set; }
+        [JsonPropertyName("county")]
         public string County { get; set; }
+        [JsonPropertyName("image")]
         public string Image { get; set; }
+        [JsonIgnore]
         public string Identifier => $"{Type.ToString().ToLower()}-{EventDate:yyyy-MM-dd}";
+        [JsonIgnore]
         public string FormattedDate => IsRoute || Duration == 0
             ? DateHelper.FormatWalkDate(EventDate)
             : DateHelper.FormatEventDates(EventDate, Duration);
+        [JsonIgnore]
         public string SortDate => EventDate.ToString("yyyy-MM-dd");
+        [JsonIgnore]
         public string FileId => $"{Type.ToString().ToLower()}-{EventDate.Year}-{Sequence:D2}";
+        [JsonIgnore]
         public string FormattedDuration => EventHelper.FormatDuration(Duration, IsRoute);
-
+        [JsonIgnore]
         public string MapName => string.IsNullOrEmpty(Map) ? string.Empty : $"Explorer {Map}";
+        [JsonIgnore]
         public string FormattedDistance => EventHelper.FormatDistance(DistanceAway);
+        [JsonIgnore]
         public string FormattedLength => EventHelper.FormatDistance(Length);
+        [JsonIgnore]
         public string FormattedCost => EventHelper.FormatCost(FuelCost);
+        [JsonIgnore]
         public bool IsRoute { get; }
 
         public Event(IList<object> values)
@@ -69,7 +102,6 @@ namespace WalkPageGen
             const int grading = 20;
             const int fuelCost = 21;
             const int image = 22;
-            const int nights = 23;
 
             if (values.Count < 23)
             {
@@ -96,20 +128,6 @@ namespace WalkPageGen
             Terrain = Convert.ToString(values[terrain]);
             County = Convert.ToString(values[county]);
             Image = Convert.ToString(values[image]);
-
-            if (Type == EventType.Weekend)
-            {
-                if (values.Count < 24)
-                {
-                    throw new ArgumentException("You must supply the number of nights for a weekend");
-                }
-
-                Nights = int.TryParse(Convert.ToString(values[nights]), out int nightsAway) ? nightsAway : 0;
-                if (Nights < 0)
-                {
-                    throw new ArgumentException("The number of nights must be greater than 0");
-                }
-            }
 
             ValidateGrading(Convert.ToString(values[grading]));
 

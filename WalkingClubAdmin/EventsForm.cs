@@ -43,6 +43,7 @@ namespace WalkingClubAdmin
             JsonCheckBox.Checked = options.CreateJson;
             MarkdownCheckBox.Checked = options.CreateMarkdown;
             MarkdownFolderTextBox.Text = options.MarkdownFolder;
+            FlattenSourceCheckbox.Checked = options.FlattenSource;
         }
 
         private void GoogleRadioButton_CheckedChanged(object sender, EventArgs e)
@@ -103,6 +104,7 @@ namespace WalkingClubAdmin
                     CreateJson = JsonCheckBox.Checked,
                     CreateMarkdown = MarkdownCheckBox.Checked,
                     MarkdownFolder = MarkdownFolderTextBox.Text,
+                    FlattenSource = FlattenSourceCheckbox.Checked
                 };
 
                 options.Validate();

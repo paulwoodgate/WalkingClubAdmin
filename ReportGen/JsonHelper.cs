@@ -14,7 +14,7 @@ namespace ReportGen
 
             if (setJson == null || setJson.Length == 0)
             {
-                setJson = new[] { json };
+                return photoSets;
             }
 
             foreach (var photoSet in setJson)
@@ -73,7 +73,7 @@ namespace ReportGen
             var pos = json.IndexOf(key);
             if (pos == -1)
             {
-                return Array.Empty<string>();
+                return [];
             }
 
             var start = json.IndexOf('[', pos) + 1;

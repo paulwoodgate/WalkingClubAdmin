@@ -17,6 +17,7 @@ namespace WalkPageGen
         public bool CreateJson { get; set; }
         public bool CreateMarkdown { get; set; }
         public string MarkdownFolder { get; set; }
+        public bool FlattenSource { get; set; }
 
         public Options()
         {

@@ -1,18 +1,13 @@
 ﻿using System.Collections.Generic;
+using System.Linq;
 using ClosedXML.Excel;
 
 namespace WalkPageGen
 {
-    public class ExcelReader
+    public class ExcelReader(string book, string sheet)
     {
-        private readonly string workbookName;
-        private readonly string worksheetName;
-
-        public ExcelReader(string book, string sheet)
-        {
-            workbookName = book;
-            worksheetName = sheet;
-        }
+        private readonly string workbookName = book;
+        private readonly string worksheetName = sheet;
 
         public List<string> GetColumnHeaders()
         {
@@ -23,11 +18,11 @@ namespace WalkPageGen
 
             while (true)
             {
-                var value = (string)worksheet.Cell(row, col).Value;
-                if (string.IsNullOrWhiteSpace(value))
+                var value = worksheet.Cell(row, col).Value;
+                if (value.IsBlank)
                     break;
 
-                headers.Add(value);
+                headers.Add((string)value);
                 col++;
             }
 
@@ -39,13 +34,15 @@ namespace WalkPageGen
             var worksheet = OpenWorksheet();
             var worksheetRange = worksheet.Range(range);
             var values = new List<List<object>>();
+            var lastRowUsed = worksheet.LastRowUsed().RowNumber();
 
-            foreach (var row in worksheetRange.Rows())
+            foreach (var row in worksheetRange.Rows().Where(r => r.RowNumber() <= lastRowUsed))
             {
+
                 var rowValues = new List<object>();
-                foreach(var cell in row.Cells())
+                foreach (var cell in row.Cells())
                 {
-                    rowValues.Add(cell.Value);
+                    rowValues.Add(cell.Value.ToString());
                 }
                 values.Add(rowValues);
             }

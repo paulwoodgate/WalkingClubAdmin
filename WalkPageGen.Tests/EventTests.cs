@@ -128,7 +128,7 @@ namespace WalkPageGen.Tests
             Assert.Equal(grading, ev.Grading.ToString());
             Assert.Equal(fuelCost, ev.FuelCost);
             Assert.Equal(image, ev.Image);
-            Assert.Equal(nights, ev.Nights);
+            Assert.Equal(nights, ev.Duration);
         }
 
         [Fact]
@@ -241,7 +241,7 @@ namespace WalkPageGen.Tests
             Assert.Equal(grading, ev.Grading.ToString());
             Assert.Equal(fuelCost, ev.FuelCost);
             Assert.Equal(image, ev.Image);
-            Assert.Null(ev.Nights);
+            Assert.Equal(0, ev.Duration);
         }
     }
 }

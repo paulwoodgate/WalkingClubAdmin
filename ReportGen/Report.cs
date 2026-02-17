@@ -64,7 +64,7 @@ namespace ReportGen
             SubjectType = JsonHelper.FindString("\"subjectType\"", json);
             if (SubjectType == "Day")
             {
-                Parent = Id[..Id.LastIndexOf("-")];
+                Parent = Id[..Id.LastIndexOf('-')];
             }
             Text = JsonHelper.FindArray("\"report\"", json);
             Author = JsonHelper.FindString("\"reportBy\"", json);

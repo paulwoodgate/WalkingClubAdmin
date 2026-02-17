@@ -2,13 +2,19 @@
 
 using System.Collections.Generic;
 using System.Text;
+using System.Text.Json;
 
 namespace WalkPageGen
 {
     public static class JsonGenerator
     {
-        public static string CreateJson(List<IEvent> events, bool useMongoDateFormat)
+        public static string CreateJson(List<IEvent> events, bool useMongoDateFormat, bool flattenSource = false)
         {
+            if (flattenSource)
+            {
+                return JsonSerializer.Serialize(events);
+            }
+
             var sb = new StringBuilder();
             sb.AppendLine("[");
             var needComma = false;
