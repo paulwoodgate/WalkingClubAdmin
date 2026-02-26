@@ -3,7 +3,6 @@
 using System;
 using System.Globalization;
 using System.Linq;
-using System.Runtime.Serialization;
 using Xunit;
 
 namespace WalkPageGen.Tests
@@ -13,7 +12,7 @@ namespace WalkPageGen.Tests
         [Fact]
         public void FirstLineShouldBe3Dashes()
         {
-            var markdown = MarkdownGenerator.CreateMarkdown(new TestEvent{ Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat) });
+            var markdown = MarkdownGenerator.CreateMarkdown(new Event{ Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat) });
             var lines = markdown.Split("\r\n");
             Assert.Equal("---", lines[0]);
         }
@@ -21,7 +20,7 @@ namespace WalkPageGen.Tests
         [Fact]
         public void FrontMatterShouldHave2DashLines()
         {
-            var markdown = MarkdownGenerator.CreateMarkdown(new TestEvent { Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat) });
+            var markdown = MarkdownGenerator.CreateMarkdown(new Event { Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat) });
             var lines = markdown.Split("\r\n");
 
             Assert.Equal(2, lines.Count(l => l.Equals("---")));
@@ -30,7 +29,7 @@ namespace WalkPageGen.Tests
         [Fact]
         public void WalkFrontmatterItemsShouldBePopulated()
         {
-            var evnt = new TestEvent
+            var evnt = new Event
             {
                 Sequence = 12,
                 Type = EventType.Walk,
@@ -56,7 +55,7 @@ namespace WalkPageGen.Tests
             var lines = MarkdownGenerator.CreateMarkdown(evnt).Split("\r\n");
 
             Assert.Equal("---", lines[0]);
-            Assert.Contains("eventId: 'walk-2023-12'", lines);
+            Assert.Contains("eventId: '2023-12'", lines);
             Assert.Contains("title: 'Test Walk'", lines);
             Assert.Contains("eventDate: 2023-05-04T00:00:00Z", lines);
             Assert.Contains("eventType: 'Walk'", lines);
@@ -69,7 +68,7 @@ namespace WalkPageGen.Tests
         [Fact]
         public void SocialFrontmatterItemsShouldBePopulated()
         {
-            var evnt = new TestEvent
+            var evnt = new Event
             {
                 Sequence = 12,
                 Type = EventType.Social,
@@ -95,7 +94,7 @@ namespace WalkPageGen.Tests
             var lines = MarkdownGenerator.CreateMarkdown(evnt).Split("\r\n");
 
             Assert.Equal("---", lines[0]);
-            Assert.Contains("eventId: 'social-2023-12'", lines);
+            Assert.Contains("eventId: '2023-12'", lines);
             Assert.Contains("title: 'Test Social'", lines);
             Assert.Contains("eventDate: 2023-05-04T00:00:00Z", lines);
             Assert.Contains("eventType: 'Social'", lines);
@@ -107,7 +106,7 @@ namespace WalkPageGen.Tests
         [Fact]
         public void WeekendFrontmatterItemsShouldBePopulated()
         {
-            var evnt = new TestEvent
+            var evnt = new Event
             {
                 Sequence = 12,
                 Type = EventType.Weekend,
@@ -132,7 +131,7 @@ namespace WalkPageGen.Tests
             var lines = MarkdownGenerator.CreateMarkdown(evnt).Split("\r\n");
 
             Assert.Equal("---", lines[0]);
-            Assert.Contains("eventId: 'weekend-2023-12'", lines);
+            Assert.Contains("eventId: '2023-12'", lines);
             Assert.Contains("title: 'Test Weekend'", lines);
             Assert.Contains("eventDate: 2023-05-04T00:00:00Z", lines);
             Assert.Contains("eventType: 'Weekend'", lines);
@@ -145,7 +144,7 @@ namespace WalkPageGen.Tests
         [Fact]
         public void FrontmatterItemsShouldReplaceQuotes()
         {
-            var evnt = new TestEvent
+            var evnt = new Event
             {
                 Sequence = 12,
                 Type = EventType.Walk,
@@ -178,7 +177,7 @@ namespace WalkPageGen.Tests
         [Fact]
         public void SocialShouldHaveLocationAndDescription()
         {
-            var evnt = new TestEvent
+            var evnt = new Event
             {
                 Sequence = 12,
                 Type = EventType.Social,
@@ -212,7 +211,7 @@ namespace WalkPageGen.Tests
         [Fact]
         public void WalkShouldHaveAllFields()
         {
-            var evnt = new TestEvent
+            var evnt = new Event
             {
                 Sequence = 12,
                 Type = EventType.Walk,

@@ -10,7 +10,7 @@ namespace WalkPageGen
         {
             var settings = AppSettings.ReadFromFile("appsettings.json");
 
-            List<IEvent> events = (options.ReadFromGoogle)
+            List<Event> events = (options.ReadFromGoogle)
                 ? GetEventsFromGoogle(options, settings)
                 : GetEventsFromExcel(options, settings);
 
@@ -24,34 +24,34 @@ namespace WalkPageGen
             }
         }
 
-        private static List<IEvent> GetEventsFromGoogle(Options options, AppSettings settings)
+        private static List<Event> GetEventsFromGoogle(Options options, AppSettings settings)
         {
             const string applicationName = "Walks Page Html Generator";
             var range = $"{options.Year}!{settings.Range}";
             var walkData = new SheetService(applicationName, settings.SheetId)
                 .GetData(range);
-            List<IEvent> walks = walkData.Select(w => new Event(w)).ToList<IEvent>();
+            List<Event> walks = walkData.Select(w => new Event(w)).ToList<Event>();
             return walks;
         }
 
-        private static List<IEvent> GetEventsFromExcel(Options options, AppSettings settings)
+        private static List<Event> GetEventsFromExcel(Options options, AppSettings settings)
         {
             var walkData = new ExcelReader(settings.Workbook, options.Year.ToString())
                 .ReadRangeValues(settings.Range);
             return walkData
                 .ConvertAll(w => new Event(w))
                 .OrderBy(w => w.EventDate)
-                .ToList<IEvent>();
+                .ToList<Event>();
         }
 
-        private static void CreateJsonFile(List<IEvent> walks, Options options)
+        private static void CreateJsonFile(List<Event> walks, Options options)
         {
             var json = JsonGenerator.CreateJson(walks, options.MongoDbDates, options.FlattenSource);
 
             File.WriteAllText(options.OutputFile, json);
         }
 
-        private static void CreateMarkdownFiles(List<IEvent> events, Options options)
+        private static void CreateMarkdownFiles(List<Event> events, Options options)
         {
             foreach (var ev in events)
             {

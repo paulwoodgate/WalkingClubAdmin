@@ -12,7 +12,7 @@ namespace WalkPageGen.Tests
         [Fact]
         public void ShouldReturnAnArray()
         {
-            var json = JsonGenerator.CreateJson(new List<IEvent>(), false);
+            var json = JsonGenerator.CreateJson(new List<Event>(), false);
 
             Assert.StartsWith("[", json);
             Assert.EndsWith("]\r\n", json);
@@ -21,9 +21,9 @@ namespace WalkPageGen.Tests
         [Fact]
         public void ShouldReturnWalkObject()
         {
-            var walks = new List<IEvent>
+            var walks = new List<Event>
             {
-                new TestEvent()
+                new Event()
             };
             const string expected = "\t\t\"type\": \"Walk\",\r\n";
             var json = JsonGenerator.CreateJson(walks, false);
@@ -34,10 +34,10 @@ namespace WalkPageGen.Tests
         [Fact]
         public void ShouldReturnWalkObjectsSeparatedByComma()
         {
-            var walks = new List<IEvent>
+            var walks = new List<Event>
             {
-                new TestEvent{Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat)},
-                new TestEvent{Sequence = 2, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-19", CultureInfo.CurrentCulture.DateTimeFormat)}
+                new Event{Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat)},
+                new Event{Sequence = 2, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-19", CultureInfo.CurrentCulture.DateTimeFormat)}
             };
 
             var json = JsonGenerator.CreateJson(walks, false);
@@ -48,15 +48,15 @@ namespace WalkPageGen.Tests
         [Fact]
         public void ShouldExportWeekends()
         {
-            var walks = new List<IEvent>
+            var walks = new List<Event>
             {
-                new TestEvent{Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat)},
-                new TestEvent{Sequence = 2, Type = EventType.Weekend, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat), IsRoute = false},
-                new TestEvent{Sequence = 3, Type = EventType.Social, EventDate = DateTime.Parse("2020-01-19", CultureInfo.CurrentCulture.DateTimeFormat), IsRoute = false}
+                new() {Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat)},
+                new() {Sequence = 2, Type = EventType.Weekend, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat), Duration = 1},
+                new() {Sequence = 3, Type = EventType.Social, EventDate = DateTime.Parse("2020-01-19", CultureInfo.CurrentCulture.DateTimeFormat), Duration = 1}
             };
-            const string expected1 = "\t\t\"id\": \"walk-2020-01\",\r\n";
-            const string expected2 = "\t\t\"id\": \"weekend-2020-02\",\r\n";
-            const string expected3 = "\t\t\"id\": \"social-2020-03\",\r\n";
+            const string expected1 = "\t\t\"id\": \"2020-01\",\r\n";
+            const string expected2 = "\t\t\"id\": \"2020-02\",\r\n";
+            const string expected3 = "\t\t\"id\": \"2020-03\",\r\n";
 
             var json = JsonGenerator.CreateJson(walks, false);
 
@@ -99,9 +99,9 @@ namespace WalkPageGen.Tests
             };
 
             var walk = new Event(objects);
-            var json = JsonGenerator.CreateJson(new List<IEvent> { walk }, false);
+            var json = JsonGenerator.CreateJson(new List<Event> { walk }, false);
 
-            Assert.Contains("\t\t\"id\": \"walk-2020-01\",\r\n", json);
+            Assert.Contains("\t\t\"id\": \"2020-01\",\r\n", json);
             Assert.Contains("\t\t\"date\": \"2020-01-05T00:00:00Z\",\r\n", json);
             Assert.Contains("\t\t\"title\": \"Belton\",\r\n", json);
             Assert.Contains("\t\t\"startFrom\": \"Belton village\",\r\n", json);
@@ -128,9 +128,9 @@ namespace WalkPageGen.Tests
         [Fact]
         public void ShouldUseMongoDateFormat()
         {
-            var walks = new List<IEvent>
+            var walks = new List<Event>
             {
-                new TestEvent{Sequence = 1, Type = EventType.Social, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat)}
+                new Event{Sequence = 1, Type = EventType.Social, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat)}
             };
             const string expected = "\t\t\"date\": {\"$date\":\"2020-01-05T00:00:00Z\"},\r\n";
 
@@ -142,7 +142,7 @@ namespace WalkPageGen.Tests
         [Fact]
         public void ShouldIncludeZeroAfterDecimalPointOnNumericFields()
         {
-            var testEvent = new TestEvent{
+            var Event = new Event{
                     Sequence = 1,
                     Type = EventType.Walk,
                     EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat),
@@ -150,11 +150,11 @@ namespace WalkPageGen.Tests
                     FuelCost=5,
                     Length=10
             };
-            var expectedLength = $"\t\t\"length\": {testEvent.Length:N1},\r\n";
-            var expectedWalkTime = $"\t\t\"walkTime\": {testEvent.Duration:N1},\r\n";
-            var expectedFuelCost = $"\t\t\"fuelCost\": {testEvent.FuelCost:N1}\r\n";
+            var expectedLength = $"\t\t\"length\": {Event.Length:N1},\r\n";
+            var expectedWalkTime = $"\t\t\"walkTime\": {Event.Duration:N1},\r\n";
+            var expectedFuelCost = $"\t\t\"fuelCost\": {Event.FuelCost:N1}\r\n";
 
-            var json = JsonGenerator.CreateJson(new List<IEvent> { testEvent }, true);
+            var json = JsonGenerator.CreateJson(new List<Event> { Event }, true);
 
             Assert.Contains(expectedWalkTime, json);
             Assert.Contains(expectedLength, json);
@@ -167,7 +167,7 @@ namespace WalkPageGen.Tests
         [InlineData(EventType.Weekend)]
         public void ShouldHaveCorrectEventTypeAndId(EventType eventType)
         {
-            var testEvent = new TestEvent
+            var Event = new Event
             {
                 Sequence = 1,
                 Type = eventType,
@@ -176,10 +176,10 @@ namespace WalkPageGen.Tests
                 FuelCost = 5,
                 Length = 10
             };
-            var expectedType = $"\t\t\"type\": \"{testEvent.Type}\",\r\n";
-            var expectedId = $"\t\t\"id\": \"{testEvent.Type.ToString().ToLower()}-{testEvent.EventDate.Year}-{testEvent.Sequence:D2}\",\r\n";
+            var expectedType = $"\t\t\"type\": \"{Event.Type}\",\r\n";
+            var expectedId = $"\t\t\"id\": \"{Event.EventDate.Year}-{Event.Sequence:D2}\",\r\n";
 
-            var json = JsonGenerator.CreateJson(new List<IEvent> { testEvent }, true);
+            var json = JsonGenerator.CreateJson([Event], true);
 
             Assert.Contains(expectedType, json);
             Assert.Contains(expectedId, json);

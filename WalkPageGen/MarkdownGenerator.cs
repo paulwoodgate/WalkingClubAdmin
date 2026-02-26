@@ -4,7 +4,7 @@ namespace WalkPageGen
 {
     public static class MarkdownGenerator
     {
-        public static string CreateMarkdown(IEvent ev) {
+        public static string CreateMarkdown(Event ev) {
             var sb = new StringBuilder();
 
             CreateFrontMatter(ev, sb);
@@ -19,7 +19,7 @@ namespace WalkPageGen
             return sb.ToString();
         }
 
-        private static void CreateFrontMatter(IEvent ev, StringBuilder sb) {
+        private static void CreateFrontMatter(Event ev, StringBuilder sb) {
             sb.AppendLine("---");
             CreateCommonFrontMatter(ev, sb);
             if (ev.Type == EventType.Social)
@@ -37,7 +37,7 @@ namespace WalkPageGen
             sb.AppendLine("---");
         }
 
-        private static void CreateCommonFrontMatter(IEvent ev, StringBuilder sb)
+        private static void CreateCommonFrontMatter(Event ev, StringBuilder sb)
         {
             sb.Append("eventId: '").Append(ev.FileId).AppendLine("'");
             sb.Append("title: '").Append(EventHelper.SanitiseString(ev.Title)).AppendLine("'");
@@ -46,30 +46,30 @@ namespace WalkPageGen
             sb.Append("image: './images/").Append(ev.Image).AppendLine("'");
         }
 
-        private static void CreateSocialFrontmatter(IEvent ev, StringBuilder sb)
+        private static void CreateSocialFrontmatter(Event ev, StringBuilder sb)
         {
             sb.Append("depart: '").Append(ev.Depart).AppendLine("'");
         }
 
-        private static void CreateWalkFrontmatter(IEvent ev, StringBuilder sb)
+        private static void CreateWalkFrontmatter(Event ev, StringBuilder sb)
         {
             sb.Append("depart: '").Append(ev.Depart).AppendLine("'");
             sb.Append("length: ").AppendLine(ev.Length.ToString());
         }
 
-        private static void CreateWeekendFrontmatter(IEvent ev, StringBuilder sb)
+        private static void CreateWeekendFrontmatter(Event ev, StringBuilder sb)
         {
             sb.Append("duration: ").AppendLine(ev.Duration.ToString());
         }
 
-        private static void CreateSocialContent(IEvent ev, StringBuilder sb) 
+        private static void CreateSocialContent(Event ev, StringBuilder sb) 
         {
             sb.AppendLine($"Location: {ev.Depart}");
             sb.AppendLine();
             sb.AppendLine(ev.Description);
         }
 
-        private static void CreateWalkContent(IEvent ev, StringBuilder sb) 
+        private static void CreateWalkContent(Event ev, StringBuilder sb) 
         {
             sb.AppendLine(ev.Description);
             sb.AppendLine();

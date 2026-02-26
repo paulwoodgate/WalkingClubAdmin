@@ -8,7 +8,7 @@ namespace WalkPageGen
 {
     public static class JsonGenerator
     {
-        public static string CreateJson(List<IEvent> events, bool useMongoDateFormat, bool flattenSource = false)
+        public static string CreateJson(List<Event> events, bool useMongoDateFormat, bool flattenSource = false)
         {
             if (flattenSource)
             {
@@ -33,7 +33,7 @@ namespace WalkPageGen
             return sb.ToString();
         }
 
-        private static void AppendEvent(IEvent ev, StringBuilder sb, bool useMongoDbFormat)
+        private static void AppendEvent(Event ev, StringBuilder sb, bool useMongoDbFormat)
         {
             sb.AppendLine("\t{");
             sb.Append("\t\t\"type\": \"").Append(ev.Type).AppendLine("\",");

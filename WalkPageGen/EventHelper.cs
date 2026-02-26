@@ -6,8 +6,10 @@ namespace WalkPageGen
     {
         public static string FormatDuration(double duration, bool isRoute)
         {
-            if (duration == 0 || !isRoute)
+            if (duration <= 0 || !isRoute)
+            {
                 return string.Empty;
+            }
 
             var desc = $"{Math.Floor(duration)} hours";
             var minutes = duration % 1 * 60;

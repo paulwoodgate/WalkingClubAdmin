@@ -4,9 +4,11 @@ using System.Text.Json.Serialization;
 
 namespace WalkPageGen
 {
+    public enum EventType { Walk, Social, Weekend }
+
     public enum WalkGrading { Standard, Moderate, Strenuous };
 
-    public class Event : IEvent
+    public class Event
     {
         [JsonPropertyName("id")]
         public string Id => $"{EventDate.Year}-{Sequence}";
@@ -54,16 +56,19 @@ namespace WalkPageGen
         public string County { get; set; }
         [JsonPropertyName("image")]
         public string Image { get; set; }
+        [JsonPropertyName("nights")]
+        public int Nights { get; set; }
+
         [JsonIgnore]
         public string Identifier => $"{Type.ToString().ToLower()}-{EventDate:yyyy-MM-dd}";
         [JsonIgnore]
-        public string FormattedDate => IsRoute || Duration == 0
+        public string FormattedDate => IsRoute || Duration <= 0
             ? DateHelper.FormatWalkDate(EventDate)
             : DateHelper.FormatEventDates(EventDate, Duration);
         [JsonIgnore]
         public string SortDate => EventDate.ToString("yyyy-MM-dd");
         [JsonIgnore]
-        public string FileId => $"{Type.ToString().ToLower()}-{EventDate.Year}-{Sequence:D2}";
+        public string FileId => $"{EventDate.Year}-{Sequence:D2}";
         [JsonIgnore]
         public string FormattedDuration => EventHelper.FormatDuration(Duration, IsRoute);
         [JsonIgnore]
@@ -77,6 +82,7 @@ namespace WalkPageGen
         [JsonIgnore]
         public bool IsRoute { get; }
 
+        public Event() { }
         public Event(IList<object> values)
         {
             const int sequence = 0;
@@ -128,6 +134,11 @@ namespace WalkPageGen
             Terrain = Convert.ToString(values[terrain]);
             County = Convert.ToString(values[county]);
             Image = Convert.ToString(values[image]);
+
+            if (Type == EventType.Weekend && Duration <= 0)
+            {
+                throw new ArgumentException("You must supply the number of nights for a weekend");
+            }
 
             ValidateGrading(Convert.ToString(values[grading]));
 
