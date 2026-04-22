@@ -1,9 +1,4 @@
-﻿using DocumentFormat.OpenXml.Drawing.Diagrams;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+﻿using System;
 using Xunit;
 
 namespace WalkPageGen.Tests

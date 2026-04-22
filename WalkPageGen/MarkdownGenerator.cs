@@ -1,4 +1,5 @@
-﻿using System.Text;
+﻿using System.Diagnostics;
+using System.Text;
 
 namespace WalkPageGen
 {
@@ -71,12 +72,14 @@ namespace WalkPageGen
 
         private static void CreateWalkContent(Event ev, StringBuilder sb) 
         {
+            var source = ev.Source == "From Map" ? "OS Maps" : ev.Source;
             sb.AppendLine(ev.Description);
             sb.AppendLine();
             sb.AppendLine($"Length: {ev.FormattedLength}, ({ev.FormattedDuration})  ");
             sb.AppendLine($"Ascent: {ev.Ascent}  ");
+            sb.AppendLine($"Terrain: {ev.Terrain}  ");
             sb.AppendLine($"Grade: {ev.Grading}  ");
-            sb.AppendLine($"Walk Map: <a href='{ev.Url}' target='_blank' rel='noreferrer'>OS Maps</a>  ");
+            sb.AppendLine($"Walk Map: <a href='{ev.Url}' target='_blank' rel='noreferrer'>{source}</a>  ");
             sb.AppendLine();
             sb.AppendLine($"Meet: {ev.Depart}, or 9:45am at walk start  ");
             sb.AppendLine($"Park at: {ev.StartLocation}, ({ev.ThreeWords})  ");

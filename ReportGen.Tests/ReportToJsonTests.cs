@@ -38,7 +38,7 @@ namespace ReportGen.Tests
             "}]";
 
             Assert.StartsWith("[{", json);
-            Assert.Contains("\t\"id\": \"walk140421\",\r\n", json);
+            Assert.Contains("\t\"id\": \"20210414\",\r\n", json);
             Assert.Contains("\t\"date\": {\"$date\":\"2021-04-14T00:00:00Z\"},\r\n", json);
             Assert.Contains("\t\"year\": \"2021\",\r\n", json);
             Assert.Contains("\t\"title\": \"Yelden\",\r\n", json);
@@ -104,7 +104,7 @@ namespace ReportGen.Tests
             var json = report.ToJson();
 
             Assert.StartsWith("[{", json);
-            Assert.Contains("\t\"id\": \"walk140421\",\r\n", json);
+            Assert.Contains("\t\"id\": \"20210414\",\r\n", json);
             Assert.Contains("\t\"date\": {\"$date\":\"2021-04-14T00:00:00Z\"},\r\n", json);
             Assert.Contains("\t\"year\": \"2021\",\r\n", json);
             Assert.Contains("\t\"title\": \"Yelden\",\r\n", json);

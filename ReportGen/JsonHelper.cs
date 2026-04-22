@@ -9,22 +9,24 @@ namespace ReportGen
     {
         public static List<PhotoList> CreatePhotoSets(string json)
         {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
             var photoSets = new List<PhotoList>();
             var setJson = FindArray("photoSets", json);
 
             if (setJson == null || setJson.Length == 0)
             {
-                return photoSets;
+                return CreatePhotoSetFromPhotos(json, options);
             }
 
             foreach (var photoSet in setJson)
             {
                 var photosList = new PhotoList { Photographer = FindString("\"photographer\"", photoSet) };
                 var photosJson = FindArray("\"photos\"", photoSet);
-                var options = new JsonSerializerOptions
-                {
-                    PropertyNameCaseInsensitive = true
-                };
+
 
                 foreach (var photo in photosJson)
                 {
@@ -35,6 +37,25 @@ namespace ReportGen
             }
 
             return photoSets;
+        }
+
+        private static List<PhotoList> CreatePhotoSetFromPhotos(string json, JsonSerializerOptions options)
+        {
+            var photographer = FindString("\"photographer\"", json);
+            if (photographer == null)
+            {
+                return new List<PhotoList>();
+            }
+                
+            var photoSet = new PhotoList { Photographer = photographer };
+            var photosJson = FindArray("\"photos\"", json);
+
+            foreach (var photo in photosJson)
+            {
+                var photoDets = photo.Replace("\"file\"", "\"filename\"");
+                photoSet.Photos.Add(JsonSerializer.Deserialize<ReportPhoto>(photoDets, options));
+            }
+            return [photoSet];
         }
 
         public static string FindString(string key, string json)

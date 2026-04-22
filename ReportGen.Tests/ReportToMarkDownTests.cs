@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Collections.Generic;
-using System.Linq;
 using Xunit;
 
 namespace ReportGen.Tests
@@ -31,8 +30,9 @@ namespace ReportGen.Tests
             var lines = markdown.Split("\r\n");
 
             int i = 0;
+
             Assert.Equal("---", lines[i++]);
-            Assert.Equal("reportId: \"walk140421\"", lines[i++]);
+            Assert.Equal("reportId: \"20210404\"", lines[i++]);
             Assert.Equal("reportType: \"Single\"", lines[i++]);
             Assert.Equal("title: \"Yelden\"", lines[i++]);
             Assert.Equal("reportDate: 2021-04-04T00:00:00Z", lines[i++]);
@@ -96,7 +96,7 @@ namespace ReportGen.Tests
 
             int i = 0;
             Assert.Equal("---", lines[i++]);
-            Assert.Equal("reportId: \"walk140421\"", lines[i++]);
+            Assert.Equal("reportId: \"20210404\"", lines[i++]);
             Assert.Equal("reportType: \"Child\"", lines[i++]);
             Assert.Equal("parent: \"weekend-2023-1\"", lines[i++]);
             Assert.Equal("title: \"Yelden\"", lines[i++]);
@@ -129,7 +129,7 @@ namespace ReportGen.Tests
             var markdown = report.ToMarkDown();
             var lines = markdown.Split("\r\n");
 
-            Assert.Equal(30, lines.Length);
+            Assert.Equal(31, lines.Length);
             int i = 8;
             Assert.Equal("This is an interesting walk", lines[i++]);
             Assert.Equal("", lines[i++]);
@@ -138,17 +138,18 @@ namespace ReportGen.Tests
             Assert.Equal("**Report by:** Sue   ", lines[i++]);
             Assert.Equal("**Walk Rating:** Average   ", lines[i++]);
             Assert.Equal("", lines[i++]);
-            Assert.Equal("**Photographer:** Alan", lines[i++]);
-            Assert.Equal("", lines[i++]);
             Assert.Equal("<center>", lines[i++]);
             Assert.Equal("", lines[i++]);
             Assert.Equal("![Photo 1](./images/2021/walk230421_1.jpg)", lines[i++]);
-            Assert.Equal("Photo 1", lines[i++]);
+            Assert.Equal("Photo 1  ", lines[i++]);
+            Assert.Equal("<sup>Photo by Alan</sup>", lines[i++]);
             Assert.Equal("", lines[i++]);
             Assert.Equal("![Unknown photo](./images/2021/walk230421_2.jpg)", lines[i++]);
+            Assert.Equal("<sup>Photo by Alan</sup>", lines[i++]);
             Assert.Equal("", lines[i++]);
             Assert.Equal("![Photo 3](./images/2021/walk230421_3.jpg)", lines[i++]);
-            Assert.Equal("Photo 3", lines[i++]);
+            Assert.Equal("Photo 3  ", lines[i++]);
+            Assert.Equal("<sup>Photo by Alan</sup>", lines[i++]);
             Assert.Equal("", lines[i++]);
             Assert.Equal("</center>", lines[i++]);
             Assert.Equal("", lines[i++]);

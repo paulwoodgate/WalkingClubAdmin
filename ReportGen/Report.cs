@@ -1,4 +1,5 @@
 ﻿using System;
+using System.Collections;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -7,6 +8,8 @@ namespace ReportGen
 {
     public class Report
     {
+        private const string DateFormat = "{0:yyyy-MM-ddT00:00:00Z}";
+
         public string Id { get; set; }
         public DateTime Date { get; set; }
         public DateTime? EndDate { get; set; }
@@ -53,6 +56,7 @@ namespace ReportGen
             }
 
             PhotoSets = data.PhotoSets;
+            UpdateId();
         }
 
         public Report(string json)
@@ -71,6 +75,16 @@ namespace ReportGen
             Rating = JsonHelper.FindString("\"walkRating\"", json);
             CoverPhoto = JsonHelper.FindString("\"coverPhoto\"", json);
             PhotoSets = JsonHelper.CreatePhotoSets(json);
+
+            UpdateId();
+        }
+
+        private void UpdateId()
+        {
+            if (SubjectType != "Group")
+            {
+                Id = $"{Date:yyyyMMdd}";
+            }
         }
 
         public string ToJson()
@@ -78,10 +92,10 @@ namespace ReportGen
             var sb = new StringBuilder();
             sb.AppendLine("[{");
             sb.Append("\t\"id\": \"").Append(Id).AppendLine("\",");
-            sb.Append("\t\"date\": ").Append("{\"$date\":\"").AppendFormat("{0:yyyy-MM-ddT00:00:00Z}", Date).Append("\"}").AppendLine(",");
+            sb.Append("\t\"date\": ").Append("{\"$date\":\"").AppendFormat(DateFormat, Date).Append("\"}").AppendLine(",");
             if (SubjectType == "Group")
             {
-                sb.Append("\t\"endDate\": ").Append("{\"$date\":\"").AppendFormat("{0:yyyy-MM-ddT00:00:00Z}", EndDate).Append("\"}").AppendLine(",");
+                sb.Append("\t\"endDate\": ").Append("{\"$date\":\"").AppendFormat(DateFormat, EndDate).Append("\"}").AppendLine(",");
             }
             sb.Append("\t\"year\": \"").Append(Year).AppendLine("\",");
             sb.Append("\t\"title\": \"").Append(Title).AppendLine("\",");
@@ -128,10 +142,10 @@ namespace ReportGen
                 sb.Append("parent: \"").Append(Parent).AppendLine("\"");
             }
             sb.Append("title: \"").Append(Title).AppendLine("\"");
-            sb.Append("reportDate: ").AppendFormat("{0:yyyy-MM-ddT00:00:00Z}", Date).AppendLine();
+            sb.Append("reportDate: ").AppendFormat(DateFormat, Date).AppendLine();
             if (ReportType == "Group")
             {
-                sb.Append("endDate: ").AppendFormat("{0:yyyy-MM-ddT00:00:00Z}", EndDate).AppendLine();
+                sb.Append("endDate: ").AppendFormat(DateFormat, EndDate).AppendLine();
             }
             sb.Append("year: ").Append(Date.Year).AppendLine();
             sb.Append("coverPhoto: \"").Append($"./images/{Year}/{CoverPhoto}").AppendLine("\"");
@@ -157,36 +171,36 @@ namespace ReportGen
 
             if (PhotoSets?.Count > 0)
             {
-                foreach(var photoset in PhotoSets)
+                sb.AppendLine();
+                sb.AppendLine("<center>");
+                sb.AppendLine();
+
+                foreach (var photoset in PhotoSets)
                 {
                     CreatePhotoSet(photoset, sb);
                 }
+
+                sb.AppendLine("</center>");
+                sb.AppendLine();
             }
         }
 
         private void CreatePhotoSet(PhotoList list, StringBuilder sb)
         {
-            sb.AppendLine();
-            sb.Append("**Photographer:** ").AppendLine(list.Photographer);
-            sb.AppendLine();
-            sb.AppendLine("<center>");
-            sb.AppendLine();
-
             foreach (var photo in list.Photos)
             {
-                CreatePhoto(photo, sb);
+                CreatePhoto(photo, list.Photographer, sb);
             }
-            sb.AppendLine("</center>");
-            sb.AppendLine();
         }
 
-        private void CreatePhoto(ReportPhoto photo, StringBuilder sb)
+        private void CreatePhoto(ReportPhoto photo, string photographer, StringBuilder sb)
         {
             sb.Append("![").Append(string.IsNullOrWhiteSpace(photo.Caption) ? "Unknown photo" : photo.Caption).Append("](./images/").Append(Year).Append('/').Append(photo.Filename).AppendLine(")");
             if (!string.IsNullOrWhiteSpace(photo.Caption))
             {
-                sb.AppendLine(photo.Caption);
+                sb.Append(photo.Caption).AppendLine("  ");
             }
+            sb.Append("<sup>Photo by ").Append(photographer).AppendLine("</sup>");
             sb.AppendLine();
         }
     }

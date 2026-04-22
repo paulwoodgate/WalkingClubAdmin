@@ -1,8 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using Xunit;
 
 namespace ReportGen.Tests
@@ -109,7 +105,7 @@ namespace ReportGen.Tests
         }
 
         [Fact]
-        public void CreatePhotoSetsShouldReturnNullIfNoElement()
+        public void CreatePhotoSetsShouldReturnEmptySetIfNoElement()
         {
             const string json = "[{\"report\": [\"Para 1\",\"Para 2\",\"Para 3\"]}]";
 
@@ -131,5 +127,15 @@ namespace ReportGen.Tests
             Assert.Equal(2, sets[0].Photos.Count);
         }
 
+        [Fact]
+        public void CreatePhotoSetsShouldCreateSetFromOnlyPhotos()
+        {
+            const string json = "[{\"photographer\": \"Jane\", \"photos\": [          { \"file\": \"IMG_8717.jpg\", \"caption\": \"Outside the Motoring Museum in Bourton-on-the-Water\" },\r\n          { \"file\": \"IMG_8721.jpg\", \"caption\": \"Bourton-on-the-Water\" }]}] ";
+            var sets = JsonHelper.CreatePhotoSets(json);
+            Assert.NotNull(sets);
+            Assert.Single(sets);
+            Assert.Equal("Jane", sets[0].Photographer);
+            Assert.Equal(2, sets[0].Photos.Count);
+        }
     }
 }

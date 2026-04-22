@@ -227,7 +227,7 @@ namespace WalkPageGen.Tests
                 StartLocation = "'Pub' car park",
                 ThreeWords = "one.two.three",
                 StartGridRef = "NH 123 456",
-                Source = "OS Maps",
+                Source = "From Map",
                 Url = "https://blah.co.uk",
                 Terrain = "Field-side paths'",
                 County = "Bedfordshire",
@@ -240,13 +240,76 @@ namespace WalkPageGen.Tests
             Assert.Empty(lines[10]);
             Assert.Equal($"Length: {evnt.FormattedLength}, ({evnt.FormattedDuration})  ", lines[11]);
             Assert.Equal($"Ascent: {evnt.Ascent}  ", lines[12]);
-            Assert.Equal($"Grade: {evnt.Grading}  ", lines[13]);
-            Assert.Equal($"Walk Map: <a href='{evnt.Url}' target='_blank' rel='noreferrer'>OS Maps</a>  ", lines[14]);
-            Assert.Empty(lines[15]);
-            Assert.Equal($"Meet: {evnt.Depart}, or 9:45am at walk start  ", lines[16]);
-            Assert.Equal($"Park at: {evnt.StartLocation}, ({evnt.ThreeWords})  ", lines[17]);
-            Assert.Equal($"Travel Distance: {evnt.FormattedDistance}  ", lines[18]);
-            Assert.Equal($"Estimated Fuel Cost: {evnt.FormattedCost} plus share of car park costs", lines[19]);
+            Assert.Equal($"Terrain: {evnt.Terrain}  ", lines[13]);
+            Assert.Equal($"Grade: {evnt.Grading}  ", lines[14]);
+            Assert.Equal($"Walk Map: <a href='{evnt.Url}' target='_blank' rel='noreferrer'>OS Maps</a>  ", lines[15]);
+            Assert.Empty(lines[16]);
+            Assert.Equal($"Meet: {evnt.Depart}, or 9:45am at walk start  ", lines[17]);
+            Assert.Equal($"Park at: {evnt.StartLocation}, ({evnt.ThreeWords})  ", lines[18]);
+            Assert.Equal($"Travel Distance: {evnt.FormattedDistance}  ", lines[19]);
+            Assert.Equal($"Estimated Fuel Cost: {evnt.FormattedCost} plus share of car park costs", lines[20]);
+        }
+
+        [Fact]
+        public void MapLinkShouldBeOSMapsIfFromMap()
+        {
+            var evnt = new Event
+            {
+                Sequence = 12,
+                Type = EventType.Walk,
+                EventDate = DateTime.Parse("2023-05-04", CultureInfo.CurrentCulture.DateTimeFormat),
+                Title = "Paul's Title Test",
+                Depart = "9:30 Thorpe Wood",
+                Length = 10.3,
+                Image = "WalkImage.jpg",
+                Description = "A walk along Norfolk's best coast",
+                Duration = 4.5,
+                Ascent = "100m (328ft)",
+                DistanceAway = 99,
+                StartLocation = "'Pub' car park",
+                ThreeWords = "one.two.three",
+                StartGridRef = "NH 123 456",
+                Source = "From Map",
+                Url = "https://blah.co.uk",
+                Terrain = "Field-side paths'",
+                County = "Bedfordshire",
+                FuelCost = 10.5,
+                Grading = WalkGrading.Standard
+            };
+            var lines = MarkdownGenerator.CreateMarkdown(evnt).Split("\r\n");
+
+            Assert.Equal($"Walk Map: <a href='{evnt.Url}' target='_blank' rel='noreferrer'>OS Maps</a>  ", lines[15]);
+        }
+
+        [Fact]
+        public void MapLinkShouldBeAsSpecifiedIfNotFromMap()
+        {
+            var evnt = new Event
+            {
+                Sequence = 12,
+                Type = EventType.Walk,
+                EventDate = DateTime.Parse("2023-05-04", CultureInfo.CurrentCulture.DateTimeFormat),
+                Title = "Paul's Title Test",
+                Depart = "9:30 Thorpe Wood",
+                Length = 10.3,
+                Image = "WalkImage.jpg",
+                Description = "A walk along Norfolk's best coast",
+                Duration = 4.5,
+                Ascent = "100m (328ft)",
+                DistanceAway = 99,
+                StartLocation = "'Pub' car park",
+                ThreeWords = "one.two.three",
+                StartGridRef = "NH 123 456",
+                Source = "Walking Britain",
+                Url = "https://blah.co.uk",
+                Terrain = "Field-side paths'",
+                County = "Bedfordshire",
+                FuelCost = 10.5,
+                Grading = WalkGrading.Standard
+            };
+            var lines = MarkdownGenerator.CreateMarkdown(evnt).Split("\r\n");
+
+            Assert.Equal($"Walk Map: <a href='{evnt.Url}' target='_blank' rel='noreferrer'>Walking Britain</a>  ", lines[15]);
         }
     }
 }

@@ -9,11 +9,11 @@ namespace ReportGen.Tests
         [Fact]
         public void ShouldPopulateId()
         {
-            const string json = "[{\"id\": \"walk-2023-01-01\"}]";
+            const string json = "[{\"id\": \"walk-2023-01-01\", \"subjectType\": \"Walk\", {\"date\": { \"$date\": \"2023-01-01T00:00:00Z\"}}]";
 
             var report = new Report(json);
 
-            Assert.Equal("walk-2023-01-01", report.Id);
+            Assert.Equal("20230101", report.Id);
         }
 
         [Fact]
