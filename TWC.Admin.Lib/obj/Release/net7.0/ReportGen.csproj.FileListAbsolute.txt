@@ -1,0 +1,12 @@
+C:\dev\WalkingClubAdmin\ReportGen\bin\Release\net7.0\ReportGen.deps.json
+C:\dev\WalkingClubAdmin\ReportGen\bin\Release\net7.0\ReportGen.dll
+C:\dev\WalkingClubAdmin\ReportGen\bin\Release\net7.0\ReportGen.pdb
+C:\dev\WalkingClubAdmin\ReportGen\obj\Release\net7.0\ReportGen.GeneratedMSBuildEditorConfig.editorconfig
+C:\dev\WalkingClubAdmin\ReportGen\obj\Release\net7.0\ReportGen.AssemblyInfoInputs.cache
+C:\dev\WalkingClubAdmin\ReportGen\obj\Release\net7.0\ReportGen.AssemblyInfo.cs
+C:\dev\WalkingClubAdmin\ReportGen\obj\Release\net7.0\ReportGen.csproj.CoreCompileInputs.cache
+C:\dev\WalkingClubAdmin\ReportGen\obj\Release\net7.0\ReportGen.dll
+C:\dev\WalkingClubAdmin\ReportGen\obj\Release\net7.0\refint\ReportGen.dll
+C:\dev\WalkingClubAdmin\ReportGen\obj\Release\net7.0\ReportGen.pdb
+C:\dev\WalkingClubAdmin\ReportGen\obj\Release\net7.0\ref\ReportGen.dll
+C:\dev\WalkingClubAdmin\ReportGen\obj\Release\net7.0\ReportGen.sourcelink.json

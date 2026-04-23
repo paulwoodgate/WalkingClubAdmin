@@ -1,0 +1,187 @@
+﻿using System;
+using System.Collections.Generic;
+using System.Linq;
+using System.Text.Json;
+
+namespace TWC.Admin.Lib.Reports
+{
+    public static class JsonHelper
+    {
+        public static List<PhotoList> CreatePhotoSets(string json)
+        {
+            var options = new JsonSerializerOptions
+            {
+                PropertyNameCaseInsensitive = true
+            };
+
+            var photoSets = new List<PhotoList>();
+            var setJson = FindArray("photoSets", json);
+
+            if (setJson == null || setJson.Length == 0)
+            {
+                return CreatePhotoSetFromPhotos(json, options);
+            }
+
+            foreach (var photoSet in setJson)
+            {
+                var photosList = new PhotoList { Photographer = FindString("\"photographer\"", photoSet) };
+                var photosJson = FindArray("\"photos\"", photoSet);
+
+
+                foreach (var photo in photosJson)
+                {
+                    var photoDets = photo.Replace("\"file\"", "\"filename\"");
+                    photosList.Photos.Add(JsonSerializer.Deserialize<ReportPhoto>(photoDets, options));
+                }
+                photoSets.Add(photosList);
+            }
+
+            return photoSets;
+        }
+
+        private static List<PhotoList> CreatePhotoSetFromPhotos(string json, JsonSerializerOptions options)
+        {
+            var photographer = FindString("\"photographer\"", json);
+            if (photographer == null)
+            {
+                return new List<PhotoList>();
+            }
+                
+            var photoSet = new PhotoList { Photographer = photographer };
+            var photosJson = FindArray("\"photos\"", json);
+
+            foreach (var photo in photosJson)
+            {
+                var photoDets = photo.Replace("\"file\"", "\"filename\"");
+                photoSet.Photos.Add(JsonSerializer.Deserialize<ReportPhoto>(photoDets, options));
+            }
+            return [photoSet];
+        }
+
+        public static string FindString(string key, string json)
+        {
+            var pos = json.IndexOf(key);
+            if (pos == -1)
+            {
+                return null;
+            }
+
+            var start = json.IndexOf('"', pos + key.Length) + 1;
+            var end = json.IndexOf('"', start);
+            return json[start..end];
+        }
+
+        public static DateTime? FindDate(string key, string json)
+        {
+            var pos = json.IndexOf(key);
+            if (pos == -1)
+            {
+                return null;
+            }
+
+            var start = pos + key.Length + 12;
+            if (json[start+12] == 'T')
+            {
+                start += 2;
+            }
+            var dateValue = json.Substring(start, 10);
+            return Convert.ToDateTime(dateValue);
+        }
+
+        public static string[] FindArray(string key, string json)
+        {
+            json = json.Replace("\r\n", "");
+            var pos = json.IndexOf(key);
+            if (pos == -1)
+            {
+                return [];
+            }
+
+            var start = json.IndexOf('[', pos) + 1;
+            var end = FindEndOfObject(json, start, '[', ']') - 1;
+            List<string> temp = FindObjects(json[start..end]);
+
+            for (var i = 0; i < temp.Count; i++)
+            {
+                var t = temp[i].Trim();
+                if (t.StartsWith('"'))
+                {
+                    t = t[1..];
+                }
+
+                if (t.EndsWith('"'))
+                {
+                    t = t[..^1];
+                }
+
+                temp[i] = t;
+            }
+
+            return temp.ToArray();
+        }
+
+        private static int FindEndOfObject(string json, int startPos, char startCh, char endCh)
+        {
+            var levels = 1;
+            int i;
+
+            for (i = startPos + 1; i < json.Length && levels > 0; i++)
+            {
+                var ch = json[i];
+                if (ch == startCh)
+                {
+                    levels++;
+                }
+                else if (ch == endCh)
+                {
+                    levels--;
+                }
+            }
+
+            return i;
+        }
+
+        private static List<string> FindObjects(string json)
+        {
+            var objects = new List<string>();
+            json = json.Trim();
+            var startDelimiter = json[0];
+            var endDelimiter = '}';
+            var split = 0;
+            if (startDelimiter == '"')
+            {
+                return json.Split("\",").ToList();
+            }
+
+            var delimiterCount = 0;
+            var pos = 0;
+
+            while (pos < json.Length)
+            {
+
+                var ch = json[pos];
+                if (ch == startDelimiter)
+                {
+                    if (delimiterCount == 0)
+                    {
+                        split = pos;
+                    }
+                    delimiterCount++;
+                }
+                else if (ch == endDelimiter)
+                {
+                    delimiterCount--;
+                    if (delimiterCount == 0)
+                    {
+                        objects.Add(json[split..(pos+1)]);
+                        split = pos + 1;
+                    }
+                }
+                pos++;
+
+            }
+
+            return objects;
+        }
+    }
+}
