@@ -2,7 +2,7 @@ using System;
 
 using System.Windows.Forms;
 
-namespace WalkingClubAdmin
+namespace TWC.Admin
 {
     static class Program
     {

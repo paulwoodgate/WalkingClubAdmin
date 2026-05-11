@@ -1,13 +1,16 @@
 ﻿using Xunit;
+using TWC.Admin.Lib.Events;
 
-namespace WalkPageGen.Tests
+namespace TWC.Admin.Lib.Tests.Events
 {
     public class ExcelReaderTests
     {
+        const string filename = "Events\\Test Data\\ExcelReaderTest.xlsx";
+
         [Fact]
         public void GetColumnHeadersShouldReturnThreeValues()
         {
-            var reader = new ExcelReader("Test Data\\ExcelReaderTest.xlsx", "Sheet1");
+            var reader = new ExcelReader(filename, "Sheet1");
 
             var headings = reader.GetColumnHeaders();
 
@@ -20,7 +23,7 @@ namespace WalkPageGen.Tests
         [Fact]
         public void ReadCellsShouldReturnListOfLists()
         {
-            var reader = new ExcelReader("Test Data\\ExcelReaderTest.xlsx", "Sheet1");
+            var reader = new ExcelReader(filename, "Sheet1");
 
             var values = reader.ReadRangeValues("A2:C4");
 

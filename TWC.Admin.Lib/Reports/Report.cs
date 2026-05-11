@@ -56,7 +56,6 @@ namespace TWC.Admin.Lib.Reports
             }
 
             PhotoSets = data.PhotoSets;
-            UpdateId();
         }
 
         public Report(string json)
@@ -75,23 +74,24 @@ namespace TWC.Admin.Lib.Reports
             Rating = JsonHelper.FindString("\"walkRating\"", json);
             CoverPhoto = JsonHelper.FindString("\"coverPhoto\"", json);
             PhotoSets = JsonHelper.CreatePhotoSets(json);
-
-            UpdateId();
         }
 
-        private void UpdateId()
+        private string GetId(string format)
         {
-            if (SubjectType != "Group")
+            if (SubjectType == "Group" || (SubjectType == "Day" && format == "Json"))
             {
-                Id = $"{Date:yyyyMMdd}";
+                return Id;
+            } else {
+                return $"{Date:yyyyMMdd}";
             }
         }
 
         public string ToJson()
         {
+
             var sb = new StringBuilder();
             sb.AppendLine("[{");
-            sb.Append("\t\"id\": \"").Append(Id).AppendLine("\",");
+            sb.Append("\t\"id\": \"").Append(GetId("Json")).AppendLine("\",");
             sb.Append("\t\"date\": ").Append("{\"$date\":\"").AppendFormat(DateFormat, Date).Append("\"}").AppendLine(",");
             if (SubjectType == "Group")
             {
@@ -123,19 +123,19 @@ namespace TWC.Admin.Lib.Reports
             return sb.ToString();
         }
 
-        public string ToMarkDown()
+        public string ToMarkDown(string imagePath)
         {
             var sb = new StringBuilder();
 
-            CreateFrontmatter(sb);
-            CreateBody(sb);
+            CreateFrontmatter(sb, imagePath);
+            CreateBody(sb, imagePath);
             return sb.ToString();
         }
 
-        private void CreateFrontmatter(StringBuilder sb)
+        private void CreateFrontmatter(StringBuilder sb, string imagePath)
         {
             sb.AppendLine("---");
-            sb.Append("reportId: \"").Append(Id).AppendLine("\"");
+            sb.Append("reportId: \"").Append(GetId("Md")).AppendLine("\"");
             sb.Append("reportType: \"").Append(ReportType).AppendLine("\"");
             if (ReportType == "Child")
             {
@@ -147,12 +147,12 @@ namespace TWC.Admin.Lib.Reports
             {
                 sb.Append("endDate: ").AppendFormat(DateFormat, EndDate).AppendLine();
             }
-            sb.Append("year: ").Append(Date.Year).AppendLine();
-            sb.Append("coverPhoto: \"").Append($"./images/{Year}/{CoverPhoto}").AppendLine("\"");
+            sb.Append("year: ").Append(Year).AppendLine();
+            sb.AppendFormat("coverPhoto: \"{0}/Photos/{1}/{2}\"", imagePath, Year, CoverPhoto).AppendLine();
             sb.AppendLine("---");
         }
 
-        private void CreateBody(StringBuilder sb)
+        private void CreateBody(StringBuilder sb, string imagePath)
         {
             if (Text?.Length > 0)
             {
@@ -177,7 +177,7 @@ namespace TWC.Admin.Lib.Reports
 
                 foreach (var photoset in PhotoSets)
                 {
-                    CreatePhotoSet(photoset, sb);
+                    CreatePhotoSet(photoset, sb, imagePath);
                 }
 
                 sb.AppendLine("</center>");
@@ -185,22 +185,22 @@ namespace TWC.Admin.Lib.Reports
             }
         }
 
-        private void CreatePhotoSet(PhotoList list, StringBuilder sb)
+        private void CreatePhotoSet(PhotoList list, StringBuilder sb, string imagePath)
         {
             foreach (var photo in list.Photos)
             {
-                CreatePhoto(photo, list.Photographer, sb);
+                CreatePhoto(photo, list.Photographer, sb, imagePath);
             }
         }
 
-        private void CreatePhoto(ReportPhoto photo, string photographer, StringBuilder sb)
+        private void CreatePhoto(ReportPhoto photo, string photographer, StringBuilder sb, string imagePath)
         {
-            sb.Append("![").Append(string.IsNullOrWhiteSpace(photo.Caption) ? "Unknown photo" : photo.Caption).Append("](./images/").Append(Year).Append('/').Append(photo.Filename).AppendLine(")");
+            sb.AppendFormat("![{0}]({1}/Photos/{2}/{3})", string.IsNullOrWhiteSpace(photo.Caption) ? "Unknown photo" : photo.Caption, imagePath, Year, photo.Filename).AppendLine();
             if (!string.IsNullOrWhiteSpace(photo.Caption))
             {
                 sb.Append(photo.Caption).AppendLine("  ");
             }
-            sb.Append("<sup>Photo by ").Append(photographer).AppendLine("</sup>");
+            sb.AppendFormat("<sup>Photo by {0}</sup>", photographer).AppendLine();
             sb.AppendLine();
         }
     }

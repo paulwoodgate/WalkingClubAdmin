@@ -1,4 +1,4 @@
-﻿namespace WalkingClubAdmin
+﻿namespace TWC.Admin
 {
     partial class ReportForm
     {

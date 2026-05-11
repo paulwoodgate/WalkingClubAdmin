@@ -2,7 +2,7 @@
 using System.IO;
 using System.Text.Json;
 
-namespace WalkPageGen
+namespace TWC.Admin.Lib.Events
 {
     public class Options
     {

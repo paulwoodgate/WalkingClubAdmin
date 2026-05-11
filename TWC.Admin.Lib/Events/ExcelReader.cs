@@ -2,7 +2,7 @@
 using System.Linq;
 using ClosedXML.Excel;
 
-namespace WalkPageGen
+namespace TWC.Admin.Lib.Events
 {
     public class ExcelReader(string book, string sheet)
     {

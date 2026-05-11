@@ -38,6 +38,7 @@ namespace TWC.Admin.Lib.Tests.Reports
         {
             var options = new ConvertOptions
             {
+                ImagePath = "c:\\dev\\images",
                 ConvertFolder = true,
                 OutputPath = "c:\\dev"
             };
@@ -51,6 +52,7 @@ namespace TWC.Admin.Lib.Tests.Reports
         {
             var options = new ConvertOptions
             {
+                ImagePath = "c:\\dev\\images",
                 ConvertFolder = true,
                 OutputPath = "c:\\dev",
                 FolderPath = "c:\\de"
@@ -65,6 +67,7 @@ namespace TWC.Admin.Lib.Tests.Reports
         {
             var options = new ConvertOptions
             {
+                ImagePath = "c:\\dev\\images",
                 ConvertFolder = false,
                 OutputPath = "c:\\dev"
             };
@@ -78,6 +81,7 @@ namespace TWC.Admin.Lib.Tests.Reports
         {
             var options = new ConvertOptions
             {
+                ImagePath = "c:\\dev\\images",
                 ConvertFolder = false,
                 OutputPath = "c:\\dev",
                 FileName = "c:\\dev\\missing.json"
@@ -93,6 +97,7 @@ namespace TWC.Admin.Lib.Tests.Reports
             var options = new ConvertOptions
             {
                 ConvertFolder = false,
+                ImagePath = "c:\\dev\\images",
                 FileName = "c:\\dev\\WalkingClubAdmin\\ReadMe.md",
                 OutputPath = "c:\\dev\\twc-astro"
             };

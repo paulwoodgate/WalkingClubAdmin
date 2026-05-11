@@ -1,14 +1,13 @@
-﻿using System.Diagnostics;
-using System.Text;
+﻿using System.Text;
 
-namespace WalkPageGen
+namespace TWC.Admin.Lib.Events
 {
     public static class MarkdownGenerator
     {
-        public static string CreateMarkdown(Event ev) {
+        public static string CreateMarkdown(Event ev, string imagePath) {
             var sb = new StringBuilder();
 
-            CreateFrontMatter(ev, sb);
+            CreateFrontMatter(ev, sb, imagePath);
             if (ev.Type == EventType.Walk)
             {
                 CreateWalkContent(ev, sb);
@@ -20,9 +19,9 @@ namespace WalkPageGen
             return sb.ToString();
         }
 
-        private static void CreateFrontMatter(Event ev, StringBuilder sb) {
+        private static void CreateFrontMatter(Event ev, StringBuilder sb, string imagePath) {
             sb.AppendLine("---");
-            CreateCommonFrontMatter(ev, sb);
+            CreateCommonFrontMatter(ev, sb, imagePath);
             if (ev.Type == EventType.Social)
             {
                 CreateSocialFrontmatter(ev, sb);
@@ -38,13 +37,13 @@ namespace WalkPageGen
             sb.AppendLine("---");
         }
 
-        private static void CreateCommonFrontMatter(Event ev, StringBuilder sb)
+        private static void CreateCommonFrontMatter(Event ev, StringBuilder sb, string imagePath)
         {
             sb.Append("eventId: '").Append(ev.FileId).AppendLine("'");
             sb.Append("title: '").Append(EventHelper.SanitiseString(ev.Title)).AppendLine("'");
             sb.Append("eventDate: ").AppendFormat("{0:yyyy-MM-ddT00:00:00Z}", ev.EventDate).AppendLine();
             sb.Append("eventType: '").Append(ev.Type).AppendLine("'");
-            sb.Append("image: './images/").Append(ev.Image).AppendLine("'");
+            sb.AppendFormat("image: '{0}/images/{1}'", imagePath, ev.Image).AppendLine();
         }
 
         private static void CreateSocialFrontmatter(Event ev, StringBuilder sb)

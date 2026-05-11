@@ -18,7 +18,7 @@ namespace TWC.Admin.Lib.Tests.Reports
                 Id = "walk140421",
                 Date = new DateTime(2021, 4, 14, 0, 0, 0, DateTimeKind.Local),
                 Title = "Yelden",
-                SubjectType = "Day",
+                SubjectType = "Walk",
                 Report = "This is an interesting walk\r\nvery interesting indeed",
                 ReportBy = "Sue",
                 Rating = "Average",
@@ -43,7 +43,7 @@ namespace TWC.Admin.Lib.Tests.Reports
             Assert.Contains("\t\"date\": {\"$date\":\"2021-04-14T00:00:00Z\"},\r\n", json);
             Assert.Contains("\t\"year\": \"2021\",\r\n", json);
             Assert.Contains("\t\"title\": \"Yelden\",\r\n", json);
-            Assert.Contains("\t\"subjectType\": \"Day\",\r\n", json);
+            Assert.Contains("\t\"subjectType\": \"Walk\",\r\n", json);
             Assert.Contains("\t\"report\": [\"This is an interesting walk\",\"very interesting indeed\"],\r\n", json);
             Assert.Contains("\t\"reportBy\": \"Sue\",\r\n", json);
             Assert.Contains("\t\"walkRating\": \"Average\",\r\n", json);
@@ -147,5 +147,35 @@ namespace TWC.Admin.Lib.Tests.Reports
             Assert.Contains("\"caption\": \"an \\\"interesting\\\" photo\"", json);
         }
 
+        [Fact]
+        public void ToJsonShouldUseGroupIdForDayReports()
+        {
+            var data = new ReportData()
+            {
+                Id = "lakes-2026-1",
+                Date = new DateTime(2021, 4, 14, 0, 0, 0, DateTimeKind.Local),
+                Title = "Yelden",
+                Report = "This is an interesting walk\r\nvery interesting indeed",
+                ReportBy = "Sue",
+                SubjectType = "Day",
+                Rating = "Average",
+                CoverPhoto = "walk140421_1.jpg"
+            };
+
+            var report = new Report(data);
+            var json = report.ToJson();
+
+            Assert.StartsWith("[{", json);
+            Assert.Contains("\t\"id\": \"lakes-2026-1\",\r\n", json);
+            Assert.Contains("\t\"date\": {\"$date\":\"2021-04-14T00:00:00Z\"},\r\n", json);
+            Assert.Contains("\t\"year\": \"2021\",\r\n", json);
+            Assert.Contains("\t\"title\": \"Yelden\",\r\n", json);
+            Assert.Contains("\t\"report\": [\"This is an interesting walk\",\"very interesting indeed\"],\r\n", json);
+            Assert.Contains("\t\"reportBy\": \"Sue\",\r\n", json);
+            Assert.Contains("\t\"walkRating\": \"Average\",\r\n", json);
+            Assert.Contains("\t\"coverPhoto\": \"walk140421_1.jpg\"\r\n", json);
+            Assert.DoesNotContain("\t\"photoSets\":", json);
+            Assert.EndsWith("}]\r\n", json);
+        }
     }
 }

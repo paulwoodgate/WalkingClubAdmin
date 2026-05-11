@@ -1,8 +1,6 @@
-﻿using System;
-using System.Windows.Forms;
-using WalkPageGen;
+﻿using System.Windows.Forms;
 
-namespace WalkingClubAdmin
+namespace TWC.Admin
 {
     public partial class MainForm : Form
     {

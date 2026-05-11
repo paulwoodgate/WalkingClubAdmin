@@ -1,14 +1,18 @@
-﻿using TWC.Admin.Lib.Reports;
-using System;
+﻿using System;
 using System.Windows.Forms;
+using TWC.Admin.Lib.Common;
+using TWC.Admin.Lib.Reports;
 
-namespace WalkingClubAdmin
+namespace TWC.Admin
 {
     public partial class ConvertForm : UserControl
     {
+        private readonly AppSettings settings;
+
         public ConvertForm()
         {
             InitializeComponent();
+            settings = AppSettings.ReadFromFile("appsettings.json");
         }
 
         private void FileSelectButton_Click(object sender, EventArgs e)
@@ -63,7 +67,8 @@ namespace WalkingClubAdmin
                 ConvertFolder = FolderRadioButton.Checked,
                 FileName = FileTextBox.Text,
                 FolderPath = FolderTextBox.Text,
-                OutputPath = OutputTextBox.Text
+                OutputPath = OutputTextBox.Text,
+                ImagePath = settings.ImagePath
             };
 
             try

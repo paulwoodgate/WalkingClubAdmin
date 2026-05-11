@@ -14,7 +14,7 @@ namespace TWC.Admin.Lib.Tests.Reports
 
             var report = new Report(json);
 
-            Assert.Equal("20230101", report.Id);
+            Assert.Equal("walk-2023-01-01", report.Id);
         }
 
         [Fact]

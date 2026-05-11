@@ -1,7 +1,8 @@
 ﻿using System;
+using TWC.Admin.Lib.Events;
 using Xunit;
 
-namespace WalkPageGen.Tests
+namespace TWC.Admin.Lib.Tests.Events
 {
     public class DateHelperTests
     {

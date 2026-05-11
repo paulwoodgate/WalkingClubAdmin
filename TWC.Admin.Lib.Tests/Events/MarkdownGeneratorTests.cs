@@ -3,16 +3,17 @@
 using System;
 using System.Globalization;
 using System.Linq;
+using TWC.Admin.Lib.Events;
 using Xunit;
 
-namespace WalkPageGen.Tests
+namespace TWC.Admin.Lib.Tests.Events
 {
     public class MarkdownGeneratorTests
     {
         [Fact]
         public void FirstLineShouldBe3Dashes()
         {
-            var markdown = MarkdownGenerator.CreateMarkdown(new Event{ Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat) });
+            var markdown = MarkdownGenerator.CreateMarkdown(new Event{ Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat) }, "images");
             var lines = markdown.Split("\r\n");
             Assert.Equal("---", lines[0]);
         }
@@ -20,7 +21,7 @@ namespace WalkPageGen.Tests
         [Fact]
         public void FrontMatterShouldHave2DashLines()
         {
-            var markdown = MarkdownGenerator.CreateMarkdown(new Event { Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat) });
+            var markdown = MarkdownGenerator.CreateMarkdown(new Event { Sequence = 1, Type = EventType.Walk, EventDate = DateTime.Parse("2020-01-05", CultureInfo.CurrentCulture.DateTimeFormat) }, "images");
             var lines = markdown.Split("\r\n");
 
             Assert.Equal(2, lines.Count(l => l.Equals("---")));
@@ -52,7 +53,9 @@ namespace WalkPageGen.Tests
                 FuelCost = 10.5,
                 Grading = WalkGrading.Standard
             };
-            var lines = MarkdownGenerator.CreateMarkdown(evnt).Split("\r\n");
+
+            var imagePath = "http://example.com";
+            var lines = MarkdownGenerator.CreateMarkdown(evnt, imagePath).Split("\r\n");
 
             Assert.Equal("---", lines[0]);
             Assert.Contains("eventId: '2023-12'", lines);
@@ -61,7 +64,7 @@ namespace WalkPageGen.Tests
             Assert.Contains("eventType: 'Walk'", lines);
             Assert.Contains("depart: '9:30 Thorpe Wood'", lines);
             Assert.Contains("length: 10.3", lines);
-            Assert.Contains("image: './images/WalkImage.jpg'", lines);
+            Assert.Contains($"image: '{imagePath}/images/WalkImage.jpg'", lines);
             Assert.Equal("---", lines[8]);
         }
 
@@ -91,7 +94,8 @@ namespace WalkPageGen.Tests
                 FuelCost = 10.5,
                 Grading = WalkGrading.Standard
             };
-            var lines = MarkdownGenerator.CreateMarkdown(evnt).Split("\r\n");
+            var imagePath = "http://example.co.uk";
+            var lines = MarkdownGenerator.CreateMarkdown(evnt, imagePath).Split("\r\n");
 
             Assert.Equal("---", lines[0]);
             Assert.Contains("eventId: '2023-12'", lines);
@@ -99,7 +103,7 @@ namespace WalkPageGen.Tests
             Assert.Contains("eventDate: 2023-05-04T00:00:00Z", lines);
             Assert.Contains("eventType: 'Social'", lines);
             Assert.Contains("depart: '9:30 Thorpe Wood'", lines);
-            Assert.Contains("image: './images/SocialImage.jpg'", lines);
+            Assert.Contains($"image: '{imagePath}/images/SocialImage.jpg'", lines);
             Assert.Equal("---", lines[7]);
         }
 
@@ -128,7 +132,9 @@ namespace WalkPageGen.Tests
                 FuelCost = 10.5,
                 Grading = WalkGrading.Standard
             };
-            var lines = MarkdownGenerator.CreateMarkdown(evnt).Split("\r\n");
+
+            var imagePath = "http://example.com.au";
+            var lines = MarkdownGenerator.CreateMarkdown(evnt, imagePath).Split("\r\n");
 
             Assert.Equal("---", lines[0]);
             Assert.Contains("eventId: '2023-12'", lines);
@@ -136,7 +142,7 @@ namespace WalkPageGen.Tests
             Assert.Contains("eventDate: 2023-05-04T00:00:00Z", lines);
             Assert.Contains("eventType: 'Weekend'", lines);
             Assert.Contains("duration: 2", lines);
-            Assert.Contains("image: './images/WeekendImage.jpg'", lines);
+            Assert.Contains($"image: '{imagePath}/images/WeekendImage.jpg'", lines);
             Assert.Equal("---", lines[^2]);
             Assert.Equal(9, lines.Length);
         }
@@ -167,7 +173,7 @@ namespace WalkPageGen.Tests
                 FuelCost = 10.5,
                 Grading = WalkGrading.Standard
             };
-            var lines = MarkdownGenerator.CreateMarkdown(evnt).Split("\r\n");
+            var lines = MarkdownGenerator.CreateMarkdown(evnt, "images").Split("\r\n");
 
             Assert.Equal("---", lines[0]);
             Assert.Contains("title: 'Paul`s Title Test'", lines);
@@ -200,7 +206,7 @@ namespace WalkPageGen.Tests
                 FuelCost = 10.5,
                 Grading = WalkGrading.Standard
             };
-            var lines = MarkdownGenerator.CreateMarkdown(evnt).Split("\r\n");
+            var lines = MarkdownGenerator.CreateMarkdown(evnt, "images").Split("\r\n");
 
             Assert.Equal(12, lines.Length);
             Assert.Equal($"Location: {evnt.Depart}", lines[8]);
@@ -234,7 +240,7 @@ namespace WalkPageGen.Tests
                 FuelCost = 10.5,
                 Grading = WalkGrading.Standard
             };
-            var lines = MarkdownGenerator.CreateMarkdown(evnt).Split("\r\n");
+            var lines = MarkdownGenerator.CreateMarkdown(evnt, "images").Split("\r\n");
 
             Assert.Equal(evnt.Description, lines[9]);
             Assert.Empty(lines[10]);
@@ -276,7 +282,7 @@ namespace WalkPageGen.Tests
                 FuelCost = 10.5,
                 Grading = WalkGrading.Standard
             };
-            var lines = MarkdownGenerator.CreateMarkdown(evnt).Split("\r\n");
+            var lines = MarkdownGenerator.CreateMarkdown(evnt, "images").Split("\r\n");
 
             Assert.Equal($"Walk Map: <a href='{evnt.Url}' target='_blank' rel='noreferrer'>OS Maps</a>  ", lines[15]);
         }
@@ -307,7 +313,7 @@ namespace WalkPageGen.Tests
                 FuelCost = 10.5,
                 Grading = WalkGrading.Standard
             };
-            var lines = MarkdownGenerator.CreateMarkdown(evnt).Split("\r\n");
+            var lines = MarkdownGenerator.CreateMarkdown(evnt, "images").Split("\r\n");
 
             Assert.Equal($"Walk Map: <a href='{evnt.Url}' target='_blank' rel='noreferrer'>Walking Britain</a>  ", lines[15]);
         }

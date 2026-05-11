@@ -26,8 +26,9 @@ namespace TWC.Admin.Lib.Tests.Reports
                 Photographer = "Alan"
             };
 
+            const string imagePath = "https://imagePath";
             var report = new Report(data);
-            var markdown = report.ToMarkDown();
+            var markdown = report.ToMarkDown(imagePath);
             var lines = markdown.Split("\r\n");
 
             int i = 0;
@@ -38,7 +39,7 @@ namespace TWC.Admin.Lib.Tests.Reports
             Assert.Equal("title: \"Yelden\"", lines[i++]);
             Assert.Equal("reportDate: 2021-04-04T00:00:00Z", lines[i++]);
             Assert.Equal("year: 2021", lines[i++]);
-            Assert.Equal("coverPhoto: \"./images/2021/walk140421_1.jpg\"", lines[i++]);
+            Assert.Equal($"coverPhoto: \"{imagePath}/Photos/2021/walk140421_1.jpg\"", lines[i++]);
             Assert.Equal("---", lines[i]);
         }
 
@@ -55,8 +56,10 @@ namespace TWC.Admin.Lib.Tests.Reports
                 EndDate = new DateTime(2023, 7, 12, 0, 0, 0, DateTimeKind.Local)
             };
 
+            var imagePath = "https://imagePath.com";
+
             var report = new Report(data);
-            var markdown = report.ToMarkDown();
+            var markdown = report.ToMarkDown(imagePath);
             var lines = markdown.Split("\r\n");
 
             int i = 0;
@@ -67,7 +70,7 @@ namespace TWC.Admin.Lib.Tests.Reports
             Assert.Equal("reportDate: 2023-07-06T00:00:00Z", lines[i++]);
             Assert.Equal("endDate: 2023-07-12T00:00:00Z", lines[i++]);
             Assert.Equal("year: 2023", lines[i++]);
-            Assert.Equal("coverPhoto: \"./images/2023/IMG_7302.jpg\"", lines[i++]);
+            Assert.Equal($"coverPhoto: \"{imagePath}/Photos/2023/IMG_7302.jpg\"", lines[i++]);
             Assert.Equal("---", lines[i]);
         }
 
@@ -91,9 +94,10 @@ namespace TWC.Admin.Lib.Tests.Reports
                 Photographer = "Alan"
             };
 
+            var imagePath = "https://imagePath.co.uk";
             var report = new Report(data);
-            var markdown = report.ToMarkDown();
-            var lines = markdown.Split("\r\n");
+            var markdown = report.ToMarkDown(imagePath);
+            var lines = markdown.Split("\r\n"); 
 
             int i = 0;
             Assert.Equal("---", lines[i++]);
@@ -103,7 +107,7 @@ namespace TWC.Admin.Lib.Tests.Reports
             Assert.Equal("title: \"Yelden\"", lines[i++]);
             Assert.Equal("reportDate: 2021-04-04T00:00:00Z", lines[i++]);
             Assert.Equal("year: 2021", lines[i++]);
-            Assert.Equal("coverPhoto: \"./images/2021/walk140421_1.jpg\"", lines[i++]);
+            Assert.Equal($"coverPhoto: \"{imagePath}/Photos/2021/walk140421_1.jpg\"", lines[i++]);
             Assert.Equal("---", lines[i]);
         }
 
@@ -126,8 +130,9 @@ namespace TWC.Admin.Lib.Tests.Reports
                 Photographer = "Alan"
             };
 
+            var imagePath = "https://imagePath.co.uk";
             var report = new Report(data);
-            var markdown = report.ToMarkDown();
+            var markdown = report.ToMarkDown(imagePath);
             var lines = markdown.Split("\r\n");
 
             Assert.Equal(31, lines.Length);
@@ -141,14 +146,14 @@ namespace TWC.Admin.Lib.Tests.Reports
             Assert.Equal("", lines[i++]);
             Assert.Equal("<center>", lines[i++]);
             Assert.Equal("", lines[i++]);
-            Assert.Equal("![Photo 1](./images/2021/walk230421_1.jpg)", lines[i++]);
+            Assert.Equal($"![Photo 1]({imagePath}/Photos/2021/walk230421_1.jpg)", lines[i++]);
             Assert.Equal("Photo 1  ", lines[i++]);
             Assert.Equal("<sup>Photo by Alan</sup>", lines[i++]);
             Assert.Equal("", lines[i++]);
-            Assert.Equal("![Unknown photo](./images/2021/walk230421_2.jpg)", lines[i++]);
+            Assert.Equal($"![Unknown photo]({imagePath}/Photos/2021/walk230421_2.jpg)", lines[i++]);
             Assert.Equal("<sup>Photo by Alan</sup>", lines[i++]);
             Assert.Equal("", lines[i++]);
-            Assert.Equal("![Photo 3](./images/2021/walk230421_3.jpg)", lines[i++]);
+            Assert.Equal($"![Photo 3]({imagePath}/Photos/2021/walk230421_3.jpg)", lines[i++]);
             Assert.Equal("Photo 3  ", lines[i++]);
             Assert.Equal("<sup>Photo by Alan</sup>", lines[i++]);
             Assert.Equal("", lines[i++]);
@@ -171,7 +176,7 @@ namespace TWC.Admin.Lib.Tests.Reports
             };
 
             var report = new Report(data);
-            var markdown = report.ToMarkDown();
+            var markdown = report.ToMarkDown("imagePath");
             var lines = markdown.Split("\r\n");
 
             Assert.DoesNotContain(lines, l => l.Contains("**Report:**"));

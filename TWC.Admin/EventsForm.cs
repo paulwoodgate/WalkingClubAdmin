@@ -1,24 +1,19 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.ComponentModel;
-using System.Data;
-using System.Drawing;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 using System.Windows.Forms;
+using TWC.Admin.Lib.Common;
 using TWC.Admin.Lib.Events;
-using WalkPageGen;
 
-namespace WalkingClubAdmin
+namespace TWC.Admin
 {
     public partial class EventsForm : UserControl
     {
+        private readonly AppSettings settings;
         public EventsForm()
         {
             InitializeComponent();
             PopulateYears();
             LoadPreviousValues();
+            settings = AppSettings.ReadFromFile("appsettings.json");
         }
 
         private void PopulateYears()

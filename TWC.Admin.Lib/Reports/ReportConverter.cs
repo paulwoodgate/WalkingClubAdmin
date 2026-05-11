@@ -37,7 +37,7 @@ namespace TWC.Admin.Lib.Reports
             var fileContents = File.ReadAllText(filename);
             var report = new Report(fileContents);
 
-            var markdown = report.ToMarkDown();
+            var markdown = report.ToMarkDown(Options.ImagePath);
             var outputFile = Path.Combine(Options.OutputPath, $"{report.Id}.md");
             File.WriteAllText(outputFile, markdown);
         }

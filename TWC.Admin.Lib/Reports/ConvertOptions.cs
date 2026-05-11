@@ -9,6 +9,7 @@ namespace TWC.Admin.Lib.Reports
         public string FileName { get; set; }
         public string FolderPath { get; set; }
         public string OutputPath { get; set; }
+        public string ImagePath { get; set; }
 
         public void Validate()
         {
@@ -20,6 +21,10 @@ namespace TWC.Admin.Lib.Reports
             if (!Path.Exists(OutputPath))
             {
                 throw new ArgumentException($"The output folder \"{OutputPath}\" does not exist");
+            }
+            if (string.IsNullOrWhiteSpace(ImagePath))
+            {
+                throw new ArgumentException("An image folder must be supplied");
             }
 
             if (ConvertFolder)

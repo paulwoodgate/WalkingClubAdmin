@@ -8,7 +8,7 @@ namespace TWC.Admin.Lib.Tests.Common
         [Fact]
         public void ReadFromFileShouldReturnObject()
         {
-            var settings = AppSettings.ReadFromFile("appsettings.test.json");
+            var settings = AppSettings.ReadFromFile("common\\appsettings.test.json");
 
             Assert.Equal("Fred", settings.SheetId);
             Assert.Equal("Range", settings.Range);

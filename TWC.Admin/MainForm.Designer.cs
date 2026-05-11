@@ -1,5 +1,5 @@
 ﻿
-namespace WalkingClubAdmin
+namespace TWC.Admin
 {
     partial class MainForm
     {

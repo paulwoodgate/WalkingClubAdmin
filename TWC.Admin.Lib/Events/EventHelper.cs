@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace WalkPageGen
+namespace TWC.Admin.Lib.Events
 {
     public static class EventHelper
     {

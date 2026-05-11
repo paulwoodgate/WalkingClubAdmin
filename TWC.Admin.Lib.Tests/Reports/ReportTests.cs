@@ -19,7 +19,7 @@ namespace TWC.Admin.Lib.Tests.Reports
 
             var report = new Report(data);
 
-            Assert.Equal("20210424", report.Id);
+            Assert.Equal("walk240421", report.Id);
         }
 
         [Fact]
@@ -166,7 +166,7 @@ namespace TWC.Admin.Lib.Tests.Reports
         {
             const string json= "{\r\n    \"id\": \"walk-2026-01-01\",\r\n    \"date\": { \"$date\": \"2026-01-01T00:00:00Z\" },\r\n    \"year\": \"2026\",\r\n    \"title\": \"Southwick\",\r\n    \"subjectType\": \"Walk\",\r\n    \"report\": [\r\n      \"Last time we did this route, Covid-19 restrictions were in place and we walked in 3 groups. That would not have been a problem today,  as at 1 point only Tina and Sue were walking, but the numbers swelled to a healthy 6. It was cold with a bitter wind when in certain directions, but at least it was dry. The derelict barn was decided to not be a good choice for our coffee break for various reasons and a bench was known to be about 30 minutes away, so we carried on. The ladies commandeered the bench for what was a quick pit stop, as we were progressing well and lunch was on the horizon - another bench (for the ladies) but where was the crocodile - I found a picture of it taken in 2020. \",\r\n      \"Alan M warned us of the impending mud as we entered the woods, he was right but it wasn’t too bad at all. \",\r\n      \"Post walk drinks were enjoyed at the busy Shuckburgh Arms following an enjoyable 1st peregrination of the year\"\r\n    ],\r\n    \"reportBy\": \"Sue\",\r\n    \"walkRating\": \"Enjoyable\",\r\n    \"coverPhoto\": \"walk111020_6.jpg\",\r\n    \"photoSets\": [{ \"photographer\": \"Sue\", \"photos\": [{ \"file\": \"walk111020_6.jpg\", \"caption\": \"\" }] }]\r\n  }";
             var report = new Report(json);
-            Assert.Equal("20260101", report.Id);
+            Assert.Equal("walk-2026-01-01", report.Id);
         }
     }
 }

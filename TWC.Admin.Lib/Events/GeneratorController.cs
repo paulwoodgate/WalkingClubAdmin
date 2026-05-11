@@ -20,7 +20,7 @@ namespace TWC.Admin.Lib.Events
             }
             if (options.CreateMarkdown)
             {
-                CreateMarkdownFiles(events, options);
+                CreateMarkdownFiles(events, options, settings.ImagePath);
             }
         }
 
@@ -41,11 +41,11 @@ namespace TWC.Admin.Lib.Events
             File.WriteAllText(options.OutputFile, json);
         }
 
-        private static void CreateMarkdownFiles(List<Event> events, Options options)
+        private static void CreateMarkdownFiles(List<Event> events, Options options, string imagePath)
         {
             foreach (var ev in events)
             {
-                var markdown = MarkdownGenerator.CreateMarkdown(ev);
+                var markdown = MarkdownGenerator.CreateMarkdown(ev, imagePath);
                 File.WriteAllText(Path.Combine(options.MarkdownFolder, ev.FileId + ".md"), markdown);
             }
         }

@@ -1,6 +1,7 @@
-﻿using Xunit;
+﻿using TWC.Admin.Lib.Events;
+using Xunit;
 
-namespace WalkPageGen.Tests
+namespace TWC.Admin.Lib.Tests.Events
 {
     public class EventHelperTests
     {

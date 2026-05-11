@@ -3,15 +3,18 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
+using TWC.Admin.Lib.Common;
 using TWC.Admin.Lib.Reports;
 
-namespace WalkingClubAdmin
+namespace TWC.Admin
 {
     public partial class ReportForm : UserControl
     {
+        private AppSettings settings;
         public ReportForm()
         {
             InitializeComponent();
+            settings = AppSettings.ReadFromFile("appsettings.json");
         }
 
         private void SubjectTypeCombobox_SelectedIndexChanged(object sender, EventArgs e)
@@ -119,7 +122,7 @@ namespace WalkingClubAdmin
             {
                 data.Validate();
                 var report = new Report(data);
-                var markDown = report.ToMarkDown();
+                var markDown = report.ToMarkDown(settings.ImagePath);
                 var dialog = new SaveFileDialog
                 {
                     DefaultExt = ".md",
