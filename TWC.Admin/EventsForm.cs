@@ -7,13 +7,11 @@ namespace TWC.Admin
 {
     public partial class EventsForm : UserControl
     {
-        private readonly AppSettings settings;
         public EventsForm()
         {
             InitializeComponent();
             PopulateYears();
             LoadPreviousValues();
-            settings = AppSettings.ReadFromFile("appsettings.json");
         }
 
         private void PopulateYears()
@@ -30,9 +28,13 @@ namespace TWC.Admin
             var options = Options.Read();
             YearCombo.SelectedItem = options.Year;
             if (options.ReadFromGoogle)
+            {
                 GoogleRadioButton.Checked = true;
+            }
             else
+            {
                 ExcelRadioButton.Checked = true;
+            }
             ExcelSourceFileTextBox.Text = options.ExcelSourceFile;
             OutputFileTextBox.Text = options.OutputFile;
             MongoDbDatesCheckBox.Checked = options.MongoDbDates;
@@ -44,7 +46,7 @@ namespace TWC.Admin
 
         private void GoogleRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            EnableExcelItems((sender as RadioButton)?.Checked == false);
+            EnableExcelItems(sender is RadioButton { Checked: false });
         }
 
         private void EnableExcelItems(bool enabled)
@@ -55,7 +57,7 @@ namespace TWC.Admin
 
         private void ExcelRadioButton_CheckedChanged(object sender, EventArgs e)
         {
-            EnableExcelItems((sender as RadioButton)?.Checked == true);
+            EnableExcelItems(sender is RadioButton { Checked: true });
         }
 
         private void ExcelSourceBrowseButton_Click(object sender, EventArgs e)
@@ -66,6 +68,7 @@ namespace TWC.Admin
                 Filter = "Excel files|*.xlsx|All files|*.*",
                 Title = "Select Excel File"
             };
+
             if (dialog.ShowDialog(this) == DialogResult.OK)
             {
                 ExcelSourceFileTextBox.Text = dialog.FileName;
@@ -80,6 +83,7 @@ namespace TWC.Admin
                 OverwritePrompt = true,
                 Title = "Select JSON Output File"
             };
+
             if (dialog.ShowDialog(this) == DialogResult.OK)
             {
                 OutputFileTextBox.Text = dialog.FileName;

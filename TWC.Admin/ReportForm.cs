@@ -1,5 +1,4 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Windows.Forms;
@@ -10,7 +9,7 @@ namespace TWC.Admin
 {
     public partial class ReportForm : UserControl
     {
-        private AppSettings settings;
+        private readonly AppSettings settings;
         public ReportForm()
         {
             InitializeComponent();
@@ -82,21 +81,13 @@ namespace TWC.Admin
 
         private ReportData GetFormValues()
         {
-            var photographers = new List<string>();
-            var files = new List<string>();
-            var captions = new List<string>();
+            var rows = PhotosGrid.Rows
+                .OfType<DataGridViewRow>()
+                .Where(r => !string.IsNullOrWhiteSpace(r.Cells[1].Value?.ToString()));
 
-#pragma warning disable S3267 // Loops should be simplified with "LINQ" expressions
-            foreach (var row in PhotosGrid.Rows.OfType<DataGridViewRow>())
-            {
-                if (!string.IsNullOrWhiteSpace((string)row.Cells[1].Value))
-                {
-                    photographers.Add(row.Cells[0].Value?.ToString());
-                    files.Add(row.Cells[1].Value?.ToString());
-                    captions.Add(row.Cells[2].Value?.ToString());
-                }
-            }
-#pragma warning restore S3267 // Loops should be simplified with "LINQ" expressions
+            var photographers = rows.Select(r => r.Cells[0].Value?.ToString()).ToList();
+            var files = rows.Select(r => r.Cells[1].Value?.ToString()).ToList();
+            var captions = rows.Select(r => r.Cells[2].Value?.ToString()).ToList();
 
             var data = new ReportData(photographers, files, captions)
             {
