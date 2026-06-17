@@ -1,11 +1,5 @@
 .vs/**
 *.json
-TWC.Admin/bin/**
-TWC.Admin/obj/**
-TWC.Admin.Lib/bin/**
-TWC.Admin.Lib/obj/**
-TWC.Admin.Lib.Tests/bin/**
-TWC.Admin.Lib.Tests/obj/**
-TWC.Admin.Lib.Tests/bin
-
-
+# Ignore all bin/ and obj/ folders anywhere in the repository
+bin/
+obj/
