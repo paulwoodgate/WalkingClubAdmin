@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("TWC.Admin")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+ce066a4c58bf8de94b935642dffb32a9f6425e9d")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+c0e601ada2e1cd9954bf776334263301f912ac2a")]
 [assembly: System.Reflection.AssemblyProductAttribute("TWC.Admin")]
 [assembly: System.Reflection.AssemblyTitleAttribute("TWC.Admin")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

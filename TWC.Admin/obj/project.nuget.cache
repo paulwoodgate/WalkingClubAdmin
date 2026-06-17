@@ -1,8 +1,8 @@
 {
   "version": 2,
-  "dgSpecHash": "y2tROgxHu2Y=",
+  "dgSpecHash": "vMvTmS++Mu0=",
   "success": true,
-  "projectFilePath": "C:\\dev\\WalkingClubAdmin\\TWC.Admin\\TWC.Admin.csproj",
+  "projectFilePath": "C:\\dev\\twc-admin\\TWC.Admin\\TWC.Admin.csproj",
   "expectedPackageFiles": [
     "C:\\Users\\paulw\\.nuget\\packages\\closedxml\\0.105.0\\closedxml.0.105.0.nupkg.sha512",
     "C:\\Users\\paulw\\.nuget\\packages\\closedxml.parser\\2.0.0\\closedxml.parser.2.0.0.nupkg.sha512",
